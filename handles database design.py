@@ -22,8 +22,8 @@ if choice == 1:
     shares = [round(share, 2)] * num_people
 
 elif choice == 2:
-    # Weighted split
-    print("\nEnter percentage for each person (must total 100):")
+    # Weighted split 
+    print("\nEnter percentage for everybody using it(must total 100):")
     percentages = []
     for i in range(num_people):
         p = float(input(f"Person {i+1} percentage: "))
