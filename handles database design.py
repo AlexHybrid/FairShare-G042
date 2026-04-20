@@ -1,4 +1,5 @@
-# Simple Python program: Bill Splitter
+
+# Enhanced Python Bill Splitter
 
 # Ask for total bill amount
 total_bill = float(input("Enter the total bill amount: "))
@@ -6,8 +7,46 @@ total_bill = float(input("Enter the total bill amount: "))
 # Ask for number of people
 num_people = int(input("Enter the number of people: "))
 
-# Calculate each person's share
-share = total_bill / num_people
+# Choose split method
+print("\nChoose split method:")
+print("1. Equal split")
+print("2. Weighted split (percentages)")
+print("3. Custom split (manual amounts)")
+choice = int(input("Enter choice (1/2/3): "))
 
-# Display result
-print("Each person should pay: RM", round(share, 2))
+shares = []
+
+if choice == 1:
+    # Equal split
+    share = total_bill / num_people
+    shares = [round(share, 2)] * num_people
+
+elif choice == 2:
+    # Weighted split
+    print("\nEnter percentage for each person (must total 100):")
+    percentages = []
+    for i in range(num_people):
+        p = float(input(f"Person {i+1} percentage: "))
+        percentages.append(p)
+    if sum(percentages) != 100:
+        print("Error: Percentages must total 100!")
+    else:
+        shares = [round(total_bill * (p/100), 2) for p in percentages]
+
+elif choice == 3:
+    # Custom split
+    print("\nEnter amount for each person (must total bill):")
+    amounts = []
+    for i in range(num_people):
+        a = float(input(f"Person {i+1} amount: "))
+        amounts.append(a)
+    if sum(amounts) != total_bill:
+        print("Error: Amounts must total bill!")
+    else:
+        shares = [round(a, 2) for a in amounts]
+
+# Display results
+print("\n--- Bill Split Results ---")
+for i, s in enumerate(shares, start=1):
+    print(f"Person {i} pays: RM{s}")
+
