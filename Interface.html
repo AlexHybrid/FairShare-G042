@@ -24,9 +24,9 @@
       padding: 0; 
     }
 
-    /* =========================================
+    /* =====================
        2. BODY & MAIN LAYOUT
-       ========================================= */
+       ===================== */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: var(--bg-gradient);
@@ -44,9 +44,9 @@
       width: 100%;
     }
 
-    /* =========================================
+    /* ==========================
        3. NAVIGATION BAR (HEADER)
-       ========================================= */
+       ========================== */
     header {
       padding: 2rem 0;
       width: 100%;
@@ -91,9 +91,9 @@
       border-bottom: 2px solid #3b82f6;
     }
 
-    /* =========================================
+    /* ==============================
        4. HERO SECTION (LANDING PAGE)
-       ========================================= */
+       ============================== */
     .hero {
       flex: 1;
       display: flex;
@@ -107,7 +107,23 @@
       background-image: 
         linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-      background-size: 40px 40px; /* Jarak antara garisan grid */
+      background-size: 40px 40px;
     }
 
-    
+    .hero h1 {
+      font-size: 5rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.1;
+      letter-spacing: -2px;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+
+    .hero p.slogan {
+      font-size: 1.5rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
