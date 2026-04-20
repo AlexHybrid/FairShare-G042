@@ -127,3 +127,45 @@
       opacity: 0.9;
       margin-bottom: 2rem;
     }
+
+    .divider {
+      width: 250px;
+      height: 4px;
+      background: #1e3a8a;
+      border-radius: 2px;
+    }
+
+    /* ==================================
+       5. RESPONSIVE DESIGN (MOBILE VIEW)
+       ================================== */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 3rem; }
+      .navbar ul { gap: 1rem; }
+      .navbar a { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <ul>
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Settings</a></li>
+        <li><a href="#">Help</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container hero">
+    <h1>House Rental<br>& Bill Splitter</h1>
+    <p class="slogan">Cheap. Fast. Easy.</p>
+    <div class="divider"></div>
+  </main>
+
+</body>
+</html>
