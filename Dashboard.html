@@ -177,4 +177,60 @@
     .tag-yellow { background-color: #fef08a; color: #854d0e; }
     .tag-red { background-color: #fee2e2; color: #991b1b; }
 
+    /* =========================================
+       5. Interactive Sidebar Menu
+       ========================================= */
+    .right-sidebar h2 {
+      font-size: 1.8rem;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar-category {
+      display: block;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      text-decoration: none;
+      padding: 0.8rem 1rem;
+      margin-top: 1.5rem;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+    }
+
+    .sidebar-category:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      transform: translateX(5px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Small sub-menu Button */
+    .sidebar-item {
+      display: block;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      padding: 0.6rem 1rem 0.6rem 2.5rem;
+      margin-top: 0.3rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .sidebar-item::before {
+      content: "▹"; 
+      position: absolute;
+      left: 1.2rem;
+      opacity: 0.5;
+    }
+
+    .sidebar-item:hover {
+      color: white;
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateX(5px);
+    }
+
     
