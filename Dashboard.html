@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FairShare — Dashboard</title>
+  <style>
+
+    /* ==================================
+    1. GLOBAL VARIABLES & THEME SETTINGS
+       ================================== */
+    :root {
+      --bg-dark: #080d20;
+      --panel-bg: #111833;
+      --accent-blue: #4f6bff;
+      --text-main: #ffffff;
+      --text-muted: #94a3b8;
+      
+      --chart-blue: #4f6bff;
+      --chart-yellow: #fca5a5;
+      --chart-purple: #c084fc;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* ===============
+       2. MAIN LAYOUT
+       =============== */
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      overflow-y: auto;
+    }
+
+    .right-sidebar {
+      width: 280px;
+      background-color: var(--accent-blue);
+      padding: 2rem;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+      box-shadow: -5px 0 25px rgba(0,0,0,0.5);
+    }
+    
+    /* =======================
+       3. HEADER & NAVIGATION
+       ======================= */
+    .title-banner {
+      background-color: var(--accent-blue);
+      padding: 1.2rem;
+      border-radius: 50px;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .pill-nav {
+      background-color: white;
+      border-radius: 50px;
+      display: flex;
+      justify-content: space-between;
+      padding: 0.8rem 2rem;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .pill-nav a {
+      text-decoration: none;
+      color: #333;
+      transition: color 0.3s;
+    }
+    .pill-nav a:hover, .pill-nav a.active { color: var(--accent-blue); }
+
+    /* =========================================
+       4. DASHBOARD WIDGETS (CHART & TABLE)
+       ========================================= */
+    .dashboard-container {
+      background-color: var(--panel-bg);
+      border-radius: 20px;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* --- Left Side Dashboard (Chart) --- */
+    .chart-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .donut-chart {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--chart-yellow) 0% 17.8%, 
+        var(--chart-purple) 17.8% 43.2%, 
+        var(--chart-blue) 43.2% 100%
+      );
+      position: relative;
+      margin: 2rem 0;
+    }
+
+    .donut-chart::after {
+      content: "";
+      position: absolute;
+      top: 25%; left: 25%;
+      width: 50%; height: 50%;
+      background-color: var(--panel-bg);
+      border-radius: 50%;
+    }
+
+    .valid-split-btn {
+      background-color: var(--accent-blue);
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      align-self: flex-start;
+      margin-top: 1rem;
+    }
+
+    /* --- Right Side Dashboard (Table) --- */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      color: #333;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .data-table th {
+      background-color: var(--accent-blue);
+      color: white;
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .data-table td {
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 0.95rem;
+    }
+
+    .data-table tr:last-child {
+      background-color: #e2e8f0;
+      font-weight: bold;
+    }
+
+    /* (Room Tags) */
+    .tag {
+      padding: 0.3rem 0.6rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .tag-green { background-color: #dcfce7; color: #166534; }
+    .tag-yellow { background-color: #fef08a; color: #854d0e; }
+    .tag-red { background-color: #fee2e2; color: #991b1b; }
+
+    /* =========================================
+       5. Interactive Sidebar Menu
+       ========================================= */
+    .right-sidebar h2 {
+      font-size: 1.8rem;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar-category {
+      display: block;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      text-decoration: none;
+      padding: 0.8rem 1rem;
+      margin-top: 1.5rem;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+    }
+
+    .sidebar-category:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      transform: translateX(5px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Small sub-menu Button */
+    .sidebar-item {
+      display: block;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      padding: 0.6rem 1rem 0.6rem 2.5rem;
+      margin-top: 0.3rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .sidebar-item::before {
+      content: "▹"; 
+      position: absolute;
+      left: 1.2rem;
+      opacity: 0.5;
+    }
+
+    .sidebar-item:hover {
+      color: white;
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateX(5px);
+    }
+
+</style>
+  </head>
+    <body>
+
+  <div class="main-content">
+    <div class="title-banner">
+      House Rental & Bill splitter
+    </div>
+
+    <nav class="pill-nav">
+      <a href="#" class="active">Home</a>
+      <a href="#">settings</a>
+      <a href="#">Help</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <a href="#">FAQ</a>
+    </nav>
+
+    <div class="dashboard-container">
+      
+      <div class="chart-section">
+        <div class="donut-chart"></div>
+        <button class="valid-split-btn">Valid Split</button>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Housemates</th>
+            <th>Dues</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>dd/mm/yy</td>
+            <td><span class="tag tag-green">Room A</span></td>
+            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td>
+            <td>$999,999,999.00</td>
+          </tr>
+          <tr>
+            <td>dd/mm/yy</td>
+            <td><span class="tag tag-yellow">Room B</span></td>
+            <td>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</td>
+            <td>$999,999,999.00</td>
+          </tr>
+          <tr>
+            <td>dd/mm/yy</td>
+            <td><span class="tag tag-yellow">Room B</span></td>
+            <td>Ut enim ad minim veniam</td>
+            <td>$999,999,999.00</td>
+          </tr>
+          <tr>
+            <td>dd/mm/yy</td>
+            <td><span class="tag tag-red">Room C</span></td>
+            <td>quis nostrud exercitation ullamco laboris nisi</td>
+            <td>$999,999,999.00</td>
+          </tr>
+          <tr>
+            <td>dd/mm/yy</td>
+            <td><span class="tag tag-red">Room C</span></td>
+            <td>ut aliquip ex ea commodo consequat</td>
+            <td>$999,999,999.00</td>
+          </tr>
+          <tr>
+            <td colspan="2"></td>
+            <td>TOTAL</td>
+            <td>$999,999,999.00</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+  <div class="right-sidebar">
+    <h2>Dashboard</h2>
+    
+    <a href="#" class="sidebar-category">House Rental Management</a>
+    <a href="#" class="sidebar-item">Listing</a>
+    <a href="#" class="sidebar-item">Agreement</a>
+    <a href="#" class="sidebar-item">Payment</a>
+
+    <a href="#" class="sidebar-category">Bill Splitting</a>
+    <a href="#" class="sidebar-item">Split Bills</a>
+    <a href="#" class="sidebar-item">Add Expenses</a>
+
+    <a href="#" class="sidebar-category">Landlord Section</a>
+    <a href="#" class="sidebar-category">Analytics</a>
+  </div>
+
+  </body>
+</html>
