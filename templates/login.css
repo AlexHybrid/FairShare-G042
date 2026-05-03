@@ -45,3 +45,7 @@ input[type="submit"] {
     cursor: pointer;
     transition: 0.3s;
 }
+
+input[type="submit"]:hover {
+    background: #00c6ff;
+}
