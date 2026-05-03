@@ -32,3 +32,11 @@ def register():
         email = request.form['email']
         password = request.form['password']
         confirm_password = request.form['confirm_password']
+
+         # Validation
+        if username in users:
+            error = "Username already exists"
+            return render_template('register.html', error=error)
+        if password != confirm_password:
+            error = "Passwords do not match"
+            return render_template('register.html', error=error)
