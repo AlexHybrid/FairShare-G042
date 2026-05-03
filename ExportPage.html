@@ -41,3 +41,19 @@
   </style>
 </head>
 <body>
+
+<div class="export-card">
+ <h2>SELECT THE EXPORT FORMAT</h2>
+  <p style="color: #94a3b8; margin-bottom: 2rem;">Download your FairShare bills in your preferred format.</p>
+    
+    <!-- This button will call the Python Flask system via the link '/download_excel' -->
+    <form action="/download_excel" method="GET" style="display: inline;">
+      <button type="submit" class="btn btn-excel">📊 Export to Excel</button>
+    </form>
+
+    <!-- This button will be built later -->
+    <button class="btn btn-pdf" disabled>📄 Export to PDF</button>
+  </div>
+
+</body>
+</html>
