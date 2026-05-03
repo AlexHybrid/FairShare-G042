@@ -1,20 +1,25 @@
 <html>
 <head>
     <title>User Login</title>
+    <!-- Link external CSS file -->
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-     <h2>Login</h2>
-    <form method="POST" action="/login">
-        <label>Username:</label>
-        <input type="text" name="username" required><br><br>
+    <div class="container"></div>
+        <h2>Login</h2>
+        <form method="POST" action="/login">
+            <label>Username:</label>
+            <input type="text" name="username" required><br><br>
 
-        <label>Password:</label>
-        <input type="password" name="password" required><br><br>
+            <label>Password:</label>
+            <input type="password" name="password" required><br><br>
 
-        <input type="submit" value="Login">
-    </form>
+            <input type="submit" value="Login">
+        </form>
 
-    <p>Don't have an account? <a href="/register">Register here</a></p>
-    
+        <div class="register-link">
+            <p>Don't have an account? <a href="/register">Register here</a></p>
+        </div>
+    </div>
 </body>
 </html>
