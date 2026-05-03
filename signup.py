@@ -40,3 +40,9 @@ def register():
         if password != confirm_password:
             error = "Passwords do not match"
             return render_template('register.html', error=error)
+        
+        # Save user
+        users[username] = {'email': email, 'password': password}
+        return redirect(url_for('login'))
+
+    return render_template('register.html')
