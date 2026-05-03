@@ -15,5 +15,12 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
+        # Simple hardcoded check
+        if username == 'admin' and password == '1234':
+            session['user'] = username  # store user in session
+            return redirect(url_for('dashboard'))
+        else:
+            return "Invalid credentials. <a href='/login'>Try again</a>"
+
 if __name__ == '__main__':
     app.run(debug=True)
