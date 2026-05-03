@@ -3,9 +3,10 @@ from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
 app.secret_key = "your_secret_key"  # Needed for session management
 
+# Home route
 @app.route('/')
 def home():
-    return "Welcome to the Login Page!"
+    return "Welcome to the Login Page! <a href='/login'>Go to Login</a>"
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
