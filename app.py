@@ -21,6 +21,8 @@ def login():
             return redirect(url_for('dashboard'))
         else:
             return "Invalid credentials. <a href='/login'>Try again</a>"
+        
+    return render_template('login.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
