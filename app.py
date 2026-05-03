@@ -31,6 +31,12 @@ def dashboard():
         return f"Hello, {session['user']}! Welcome to your dashboard."
     else:
         return redirect(url_for('login'))
+    
+# Logout route
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run(debug=True)
