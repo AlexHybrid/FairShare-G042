@@ -1,5 +1,4 @@
 def get_float(prompt, allow_empty=False):
-    """Safely get a float input, with optional empty allowed."""
     while True:
         value = input(prompt)
         if allow_empty and value.strip() == "":
@@ -10,7 +9,6 @@ def get_float(prompt, allow_empty=False):
             print("Error: Please enter a valid number.")
 
 def get_int(prompt):
-    """Safely get an integer input."""
     while True:
         try:
             return int(input(prompt))
@@ -22,14 +20,12 @@ def equal_split(total_rent, num_people):
     return [round(share, 2)] * num_people
 
 def weighted_split(total_rent, num_people):
-    percentages = []
     while True:
         print("\nEnter percentage for each person (must total 100):")
         percentages = [get_float(f"Person {i+1} percentage: ") for i in range(num_people)]
         if round(sum(percentages), 2) == 100:
-            break
+            return [round(total_rent * (p/100), 2) for p in percentages]
         print("Error: Percentages must total 100! Try again.")
-    return [round(total_rent * (p/100), 2) for p in percentages]
 
 def custom_split(total_rent, utility_bill, num_people):
     print("\nEnter room size (sq ft) for each person:")
@@ -60,37 +56,35 @@ def display_results(names, shares, total_rent, utility_bill):
     print(f"Utility Bill: RM{utility_bill}")
     print("\n")
 
-# Main loop
+# Main session loop
 while True:
     total_rent = get_float("Enter the total rent amount: ")
     num_people = get_int("Enter the number of people: ")
-
     names = [input(f"Enter name for person {i+1}: ") for i in range(num_people)]
-
     utility_bill = get_float("Enter total utility bill (or press Enter to skip): ", allow_empty=True)
 
-    print("\nChoose split method:")
-    print("1. Equal split")
-    print("2. Weighted split (percentages)")
-    print("3. Custom split (room size + facilities + usage)")
-    print("4. Exit")
-    choice = get_int("Enter choice (1/2/3/4): ")
+    # Split method loop
+    while True:
+        print("\nChoose split method:")
+        print("1. Equal split")
+        print("2. Weighted split (percentages)")
+        print("3. Custom split (room size + facilities + usage)")
+        print("4. Exit to main menu")
+        choice = get_int("Enter choice (1/2/3/4): ")
 
-    shares = []
+        shares = []
 
-    if choice == 1:
-        shares = equal_split(total_rent, num_people)
-    elif choice == 2:
-        shares = weighted_split(total_rent, num_people)
-    elif choice == 3:
-        shares = custom_split(total_rent, utility_bill, num_people)
-    elif choice == 4:
-        print("Session ended.")
-        break
-    else:
-        print("Invalid choice, try again.")
+        if choice == 1:
+            shares = equal_split(total_rent, num_people)
+        elif choice == 2:
+            shares = weighted_split(total_rent, num_people)
+        elif choice == 3:
+            shares = custom_split(total_rent, utility_bill, num_people)
+        elif choice == 4:
+            print("Returning to main menu...\n")
+            break
+        else:
+            print("Invalid choice, try again.")
 
-    if shares:
-        display_results(names, shares, total_rent, utility_bill)
-
-
+        if shares:
+            display_results(names, shares, total_rent, utility_bill)
