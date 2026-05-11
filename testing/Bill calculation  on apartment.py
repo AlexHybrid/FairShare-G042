@@ -12,10 +12,9 @@ while True:
     print("\nChoose split method:")
     print("1. Equal split")
     print("2. Weighted split (percentages)")
-    print("3. Custom split (manual amounts)")
-    print("4. Combined weighted split (room size + facilities + usage)")
-    print("5. Exit")
-    choice = int(input("Enter choice (1/2/3/4/5): "))
+    print("3. Custom split (room size + facilities + usage)")
+    print("4. Exit")
+    choice = int(input("Enter choice (1/2/3/4): "))
 
     shares = []
 
@@ -71,4 +70,3 @@ while True:
             print(f"Person {i} pays: RM{s}")
     print("\n")  # Add spacing before looping back
 
-    
