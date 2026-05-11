@@ -49,7 +49,7 @@ while True:
             shares = [round(a, 2) for a in amounts]
 
     elif choice == 4:
-        # Combined weighted split
+        # Custom splits bills 
         print("\nEnter room size (sq ft) for each person:")
         room_sizes = [float(input(f"Person {i+1} room size: ")) for i in range(num_people)]
 
