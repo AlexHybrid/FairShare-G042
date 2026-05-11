@@ -62,7 +62,6 @@ while True:
 
     else:
         print("Invalid choice, try again.")
-
     # Display results if shares were calculated
     if shares:
         print("\n--- Rent Split Results ---")
