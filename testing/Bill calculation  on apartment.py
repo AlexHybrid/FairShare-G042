@@ -37,18 +37,6 @@ while True:
             shares = [round(total_rent * (p/100), 2) for p in percentages]
 
     elif choice == 3:
-        # Custom split
-        print("\nEnter amount for each person (must total bill):")
-        amounts = []
-        for i in range(num_people):
-            a = float(input(f"Person {i+1} amount: "))
-            amounts.append(a)
-        if sum(amounts) != total_rent:
-            print("Error: Amounts must total bill!")
-        else:
-            shares = [round(a, 2) for a in amounts]
-
-    elif choice == 4:
         # Custom splits bills 
         print("\nEnter room size (sq ft) for each person:")
         room_sizes = [float(input(f"Person {i+1} room size: ")) for i in range(num_people)]
@@ -69,7 +57,7 @@ while True:
 
         shares = [round(base + util, 2) for base, util in zip(facility_adjusted, utility_shares)]
 
-    elif choice == 5:
+    elif choice == 4:
         print("Session ended.")
         break
 
