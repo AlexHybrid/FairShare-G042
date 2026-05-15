@@ -37,7 +37,8 @@
     .btn-excel { background-color: #107c41; }
     .btn-excel:hover { background-color: #0c5e31; }
     
-    .btn-pdf { background-color: #b30b00; opacity: 0.5; cursor: not-allowed;}
+    .btn-pdf { background-color: #b30b00; }
+    .btn-pdf:hover { background-color: #8a0900; }
   </style>
 </head>
 <body>
@@ -51,9 +52,9 @@
       <button type="submit" class="btn btn-excel">📊 Export to Excel</button>
     </form>
 
-    <!-- This button will be built later -->
-    <button class="btn btn-pdf" disabled>📄 Export to PDF</button>
-  </div>
+   <form action="/download_pdf" method="GET" style="display: inline;">
+  <button type="submit" class="btn btn-pdf">📄 Export to PDF</button>
+</form>
 
 </body>
 </html>
