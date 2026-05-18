@@ -25,3 +25,21 @@ h1, h2 {
     font-family: 'Calistoga', serif;
     font-weight: normal;
 }
+
+/* Container limits the width of our forms */
+.container {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+}
+
+/* The Card styling - combining Neumorphism soft shadows with modern white cards */
+.card {
+    background-color: #FFFFFF;
+    border-radius: 16px;
+    padding: 40px 30px;
+    /* Soft neumorphic shadow */
+    box-shadow:  10px 10px 20px #E5E5E5, -10px -10px 20px #FFFFFF;
+    position: relative;
+    overflow: hidden;
+}
