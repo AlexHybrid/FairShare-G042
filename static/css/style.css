@@ -79,3 +79,18 @@ h1, h2 {
     letter-spacing: 0.1em;
     color: #0052FF;
 }
+
+/* Form Titles */
+.title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* The Signature Electric Blue Gradient for highlighted text */
+.gradient-text {
+    background: linear-gradient(to right, #0052FF, #4D7CFF);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
