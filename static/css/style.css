@@ -123,3 +123,30 @@ h1, h2 {
     border-color: #0052FF;
     box-shadow: 0 0 0 3px rgba(0, 82, 255, 0.15);
 }
+
+* Primary Button Styling */
+.btn-primary {
+    width: 100%;
+    height: 50px;
+    /* Gradient Background */
+    background: linear-gradient(to right, #0052FF, #4D7CFF);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+/* Hover effect for buttons */
+.btn-primary:hover {
+    transform: translateY(-2px); /* Slight lift */
+    box-shadow: 0 8px 15px rgba(0, 82, 255, 0.25);
+    filter: brightness(110%);
+}
+/* Active (click) effect */
+.btn-primary:active {
+    transform: scale(0.98);
+}
