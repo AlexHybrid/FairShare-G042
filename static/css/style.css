@@ -167,3 +167,26 @@ h1, h2 {
 .toggle-text a:hover {
     text-decoration: underline;
 }
+
+/* Error and Success Messages styling */
+.flash-messages {
+    list-style: none;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.flash-message {
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.flash-message.error {
+    background-color: #FEE2E2;
+    color: #B91C1C;
+    border: 1px solid #FCA5A5;
+}
+.flash-message.success {
+    background-color: #D1FAE5;
+    color: #047857;
+    border: 1px solid #6EE7B7;
+}
