@@ -9,3 +9,19 @@
     margin: 0;
     padding: 0;
 }
+
+body {
+    font-family: 'Inter', sans-serif; /* Clean, modern body font */
+    background-color: #FAFAFA; /* Light, warm background */
+    color: #0F172A; /* Deep slate text color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Headings use the Calistoga display font for personality */
+h1, h2 {
+    font-family: 'Calistoga', serif;
+    font-weight: normal;
+}
