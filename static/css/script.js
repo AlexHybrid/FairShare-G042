@@ -7,3 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const signupSection = document.getElementById('signup-section');
     const showSignupBtn = document.getElementById('show-signup');
     const showLoginBtn = document.getElementById('show-login');
+
+    // Function to show the Signup form and hide the Login form
+    if (showSignupBtn) {
+        showSignupBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent the link from refreshing the page
+            loginSection.classList.remove('active');
+            signupSection.classList.add('active');
+        });
+    }
