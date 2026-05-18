@@ -150,3 +150,20 @@ h1, h2 {
 .btn-primary:active {
     transform: scale(0.98);
 }
+
+* Link at the bottom to toggle forms */
+.toggle-text {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: #64748B;
+}
+.toggle-text a {
+    color: #0052FF;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+.toggle-text a:hover {
+    text-decoration: underline;
+}
