@@ -84,7 +84,7 @@ while True:
             print("Returning to main menu...\n")
             break
         else:
-            print("Invalid choice, try again.")
+            print("Invalid option, Please try again.")
 
         if shares:
             display_results(names, shares, total_rent, utility_bill)
