@@ -1,0 +1,11 @@
+/* Minimalist Modern & Neumorphism Design */
+
+/* Import Google Fonts for our dual-font typography */
+@import url('https://fonts.googleapis.com/css2?family=Calistoga&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap');
+
+/* Basic CSS Reset to remove default browser margins */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
