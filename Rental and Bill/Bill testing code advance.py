@@ -31,10 +31,10 @@ def custom_split(total_rent, utility_bill, num_people):
     print("\nEnter room size (sq ft) for each person:")
     room_sizes = [get_float(f"Person {i+1} room size: ") for i in range(num_people)]
 
-    print("\nEnter facility surcharge (e.g., Balcony=50, AC=100) for each person:")
+    print("\nEnter facility surcharge (e.g., Balcony=50, AC=100,private bathroom=75) for each person:")
     facilities = [get_float(f"Person {i+1} facility surcharge: ") for i in range(num_people)]
 
-    print("\nEnter usage data (e.g., electricity kWh) for each person:")
+    print("\nEnter usage capacity electricity (e.g., electricity kWh) for each person:")
     usage_data = [get_float(f"Person {i+1} usage: ") for i in range(num_people)]
 
     total_size = sum(room_sizes)
