@@ -16,3 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
             signupSection.classList.add('active');
         });
     }
+
+    // Function to show the Login form and hide the Signup form
+    if (showLoginBtn) {
+        showLoginBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent the link from refreshing the page
+            signupSection.classList.remove('active');
+            loginSection.classList.add('active');
+        });
+    }
+});
