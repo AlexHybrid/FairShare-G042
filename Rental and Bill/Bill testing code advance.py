@@ -25,7 +25,7 @@ def weighted_split(total_rent, num_people):
         percentages = [get_float(f"Person {i+1} percentage: ") for i in range(num_people)]
         if round(sum(percentages), 2) == 100:
             return [round(total_rent * (p/100), 2) for p in percentages]
-        print("Error: Percentages must total 100! Try again.")
+        print("Error: Percentages must total 100!!!! Try again.")
 
 def custom_split(total_rent, utility_bill, num_people):
     print("\nEnter room size (sq ft) for each person:")
