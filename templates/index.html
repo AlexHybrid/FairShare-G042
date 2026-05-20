@@ -55,3 +55,38 @@
                     Don't have an account? <a href="#" id="show-signup">Sign up</a>
                 </div>
             </div>
+
+            <!-- ===================== SIGNUP FORM ===================== -->
+            <!-- This section is hidden by default and shown when clicking 'Sign up' -->
+            <div id="signup-section" class="form-section">
+                <h2 class="title">Create <span class="gradient-text">Account</span></h2>
+                
+                <!-- The form submits data to the /signup route via POST method -->
+                <form action="/signup" method="POST">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email">Email Address</label>
+                        <input type="email" id="signup-email" name="email" placeholder="you@example.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" name="password" placeholder="Create a password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" name="confirm_password" placeholder="Repeat password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Sign Up</button>
+                </form>
+                
+                <div class="toggle-text">
+                    Already have an account? <a href="#" id="show-login">Log in</a>
+                </div>
+            </div>
+        </div>
+    </div>
