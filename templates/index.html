@@ -18,3 +18,15 @@
                     <span class="quote-dot"></span>
                     <span class="quote-text">With thoughtful mindset, create independent life</span>
                 </div>
+
+            </div>
+            <!-- Display Error/Success Messages sent from Flask -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <ul class="flash-messages">
+                {% for category, message in messages %}
+                  <li class="flash-message {{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
