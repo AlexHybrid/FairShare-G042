@@ -102,3 +102,8 @@ def dashboard():
     # Render the dashboard template, passing the user's name
     return render_template('dashboard.html', name=session['user_name'])
 
+# Start the application
+if __name__ == '__main__':
+    # debug=True allows the server to auto-reload when you change the code
+    app.run(debug=True)
+
