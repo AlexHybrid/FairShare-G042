@@ -79,3 +79,14 @@ def login():
         # Failed login
         flash('Invalid email or password. Please try again.', 'error')
         return redirect(url_for('index'))
+    
+# Route for the dashboard page (only accessible if logged in)
+@app.route('/dashboard')
+def dashboard():
+    # Check if the user is actually logged in
+    if 'user_id' not in session:
+        flash('Please log in to access the dashboard.', 'error')
+        return redirect(url_for('index'))
+        
+    # Render the dashboard template, passing the user's name
+    return render_template('dashboard.html', name=session['user_name'])
