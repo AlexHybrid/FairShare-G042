@@ -12,3 +12,11 @@ def get_db_connection():
     conn = sqlite3.connect('users.db')
     conn.row_factory = sqlite3.Row  # This allows us to access columns by name like a dictionary
     return conn
+
+# Route for the main page (Login and Signup forms)
+@app.route('/')
+def index():
+    # If the user is already logged in, send them straight to the dashboard
+    if 'user_id' in session:
+        return redirect(url_for('dashboard'))
+    return render_template('index.html')
