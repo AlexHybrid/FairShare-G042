@@ -20,3 +20,18 @@ def index():
     if 'user_id' in session:
         return redirect(url_for('dashboard'))
     return render_template('index.html')
+
+# Route to handle the signup form submission
+@app.route('/signup', methods=['POST'])
+def signup():
+    # Get the data submitted from the HTML form
+    name = request.form['name']
+    email = request.form['email']
+    password = request.form['password']
+    confirm_password = request.form['confirm_password']
+    
+    # Basic validation: check if passwords match
+    if password != confirm_password:
+        flash('Passwords do not match!', 'error')
+        return redirect(url_for('index'))
+        
