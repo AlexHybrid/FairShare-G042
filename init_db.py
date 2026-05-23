@@ -20,3 +20,10 @@ def create_db():
             password TEXT NOT NULL
         )
     ''')
+
+    # Save the changes and close the connection
+    connection.commit()
+    connection.close()
+    print("Database and 'users' table created successfully!")
+if __name__ == '__main__':
+    create_db()
