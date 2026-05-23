@@ -34,4 +34,25 @@ def signup():
     if password != confirm_password:
         flash('Passwords do not match!', 'error')
         return redirect(url_for('index'))
+    
+     # Hash the password for security (we should never store raw passwords!)
+    hashed_password = generate_password_hash(password)
+    
+    # Open the database connection
+    conn = get_db_connection()
+    try:
+        # Insert the new user into the database
+        conn.execute('INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
+                     (name, email, hashed_password))
+        conn.commit()
+        # Let the user know the account was created
+        flash('Account created successfully! Please log in.', 'success')
+    except sqlite3.IntegrityError:
+        # This error happens if the email is already in the database (since email is UNIQUE)
+        flash('An account with this email already exists.', 'error')
+    finally:
+        # Always close the database connection when done
+        conn.close()
         
+    # Go back to the main page
+    return redirect(url_for('index'))
