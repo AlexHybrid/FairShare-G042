@@ -56,3 +56,26 @@ def signup():
         
     # Go back to the main page
     return redirect(url_for('index'))
+
+# Route to handle the login form submission
+@app.route('/login', methods=['POST'])
+def login():
+    # Get the data from the HTML form
+    email = request.form['email']
+    password = request.form['password']
+    
+    # Find the user by their email in the database
+    conn = get_db_connection()
+    user = conn.execute('SELECT * FROM users WHERE email = ?', (email,)).fetchone()
+    conn.close()
+    
+    # Check if user exists and if the password matches the hash in the database
+    if user and check_password_hash(user['password'], password):
+        # Successful login: store user details in the session
+        session['user_id'] = user['id']
+        session['user_name'] = user['name']
+        return redirect(url_for('dashboard'))
+    else:
+        # Failed login
+        flash('Invalid email or password. Please try again.', 'error')
+        return redirect(url_for('index'))
