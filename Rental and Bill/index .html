@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <form method="POST" action="/cgi-bin/split.py">
+
     <title>Rent Splitter</title>
 </head>
 <body>
     <h2>Rent Split Calculator</h2>
-    <form method="POST" action="/split">
+    <form method="POST" action="/cgi-bin/split.py">
         <!-- Common inputs -->
         <label>Total Rent:</label>
         <input type="number" name="total_rent" step="0.01" required><br>
