@@ -2,15 +2,7 @@ from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
-# --- Your existing functions ---
-def get_float(prompt, allow_empty=False):
-    # Not used in Flask (forms handle input), but kept for reference
-    pass
-
-def get_int(prompt):
-    # Not used in Flask (forms handle input), but kept for reference
-    pass
-
+# --- Rent Split Functions ---
 def equal_split(total_rent, num_people):
     share = total_rent / num_people
     return [round(share, 2)] * num_people
@@ -32,10 +24,10 @@ def custom_split(total_rent, utility_bill, room_sizes, facilities, usage_data):
 
     return [round(base + util, 2) for base, util in zip(facility_adjusted, utility_shares)]
 
-# --- Flask routes ---
+# --- Flask Routes ---
 @app.route("/")
 def home():
-    return render_template("index.html")  # HTML form page
+    return render_template("index.html")  # Input form
 
 @app.route("/split", methods=["POST"])
 def split_rent():
@@ -64,6 +56,6 @@ def split_rent():
                            total_rent=total_rent,
                            utility_bill=utility_bill)
 
-# --- Entry point ---
+# --- Entry Point ---
 if __name__ == "__main__":
     app.run(debug=True)
