@@ -1,0 +1,69 @@
+from flask import Flask, request, render_template
+
+app = Flask(__name__)
+
+# --- Your existing functions ---
+def get_float(prompt, allow_empty=False):
+    # Not used in Flask (forms handle input), but kept for reference
+    pass
+
+def get_int(prompt):
+    # Not used in Flask (forms handle input), but kept for reference
+    pass
+
+def equal_split(total_rent, num_people):
+    share = total_rent / num_people
+    return [round(share, 2)] * num_people
+
+def weighted_split(total_rent, num_people, percentages):
+    if round(sum(percentages), 2) == 100:
+        return [round(total_rent * (p/100), 2) for p in percentages]
+    else:
+        raise ValueError("Percentages must total 100")
+
+def custom_split(total_rent, utility_bill, room_sizes, facilities, usage_data):
+    total_size = sum(room_sizes)
+    base_shares = [total_rent * (size / total_size) for size in room_sizes]
+
+    facility_adjusted = [base + fac for base, fac in zip(base_shares, facilities)]
+
+    total_usage = sum(usage_data)
+    utility_shares = [utility_bill * (u / total_usage) for u in usage_data] if total_usage > 0 else [0] * len(usage_data)
+
+    return [round(base + util, 2) for base, util in zip(facility_adjusted, utility_shares)]
+
+# --- Flask routes ---
+@app.route("/")
+def home():
+    return render_template("index.html")  # HTML form page
+
+@app.route("/split", methods=["POST"])
+def split_rent():
+    total_rent = float(request.form["total_rent"])
+    num_people = int(request.form["num_people"])
+    names = request.form.getlist("names")
+    utility_bill = float(request.form.get("utility_bill", 0))
+    method = request.form["method"]
+
+    shares = []
+
+    if method == "equal":
+        shares = equal_split(total_rent, num_people)
+    elif method == "weighted":
+        percentages = [float(p) for p in request.form.getlist("percentages")]
+        shares = weighted_split(total_rent, num_people, percentages)
+    elif method == "custom":
+        room_sizes = [float(r) for r in request.form.getlist("room_sizes")]
+        facilities = [float(f) for f in request.form.getlist("facilities")]
+        usage_data = [float(u) for u in request.form.getlist("usage_data")]
+        shares = custom_split(total_rent, utility_bill, room_sizes, facilities, usage_data)
+
+    return render_template("results.html",
+                           names=names,
+                           shares=shares,
+                           total_rent=total_rent,
+                           utility_bill=utility_bill)
+
+# --- Entry point ---
+if __name__ == "__main__":
+    app.run(debug=True)
