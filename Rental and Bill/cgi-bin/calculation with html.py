@@ -2,7 +2,7 @@ from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
-# --- Rent Split Functions ---
+# --- Your rent split functions ---
 def equal_split(total_rent, num_people):
     share = total_rent / num_people
     return [round(share, 2)] * num_people
@@ -16,18 +16,15 @@ def weighted_split(total_rent, num_people, percentages):
 def custom_split(total_rent, utility_bill, room_sizes, facilities, usage_data):
     total_size = sum(room_sizes)
     base_shares = [total_rent * (size / total_size) for size in room_sizes]
-
     facility_adjusted = [base + fac for base, fac in zip(base_shares, facilities)]
-
     total_usage = sum(usage_data)
     utility_shares = [utility_bill * (u / total_usage) for u in usage_data] if total_usage > 0 else [0] * len(usage_data)
-
     return [round(base + util, 2) for base, util in zip(facility_adjusted, utility_shares)]
 
-# --- Flask Routes ---
+# --- Flask routes ---
 @app.route("/")
 def home():
-    return render_template("index.html")  # Input form
+    return render_template("index.html")
 
 @app.route("/split", methods=["POST"])
 def split_rent():
@@ -38,7 +35,6 @@ def split_rent():
     method = request.form["method"]
 
     shares = []
-
     if method == "equal":
         shares = equal_split(total_rent, num_people)
     elif method == "weighted":
@@ -51,11 +47,11 @@ def split_rent():
         shares = custom_split(total_rent, utility_bill, room_sizes, facilities, usage_data)
 
     return render_template("results.html",
-                           names=names,
-                           shares=shares,
-                           total_rent=total_rent,
-                           utility_bill=utility_bill)
+names=names,
+shares=shares,
+total_rent=total_rent,
+utility_bill=utility_bill)
 
-# --- Entry Point ---
+# --- Entry point (always at bottom) ---
 if __name__ == "__main__":
     app.run(debug=True)

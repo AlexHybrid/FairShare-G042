@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rent Splitter</title>
+</head>
+<body>
+    <h2>Rent Split Calculator</h2>
+    <form method="POST" action="/split">
+        <!-- Common inputs -->
+        <label>Total Rent:</label>
+        <input type="number" name="total_rent" step="0.01" required><br>
+
+        <label>Number of People:</label>
+        <input type="number" name="num_people" required><br>
+
+        <label>Names:</label><br>
+        <input type="text" name="names" placeholder="Person 1"><br>
+        <input type="text" name="names" placeholder="Person 2"><br>
+        <input type="text" name="names" placeholder="Person 3"><br>
+
+        <label>Utility Bill:</label>
+        <input type="number" name="utility_bill" step="0.01"><br><br>
+
+        <!-- Method selection -->
+        <label>Choose Method:</label>
+        <select name="method" id="method" onchange="toggleFields()">
+            <option value="equal">Equal Split</option>
+            <option value="weighted">Weighted Split</option>
+            <option value="custom">Custom Split</option>
+        </select><br><br>
+
+        <!-- Weighted split fields -->
+        <div id="weightedFields" style="display:none;">
+            <h3>Weighted Split Percentages</h3>
+            <input type="number" name="percentages" placeholder="Person 1 %" step="0.01"><br>
+            <input type="number" name="percentages" placeholder="Person 2 %" step="0.01"><br>
+            <input type="number" name="percentages" placeholder="Person 3 %" step="0.01"><br>
+        </div>
+
+        <!-- Custom split fields -->
+        <div id="customFields" style="display:none;">
+            <h3>Custom Split Inputs</h3>
+            <label>Room Sizes:</label><br>
+            <input type="number" name="room_sizes" placeholder="Room 1 size"><br>
+            <input type="number" name="room_sizes" placeholder="Room 2 size"><br>
+            <input type="number" name="room_sizes" placeholder="Room 3 size"><br>
+
+            <label>Facilities (extra cost):</label><br>
+            <input type="number" name="facilities" placeholder="Person 1 facilities"><br>
+            <input type="number" name="facilities" placeholder="Person 2 facilities"><br>
+            <input type="number" name="facilities" placeholder="Person 3 facilities"><br>
+
+            <label>Usage Data (utilities):</label><br>
+            <input type="number" name="usage_data" placeholder="Person 1 usage"><br>
+            <input type="number" name="usage_data" placeholder="Person 2 usage"><br>
+            <input type="number" name="usage_data" placeholder="Person 3 usage"><br>
+        </div>
+
+        <button type="submit">Calculate</button>
+    </form>
+
+    <script>
+        function toggleFields() {
+            var method = document.getElementById("method").value;
+            document.getElementById("weightedFields").style.display = (method === "weighted") ? "block" : "none";
+            document.getElementById("customFields").style.display = (method === "custom") ? "block" : "none";
+        }
+    </script>
+</body>
+</html>
