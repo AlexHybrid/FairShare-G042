@@ -1,5 +1,7 @@
-#!/usr/bin/env python3
+
 import cgi, cgitb
+from cgi import escape
+
 cgitb.enable()
 
 form = cgi.FieldStorage()
@@ -42,6 +44,7 @@ def safe_int(val, default=1):
     except (TypeError, ValueError):
         return default
 
+# --- Handle form inputs ---
 total_rent = safe_float(form.getvalue("total_rent"))
 num_people = safe_int(form.getvalue("num_people"))
 names = form.getlist("names") or [f"Person {i+1}" for i in range(num_people)]
@@ -69,12 +72,12 @@ print("Content-Type: text/html\r\n\r\n")
 print("<html><head><title>Results</title></head><body>")
 print("<h2>Rent Split Results</h2>")
 if error_message:
-    print(f"<p style='color:red;'>Error: {error_message}</p>")
+    print(f"<p style='color:red;'>Error: {escape(error_message)}</p>")
 elif shares:
     for name, share in zip(names, shares):
-        print(f"<p>{name.strip()} pays: RM{share}</p>")
-    print(f"<p>Total Rent: RM{total_rent}</p>")
-    print(f"<p>Utility Bill: RM{utility_bill}</p>")
+        print(f"<p>{escape(name.strip())} pays: RM{escape(str(share))}</p>")
+    print(f"<p>Total Rent: RM{escape(str(total_rent))}</p>")
+    print(f"<p>Utility Bill: RM{escape(str(utility_bill))}</p>")
 else:
     print("<p>No results calculated.</p>")
-print("</body></html>")
+print("</body></html>") 
