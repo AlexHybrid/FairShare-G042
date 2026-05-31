@@ -18,8 +18,8 @@ BOLD = "\033[1m"
 def banner():
     print("\033[96m" + """
       🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸
-      🌸     RENTAL BLOSSOMS      🌸
-      🌸  Homes • Tenants • Rent  🌸
+      🌸     RENTAL BLOSSOMS           🌸
+      🌸  Homes • Tenants • Rent       🌸
       🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸
     """ + "\033[0m")
 
