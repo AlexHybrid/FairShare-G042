@@ -1,4 +1,4 @@
-# 🏠 Rental Management System with Menu
+# Rental Management System (Fixed Version)
 
 class Property:
     def __init__(self, property_id, address, rent_price):
@@ -46,14 +46,20 @@ class RentalSystem:
         self.tenants = []
         self.agreements = []
 
+    # 📌 Property Management
     def add_property(self):
         pid = len(self.properties) + 1
         address = input("Enter property address: ")
-        rent = float(input("Enter monthly rent: RM"))
+        try:
+            rent = float(input("Enter monthly rent: RM"))
+        except ValueError:
+            print("❌ Rent must be a number!")
+            return
         p = Property(pid, address, rent)
         self.properties.append(p)
         print("✅ Property added!")
 
+    # 📌 Tenant Management
     def register_tenant(self):
         tid = len(self.tenants) + 1
         name = input("Enter tenant name: ")
@@ -62,33 +68,93 @@ class RentalSystem:
         self.tenants.append(t)
         print("✅ Tenant registered!")
 
+    # 📌 Agreement Creation
     def create_agreement(self):
         if not self.properties or not self.tenants:
             print("⚠️ Add property and tenant first!")
             return
+
         self.list_properties()
-        pid = int(input("Choose property ID: "))
+        try:
+            pid = int(input("Choose property ID: "))
+            property = next((p for p in self.properties if p.property_id == pid), None)
+            if not property:
+                print("❌ Invalid property ID!")
+                return
+        except ValueError:
+            print("❌ Please enter a valid number!")
+            return
+
         self.list_tenants()
-        tid = int(input("Choose tenant ID: "))
+        try:
+            tid = int(input("Choose tenant ID: "))
+            tenant = next((t for t in self.tenants if t.tenant_id == tid), None)
+            if not tenant:
+                print("❌ Invalid tenant ID!")
+                return
+        except ValueError:
+            print("❌ Please enter a valid number!")
+            return
+
         start = input("Enter start date (YYYY-MM-DD): ")
         end = input("Enter end date (YYYY-MM-DD): ")
-        deposit = float(input("Enter deposit amount: RM"))
-        agreement = RentalAgreement(self.properties[pid-1], self.tenants[tid-1], start, end, deposit)
+        try:
+            deposit = float(input("Enter deposit amount: RM"))
+        except ValueError:
+            print("❌ Deposit must be a number!")
+            return
+
+        agreement = RentalAgreement(property, tenant, start, end, deposit)
         self.agreements.append(agreement)
-        self.properties[pid-1].assign_tenant(self.tenants[tid-1])
+        property.assign_tenant(tenant)
         print("✅ Agreement created!")
 
+    # 📌 Payment Tracking
+    def record_payment(self):
+        if not self.agreements:
+            print("⚠️ No agreements found!")
+            return
+
+        self.list_agreements()
+        try:
+            aid = int(input("Choose agreement number (1..N): "))
+            agreement = self.agreements[aid-1]
+        except (ValueError, IndexError):
+            print("❌ Invalid agreement selection!")
+            return
+
+        try:
+            amount = float(input("Enter payment amount: RM"))
+        except ValueError:
+            print("❌ Payment must be a number!")
+            return
+
+        date = input("Enter payment date (YYYY-MM-DD): ")
+        agreement.add_payment(amount, date)
+        print("✅ Payment recorded!")
+
+    # 📌 Listing
     def list_properties(self):
+        if not self.properties:
+            print("⚠️ No properties available.")
         for p in self.properties:
             print(p)
 
     def list_tenants(self):
+        if not self.tenants:
+            print("⚠️ No tenants registered.")
         for t in self.tenants:
             print(t)
 
     def list_agreements(self):
-        for a in self.agreements:
-            print(a)
+        if not self.agreements:
+            print("⚠️ No agreements created.")
+        for i, a in enumerate(self.agreements, start=1):
+            print(f"{i}. {a}")
+            if a.payments:
+                print("   Payments:")
+                for pay in a.payments:
+                    print(f"     - RM{pay['amount']} on {pay['date']}")
 
 
 # 🚀 Menu-driven program
@@ -100,9 +166,10 @@ if __name__ == "__main__":
         print("1. Add Property")
         print("2. Register Tenant")
         print("3. Create Agreement")
-        print("4. List Properties")
-        print("5. List Tenants")
-        print("6. List Agreements")
+        print("4. Record Payment")
+        print("5. List Properties")
+        print("6. List Tenants")
+        print("7. List Agreements")
         print("0. Exit")
 
         choice = input("Choose an option: ")
@@ -114,13 +181,17 @@ if __name__ == "__main__":
         elif choice == "3":
             system.create_agreement()
         elif choice == "4":
-            system.list_properties()
+            system.record_payment()
         elif choice == "5":
-            system.list_tenants()
+            system.list_properties()
         elif choice == "6":
+            system.list_tenants()
+        elif choice == "7":
             system.list_agreements()
         elif choice == "0":
             print("👋 Exiting system...")
             break
         else:
             print("❌ Invalid choice, try again.")
+
+    print("Goodbye!")
