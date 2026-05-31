@@ -5,6 +5,25 @@ import json
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
+# ANSI color codes
+RESET = "\033[0m"
+RED = "\033[91m"
+GREEN = "\033[92m"
+YELLOW = "\033[93m"
+BLUE = "\033[94m"
+MAGENTA = "\033[95m"
+CYAN = "\033[96m"
+BOLD = "\033[1m"
+
+def banner():
+    print("\033[96m" + """
+      🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸
+      🌸     RENTAL BLOSSOMS      🌸
+      🌸  Homes • Tenants • Rent  🌸
+      🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸
+    """ + "\033[0m")
+
+
 
 class Property:
     def __init__(self, property_id, address, rent_price):
@@ -17,7 +36,7 @@ class Property:
         self.tenant = tenant
 
     def __str__(self):
-        return f"Property {self.property_id}: {self.address} | Rent: RM{self.rent_price} | Tenant: {self.tenant.name if self.tenant else 'None'}"
+        return f"{GREEN}Property {self.property_id}:{RESET} {self.address} | Rent: RM{self.rent_price} | Tenant: {self.tenant.name if self.tenant else 'None'}"
 
 
 class Tenant:
@@ -27,7 +46,7 @@ class Tenant:
         self.contact = contact
 
     def __str__(self):
-        return f"Tenant {self.tenant_id}: {self.name} ({self.contact})"
+        return f"{BLUE}Tenant {self.tenant_id}:{RESET} {self.name} ({self.contact})"
 
 
 class RentalAgreement:
@@ -43,7 +62,7 @@ class RentalAgreement:
         self.payments.append({"amount": amount, "date": date})
 
     def __str__(self):
-        return f"Agreement: {self.tenant.name} renting {self.property.address} from {self.start_date} to {self.end_date}"
+        return f"{MAGENTA}Agreement:{RESET} {self.tenant.name} renting {self.property.address} from {self.start_date} to {self.end_date}"
 
 
 class RentalSystem:
@@ -55,117 +74,119 @@ class RentalSystem:
     # 📌 Property Management
     def add_property(self):
         clear_screen()
+        banner()
         pid = len(self.properties) + 1
-        address = input("Enter property address: ")
+        address = input(CYAN + "Enter property address: " + RESET)
         try:
-            rent = float(input("Enter monthly rent: RM"))
+            rent = float(input(CYAN + "Enter monthly rent: RM" + RESET))
         except ValueError:
-            print("❌ Rent must be a number!")
+            print(RED + "❌ Rent must be a number!" + RESET)
             return
         p = Property(pid, address, rent)
         self.properties.append(p)
-        print("✅ Property added!")
+        print(GREEN + "✅ Property added!" + RESET)
 
     # 📌 Tenant Management
     def register_tenant(self):
         clear_screen()
+        banner()
         tid = len(self.tenants) + 1
-        name = input("Enter tenant name: ")
-        contact = input("Enter tenant contact: ")
+        name = input(CYAN + "Enter tenant name: " + RESET)
+        contact = input(CYAN + "Enter tenant contact: " + RESET)
         t = Tenant(tid, name, contact)
         self.tenants.append(t)
-        print("✅ Tenant registered!")
+        print(GREEN + "✅ Tenant registered!" + RESET)
 
     # 📌 Agreement Creation
     def create_agreement(self):
         clear_screen()
+        banner()
         if not self.properties or not self.tenants:
-            print("⚠️ Add property and tenant first!")
+            print(YELLOW + "⚠️ Add property and tenant first!" + RESET)
             return
 
         self.list_properties()
         try:
-            pid = int(input("Choose property ID: "))
+            pid = int(input(CYAN + "Choose property ID: " + RESET))
             property = next((p for p in self.properties if p.property_id == pid), None)
             if not property:
-                print("❌ Invalid property ID!")
+                print(RED + "❌ Invalid property ID!" + RESET)
                 return
         except ValueError:
-            print("❌ Please enter a valid number!")
+            print(RED + "❌ Please enter a valid number!" + RESET)
             return
 
         self.list_tenants()
         try:
-            tid = int(input("Choose tenant ID: "))
+            tid = int(input(CYAN + "Choose tenant ID: " + RESET))
             tenant = next((t for t in self.tenants if t.tenant_id == tid), None)
             if not tenant:
-                print("❌ Invalid tenant ID!")
+                print(RED + "❌ Invalid tenant ID!" + RESET)
                 return
         except ValueError:
-            print("❌ Please enter a valid number!")
+            print(RED + "❌ Please enter a valid number!" + RESET)
             return
 
-        start = input("Enter start date (YYYY-MM-DD): ")
-        end = input("Enter end date (YYYY-MM-DD): ")
+        start = input(CYAN + "Enter start date (YYYY-MM-DD): " + RESET)
+        end = input(CYAN + "Enter end date (YYYY-MM-DD): " + RESET)
         try:
-            deposit = float(input("Enter deposit amount: RM"))
+            deposit = float(input(CYAN + "Enter deposit amount: RM" + RESET))
         except ValueError:
-            print("❌ Deposit must be a number!")
+            print(RED + "❌ Deposit must be a number!" + RESET)
             return
 
         agreement = RentalAgreement(property, tenant, start, end, deposit)
         self.agreements.append(agreement)
         property.assign_tenant(tenant)
-        print("✅ Agreement created!")
+        print(GREEN + "✅ Agreement created!" + RESET)
 
     # 📌 Payment Tracking
     def record_payment(self):
         clear_screen()
+        banner()
         if not self.agreements:
-            print("⚠️ No agreements found!")
+            print(YELLOW + "⚠️ No agreements found!" + RESET)
             return
 
         self.list_agreements()
         try:
-            aid = int(input("Choose agreement number (1..N): "))
+            aid = int(input(CYAN + "Choose agreement number (1..N): " + RESET))
             agreement = self.agreements[aid-1]
         except (ValueError, IndexError):
-            print("❌ Invalid agreement selection!")
+            print(RED + "❌ Invalid agreement selection!" + RESET)
             return
 
         try:
-            amount = float(input("Enter payment amount: RM"))
+            amount = float(input(CYAN + "Enter payment amount: RM" + RESET))
         except ValueError:
-            print("❌ Payment must be a number!")
+            print(RED + "❌ Payment must be a number!" + RESET)
             return
 
-        date = input("Enter payment date (YYYY-MM-DD): ")
+        date = input(CYAN + "Enter payment date (YYYY-MM-DD): " + RESET)
         agreement.add_payment(amount, date)
-        print("✅ Payment recorded!")
+        print(GREEN + "✅ Payment recorded!" + RESET)
 
-    # 📌 Listing with pause
+    # 📌 Listing
     def list_properties(self):
-        clear_screen()
+        print(YELLOW + "\n--- Properties ---" + RESET)
         if not self.properties:
-            print("⚠️ No properties available.")
+            print(RED + "⚠️ No properties available." + RESET)
         else:
             for p in self.properties:
                 print(p)
-        input("\nPress Enter to return to menu...")
 
     def list_tenants(self):
-        clear_screen()
+        print(YELLOW + "\n--- Tenants ---" + RESET)
         if not self.tenants:
-            print("⚠️ No tenants registered.")
+            print(RED + "⚠️ No tenants registered." + RESET)
         else:
             for t in self.tenants:
                 print(t)
-        input("\nPress Enter to return to menu...")
 
     def list_agreements(self):
-        clear_screen()
+        print(YELLOW + "\n--- Agreements ---" + RESET)
         if not self.agreements:
-            print("⚠️ No agreements created.")
+            print(RED + "⚠️ No agreements created." + RESET)
         else:
             for i, a in enumerate(self.agreements, start=1):
                 print(f"{i}. {a}")
@@ -173,72 +194,6 @@ class RentalSystem:
                     print("   Payments:")
                     for pay in a.payments:
                         print(f"     - RM{pay['amount']} on {pay['date']}")
-        input("\nPress Enter to return to menu...")
-
-    # 📌 Persistent Storage
-    def save_data(self):
-        data = {
-            "properties": [
-                {
-                    "property_id": p.property_id,
-                    "address": p.address,
-                    "rent_price": p.rent_price,
-                    "tenant_id": p.tenant.tenant_id if p.tenant else None
-                } for p in self.properties
-            ],
-            "tenants": [
-                {
-                    "tenant_id": t.tenant_id,
-                    "name": t.name,
-                    "contact": t.contact
-                } for t in self.tenants
-            ],
-            "agreements": [
-                {
-                    "property_id": a.property.property_id,
-                    "tenant_id": a.tenant.tenant_id,
-                    "start_date": a.start_date,
-                    "end_date": a.end_date,
-                    "deposit": a.deposit,
-                    "payments": a.payments
-                } for a in self.agreements
-            ]
-        }
-        with open("rental_data.json", "w") as f:
-            json.dump(data, f, indent=4)
-        print("💾 Data saved to rental_data.json")
-
-    def load_data(self):
-        try:
-            with open("rental_data.json", "r") as f:
-                data = json.load(f)
-
-                # Rebuild properties
-                self.properties = [
-                    Property(p["property_id"], p["address"], p["rent_price"])
-                    for p in data["properties"]
-                ]
-
-                # Rebuild tenants
-                self.tenants = [
-                    Tenant(t["tenant_id"], t["name"], t["contact"])
-                    for t in data["tenants"]
-                ]
-
-                # Rebuild agreements
-                self.agreements = []
-                for a in data["agreements"]:
-                    property = next((p for p in self.properties if p.property_id == a["property_id"]), None)
-                    tenant = next((t for t in self.tenants if t.tenant_id == a["tenant_id"]), None)
-                    agreement = RentalAgreement(property, tenant, a["start_date"], a["end_date"], a["deposit"])
-                    agreement.payments = a["payments"]
-                    self.agreements.append(agreement)
-                    if property and tenant:
-                        property.assign_tenant(tenant)
-
-            print("📂 Data loaded from rental_data.json")
-        except FileNotFoundError:
-            print("⚠️ No saved data found.")
 
 
 # 🚀 Menu-driven program
@@ -247,17 +202,18 @@ if __name__ == "__main__":
 
     while True:
         clear_screen()
-        print("\n--- Rental System Menu ---")
-        print("1. Add Property")
-        print("2. Register Tenant")
-        print("3. Create Agreement")
-        print("4. Record Payment")
-        print("5. List Properties")
-        print("6. List Tenants")
-        print("7. List Agreements")
-        print("0. Exit")
+        banner()
+        print(YELLOW + "--- Main Menu ---" + RESET)
+        print(CYAN + "1. Add Property" + RESET)
+        print(CYAN + "2. Register Tenant" + RESET)
+        print(CYAN + "3. Create Agreement" + RESET)
+        print(CYAN + "4. Record Payment" + RESET)
+        print(CYAN + "5. List Properties" + RESET)
+        print(CYAN + "6. List Tenants" + RESET)
+        print(CYAN + "7. List Agreements" + RESET)
+        print(RED + "0. Exit" + RESET)
 
-        choice = input("Choose an option: ")
+        choice = input(MAGENTA + "\nChoose an option: " + RESET)
 
         if choice == "1":
             system.add_property()
@@ -268,14 +224,14 @@ if __name__ == "__main__":
         elif choice == "4":
             system.record_payment()
         elif choice == "5":
-            system.list_properties()
+            clear_screen(); banner(); system.list_properties(); input("\nPress Enter to return...")
         elif choice == "6":
-            system.list_tenants()
+            clear_screen(); banner(); system.list_tenants(); input("\nPress Enter to return...")
         elif choice == "7":
-            system.list_agreements()
+            clear_screen(); banner(); system.list_agreements(); input("\nPress Enter to return...")
         elif choice == "0":
-            print("👋 Exiting system...")
+            print(GREEN + "👋 Exiting system..." + RESET)
             break
         else:
-            print("❌ Invalid choice! Please try again.")
-            input("\nPress Enter to return to menu...")
+            print(RED + "❌ Invalid choice! Please try again." + RESET)
+            input("\nPress Enter to return to menu...") 
