@@ -1,117 +1,126 @@
-# 🏠 Rental System (Clients instead of Tenants)
+# 🏠 Rental Management System with Menu
 
 class Property:
-    def __init__(self, property_id, address, size, facilities, rent_price):
+    def __init__(self, property_id, address, rent_price):
         self.property_id = property_id
         self.address = address
-        self.size = size
-        self.facilities = facilities
         self.rent_price = rent_price
+        self.tenant = None
+
+    def assign_tenant(self, tenant):
+        self.tenant = tenant
 
     def __str__(self):
-        return f"{self.property_id}: {self.address}, {self.size} sqft, Rent: RM{self.rent_price}"
+        return f"Property {self.property_id}: {self.address} | Rent: RM{self.rent_price} | Tenant: {self.tenant.name if self.tenant else 'None'}"
 
 
-class Client:
-    def __init__(self, client_id, name, email, phone, occupation):
-        self.client_id = client_id
+class Tenant:
+    def __init__(self, tenant_id, name, contact):
+        self.tenant_id = tenant_id
         self.name = name
-        self.email = email
-        self.phone = phone
-        self.occupation = occupation
+        self.contact = contact
 
     def __str__(self):
-        return f"{self.client_id}: {self.name}, {self.occupation}, Email: {self.email}, Phone: {self.phone}"
+        return f"Tenant {self.tenant_id}: {self.name} ({self.contact})"
 
 
 class RentalAgreement:
-    def __init__(self, agreement_id, client, property, start_date, end_date, monthly_rent):
-        self.agreement_id = agreement_id
-        self.client = client
+    def __init__(self, property, tenant, start_date, end_date, deposit):
         self.property = property
+        self.tenant = tenant
         self.start_date = start_date
         self.end_date = end_date
-        self.monthly_rent = monthly_rent
+        self.deposit = deposit
+        self.payments = []
+
+    def add_payment(self, amount, date):
+        self.payments.append({"amount": amount, "date": date})
 
     def __str__(self):
-        return f"Agreement {self.agreement_id}: {self.client.name} renting {self.property.address} at RM{self.monthly_rent}/month"
-
-
-class Payment:
-    def __init__(self, payment_id, agreement, amount, date, status="Pending"):
-        self.payment_id = payment_id
-        self.agreement = agreement
-        self.amount = amount
-        self.date = date
-        self.status = status
-
-    def mark_paid(self):
-        self.status = "Paid"
+        return f"Agreement: {self.tenant.name} renting {self.property.address} from {self.start_date} to {self.end_date}"
 
 
 class RentalSystem:
     def __init__(self):
-        self.properties = {}
-        self.clients = {}
-        self.agreements = {}
-        self.payments = {}
+        self.properties = []
+        self.tenants = []
+        self.agreements = []
 
-    # Property Management
-    def add_property(self, property_id, address, size, facilities, rent_price):
-        self.properties[property_id] = Property(property_id, address, size, facilities, rent_price)
+    def add_property(self):
+        pid = len(self.properties) + 1
+        address = input("Enter property address: ")
+        rent = float(input("Enter monthly rent: RM"))
+        p = Property(pid, address, rent)
+        self.properties.append(p)
+        print("✅ Property added!")
+
+    def register_tenant(self):
+        tid = len(self.tenants) + 1
+        name = input("Enter tenant name: ")
+        contact = input("Enter tenant contact: ")
+        t = Tenant(tid, name, contact)
+        self.tenants.append(t)
+        print("✅ Tenant registered!")
+
+    def create_agreement(self):
+        if not self.properties or not self.tenants:
+            print("⚠️ Add property and tenant first!")
+            return
+        self.list_properties()
+        pid = int(input("Choose property ID: "))
+        self.list_tenants()
+        tid = int(input("Choose tenant ID: "))
+        start = input("Enter start date (YYYY-MM-DD): ")
+        end = input("Enter end date (YYYY-MM-DD): ")
+        deposit = float(input("Enter deposit amount: RM"))
+        agreement = RentalAgreement(self.properties[pid-1], self.tenants[tid-1], start, end, deposit)
+        self.agreements.append(agreement)
+        self.properties[pid-1].assign_tenant(self.tenants[tid-1])
+        print("✅ Agreement created!")
 
     def list_properties(self):
-        for prop in self.properties.values():
-            print(prop)
+        for p in self.properties:
+            print(p)
 
-    # Client Management
-    def add_client(self, client_id, name, email, phone, occupation):
-        self.clients[client_id] = Client(client_id, name, email, phone, occupation)
-
-    def list_clients(self):
-        for client in self.clients.values():
-            print(client)
-
-    # Rental Agreements
-    def create_agreement(self, agreement_id, client_id, property_id, start_date, end_date, monthly_rent):
-        client = self.clients.get(client_id)
-        property = self.properties.get(property_id)
-        if client and property:
-            self.agreements[agreement_id] = RentalAgreement(agreement_id, client, property, start_date, end_date, monthly_rent)
+    def list_tenants(self):
+        for t in self.tenants:
+            print(t)
 
     def list_agreements(self):
-        for agreement in self.agreements.values():
-            print(agreement)
-
-    # Payments
-    def record_payment(self, payment_id, agreement_id, amount, date):
-        agreement = self.agreements.get(agreement_id)
-        if agreement:
-            self.payments[payment_id] = Payment(payment_id, agreement, amount, date)
-
-    def list_payments(self):
-        for payment in self.payments.values():
-            print(f"{payment.payment_id}: RM{payment.amount} for {payment.agreement.client.name}, Status: {payment.status}")
+        for a in self.agreements:
+            print(a)
 
 
-# Example Usage
+# 🚀 Menu-driven program
 if __name__ == "__main__":
     system = RentalSystem()
 
-    # Add property
-    system.add_property("P1", "Cyberjaya Apartment", 850, ["WiFi", "Parking"], 1200)
+    while True:
+        print("\n--- Rental System Menu ---")
+        print("1. Add Property")
+        print("2. Register Tenant")
+        print("3. Create Agreement")
+        print("4. List Properties")
+        print("5. List Tenants")
+        print("6. List Agreements")
+        print("0. Exit")
 
-    # Add client (instead of tenant)
-    system.add_client("C1", "Ali", "ali@example.com", "0123456789", "Software Engineer")
+        choice = input("Choose an option: ")
 
-    # Create rental agreement
-    system.create_agreement("A1", "C1", "P1", "2026-06-01", "2027-06-01", 1200)
-
-    # Record payment
-    system.record_payment("PAY1", "A1", 1200, "2026-06-01")
-
-    # Display data
-    system.list_properties()
-    system.list_clients()
-    system.list_agreements()
-    system.list_payments()
+        if choice == "1":
+            system.add_property()
+        elif choice == "2":
+            system.register_tenant()
+        elif choice == "3":
+            system.create_agreement()
+        elif choice == "4":
+            system.list_properties()
+        elif choice == "5":
+            system.list_tenants()
+        elif choice == "6":
+            system.list_agreements()
+        elif choice == "0":
+            print("👋 Exiting system...")
+            break
+        else:
+            print("❌ Invalid choice, try again.")
