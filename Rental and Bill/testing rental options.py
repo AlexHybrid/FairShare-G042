@@ -1,4 +1,5 @@
 import os
+import json
 
 # Utility function to clear screen
 def clear_screen():
@@ -174,6 +175,71 @@ class RentalSystem:
                         print(f"     - RM{pay['amount']} on {pay['date']}")
         input("\nPress Enter to return to menu...")
 
+    # 📌 Persistent Storage
+    def save_data(self):
+        data = {
+            "properties": [
+                {
+                    "property_id": p.property_id,
+                    "address": p.address,
+                    "rent_price": p.rent_price,
+                    "tenant_id": p.tenant.tenant_id if p.tenant else None
+                } for p in self.properties
+            ],
+            "tenants": [
+                {
+                    "tenant_id": t.tenant_id,
+                    "name": t.name,
+                    "contact": t.contact
+                } for t in self.tenants
+            ],
+            "agreements": [
+                {
+                    "property_id": a.property.property_id,
+                    "tenant_id": a.tenant.tenant_id,
+                    "start_date": a.start_date,
+                    "end_date": a.end_date,
+                    "deposit": a.deposit,
+                    "payments": a.payments
+                } for a in self.agreements
+            ]
+        }
+        with open("rental_data.json", "w") as f:
+            json.dump(data, f, indent=4)
+        print("💾 Data saved to rental_data.json")
+
+    def load_data(self):
+        try:
+            with open("rental_data.json", "r") as f:
+                data = json.load(f)
+
+                # Rebuild properties
+                self.properties = [
+                    Property(p["property_id"], p["address"], p["rent_price"])
+                    for p in data["properties"]
+                ]
+
+                # Rebuild tenants
+                self.tenants = [
+                    Tenant(t["tenant_id"], t["name"], t["contact"])
+                    for t in data["tenants"]
+                ]
+
+                # Rebuild agreements
+                self.agreements = []
+                for a in data["agreements"]:
+                    property = next((p for p in self.properties if p.property_id == a["property_id"]), None)
+                    tenant = next((t for t in self.tenants if t.tenant_id == a["tenant_id"]), None)
+                    agreement = RentalAgreement(property, tenant, a["start_date"], a["end_date"], a["deposit"])
+                    agreement.payments = a["payments"]
+                    self.agreements.append(agreement)
+                    if property and tenant:
+                        property.assign_tenant(tenant)
+
+            print("📂 Data loaded from rental_data.json")
+        except FileNotFoundError:
+            print("⚠️ No saved data found.")
+
 
 # 🚀 Menu-driven program
 if __name__ == "__main__":
@@ -211,16 +277,5 @@ if __name__ == "__main__":
             print("👋 Exiting system...")
             break
         else:
-            print("❌ Invalid choice, try again.")
-
-    print("Goodbye!")
-
-    # Save data to JSON file
-    with open("properties.json", "w") as f:
-        json.dump([p.to_dict() for p in system.properties], f)
-
-    with open("tenants.json", "w") as f:
-        json.dump([t.to_dict() for t in system.tenants], f)
-
-    with open("agreements.json", "w") as f:
-        json.dump([a.to_dict() for a in system.agreements], f)
+            print("❌ Invalid choice! Please try again.")
+            input("\nPress Enter to return to menu...")
