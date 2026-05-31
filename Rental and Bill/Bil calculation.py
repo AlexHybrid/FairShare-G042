@@ -13,7 +13,7 @@ def get_int(prompt):
         try:
             return int(input(prompt))
         except ValueError:
-            print("Error: Please enter a valid integers.")
+            print("Error: Please enter a valid integer.")
 
 def equal_split(total_rent, num_people):
     share = total_rent / num_people
