@@ -1,4 +1,9 @@
-# Rental Management System (Fixed Version)
+import os
+
+# Utility function to clear screen
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 
 class Property:
     def __init__(self, property_id, address, rent_price):
@@ -48,6 +53,7 @@ class RentalSystem:
 
     # 📌 Property Management
     def add_property(self):
+        clear_screen()
         pid = len(self.properties) + 1
         address = input("Enter property address: ")
         try:
@@ -61,6 +67,7 @@ class RentalSystem:
 
     # 📌 Tenant Management
     def register_tenant(self):
+        clear_screen()
         tid = len(self.tenants) + 1
         name = input("Enter tenant name: ")
         contact = input("Enter tenant contact: ")
@@ -70,6 +77,7 @@ class RentalSystem:
 
     # 📌 Agreement Creation
     def create_agreement(self):
+        clear_screen()
         if not self.properties or not self.tenants:
             print("⚠️ Add property and tenant first!")
             return
@@ -111,6 +119,7 @@ class RentalSystem:
 
     # 📌 Payment Tracking
     def record_payment(self):
+        clear_screen()
         if not self.agreements:
             print("⚠️ No agreements found!")
             return
@@ -133,28 +142,37 @@ class RentalSystem:
         agreement.add_payment(amount, date)
         print("✅ Payment recorded!")
 
-    # 📌 Listing
+    # 📌 Listing with pause
     def list_properties(self):
+        clear_screen()
         if not self.properties:
             print("⚠️ No properties available.")
-        for p in self.properties:
-            print(p)
+        else:
+            for p in self.properties:
+                print(p)
+        input("\nPress Enter to return to menu...")
 
     def list_tenants(self):
+        clear_screen()
         if not self.tenants:
             print("⚠️ No tenants registered.")
-        for t in self.tenants:
-            print(t)
+        else:
+            for t in self.tenants:
+                print(t)
+        input("\nPress Enter to return to menu...")
 
     def list_agreements(self):
+        clear_screen()
         if not self.agreements:
             print("⚠️ No agreements created.")
-        for i, a in enumerate(self.agreements, start=1):
-            print(f"{i}. {a}")
-            if a.payments:
-                print("   Payments:")
-                for pay in a.payments:
-                    print(f"     - RM{pay['amount']} on {pay['date']}")
+        else:
+            for i, a in enumerate(self.agreements, start=1):
+                print(f"{i}. {a}")
+                if a.payments:
+                    print("   Payments:")
+                    for pay in a.payments:
+                        print(f"     - RM{pay['amount']} on {pay['date']}")
+        input("\nPress Enter to return to menu...")
 
 
 # 🚀 Menu-driven program
@@ -162,6 +180,7 @@ if __name__ == "__main__":
     system = RentalSystem()
 
     while True:
+        clear_screen()
         print("\n--- Rental System Menu ---")
         print("1. Add Property")
         print("2. Register Tenant")
@@ -195,3 +214,13 @@ if __name__ == "__main__":
             print("❌ Invalid choice, try again.")
 
     print("Goodbye!")
+
+    # Save data to JSON file
+    with open("properties.json", "w") as f:
+        json.dump([p.to_dict() for p in system.properties], f)
+
+    with open("tenants.json", "w") as f:
+        json.dump([t.to_dict() for t in system.tenants], f)
+
+    with open("agreements.json", "w") as f:
+        json.dump([a.to_dict() for a in system.agreements], f)
