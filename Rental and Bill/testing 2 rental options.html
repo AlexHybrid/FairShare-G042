@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rental Blossoms Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fdfdfd;
+      color: #333;
+    }
+    /* Top Navigation */
+    .navbar {
+      background: #ff69b4;
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar h1 {
+      margin: 0;
+      font-size: 1.5em;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+    }
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+    /* Layout */
+    .dashboard {
+      display: flex;
+    }
+    .sidebar {
+      width: 220px;
+      background: #ffe4e1;
+      padding: 20px;
+      border-right: 2px solid #ffb6c1;
+    }
+    .sidebar h3 {
+      margin-top: 0;
+      color: #c71585;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar li {
+      margin: 8px 0;
+    }
+    .sidebar a {
+      text-decoration: none;
+      color: #333;
+    }
+    .sidebar a:hover {
+      color: #c71585;
+    }
+    /* Main Content */
+    .main {
+      flex: 1;
+      padding: 20px;
+    }
+    .chart-table {
+      display: flex;
+      gap: 20px;
+    }
+    .chart {
+      flex: 1;
+      background: #fff0f5;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .table-container {
+      flex: 2;
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border-bottom: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background: #ffb6c1;
+      color: white;
+    }
+    .total {
+      font-weight: bold;
+      text-align: right;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Navigation -->
+  <div class="navbar">
+    <h1>🌸 House Rental & Bill Splitter</h1>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Settings</a>
+      <a href="#">Help</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <a href="#">FAQ</a>
+    </div>
+  </div>
+
+  <!-- Dashboard Layout -->
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h3>Dashboard</h3>
+      <ul>
+        <li><strong>House Rental Management</strong></li>
+        <li><a href="#">Listing</a></li>
+        <li><a href="#">Agreement</a></li>
+        <li><a href="#">Payment</a></li>
+        <li><strong>Bill Splitting</strong></li>
+        <li><a href="#">Split Bills</a></li>
+        <li><a href="#">Add Expenses</a></li>
+        <li><strong>Landlord Section</strong></li>
+        <li><a href="#">Analytics</a></li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+      <div class="chart-table">
+        <!-- Chart Placeholder -->
+        <div class="chart">
+          <h2>Valid Split</h2>
+          <p>[Chart Placeholder]</p>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+          <h2>Housemates Dues</h2>
+          <table>
+            <tr>
+              <th>Date</th>
+              <th>Housemates</th>
+              <th>Dues</th>
+              <th>Amount</th>
+            </tr>
+            <tr>
+              <td>01/06/26</td>
+              <td>Room A</td>
+              <td>Electricity Bill</td>
+              <td>RM1200</td>
+            </tr>
+            <tr>
+              <td>01/06/26</td>
+              <td>Room B</td>
+              <td>Water Bill</td>
+              <td>RM800</td>
+            </tr>
+            <tr>
+              <td>01/06/26</td>
+              <td>Room C</td>
+              <td>Internet</td>
+              <td>RM300</td>
+            </tr>
+          </table>
+          <div class="total">TOTAL: RM2300</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
