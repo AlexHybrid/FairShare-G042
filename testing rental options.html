@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rental Blossoms</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff0f5; /* light blossom pink */
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(90deg, #ffb6c1, #ff69b4);
+      color: white;
+      text-align: center;
+      padding: 30px 10px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+    header p {
+      margin: 5px 0 0;
+      font-style: italic;
+    }
+    nav {
+      background: #ffe4e1;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #c71585;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #ff1493;
+    }
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #c71585;
+      border-bottom: 2px solid #ffb6c1;
+      padding-bottom: 5px;
+    }
+    .card {
+      border: 1px solid #ffb6c1;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 10px 0;
+      background: #fffafc;
+    }
+    .btn {
+      display: inline-block;
+      background: #ff69b4;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 6px;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+    .btn:hover {
+      background: #c71585;
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #ffe4e1;
+      margin-top: 30px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌸 Rental Blossoms 🌸</h1>
+    <p>Homes • Tenants • Agreements • Payments</p>
+  </header>
+
+  <nav>
+    <a href="#">Add Property</a>
+    <a href="#">Register Tenant</a>
+    <a href="#">Create Agreement</a>
+    <a href="#">Record Payment</a>
+    <a href="#">View Listings</a>
+  </nav>
+
+  <div class="container">
+    <h2>Properties</h2>
+    <div class="card">
+      <strong>Property 1:</strong> 123 Blossom Street<br>
+      Rent: RM1200<br>
+      Tenant: None<br>
+      <a href="#" class="btn">Assign Tenant</a>
+    </div>
+
+    <h2>Tenants</h2>
+    <div class="card">
+      <strong>Tenant 1:</strong> Alice (012-3456789)<br>
+      <a href="#" class="btn">View Agreements</a>
+    </div>
+
+    <h2>Agreements</h2>
+    <div class="card">
+      Agreement: Alice renting 123 Blossom Street<br>
+      From: 2026-06-01 to 2027-06-01<br>
+      Deposit: RM1200<br>
+      Payments: RM1200 on 2026-06-01<br>
+      <a href="#" class="btn">Add Payment</a>
+    </div>
+  </div>
+
+  <footer>
+    🌸 Rental Blossoms © 2026
+  </footer>
+</body>
+</html>
