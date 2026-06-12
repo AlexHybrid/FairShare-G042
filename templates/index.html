@@ -3,95 +3,432 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome - App</title>
-    <!-- Link to our CSS file located in the static folder -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>FairShare — House Rental & Bill Splitter</title>
+    <style>
+        /* =================================
+       GLOBAL VARIABLES & THEME SETTINGS
+       ================================= */
+        :root {
+            --accent: #3b82f6;
+            --bg-gradient: linear-gradient(135deg, #000428 0%, #004e92 100%);
+            --navbar-bg: rgba(255, 255, 255, 0.95);
+            --text-main: #ffffff;
+            --text-nav: #333333;
+            --max-width-content: 1100px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* =====================
+       2. BODY & MAIN LAYOUT
+       ===================== */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: var(--max-width-content);
+            margin: 0 auto;
+            padding: 0 1rem;
+            width: 100%;
+        }
+
+        /* ==========================
+       3. NAVIGATION BAR (HEADER)
+       ========================== */
+        header {
+            padding: 2rem 0;
+            width: 100%;
+        }
+
+        .navbar {
+            background: var(--navbar-bg);
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0.75rem 1rem;
+            border-radius: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: var(--text-nav);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: 0.3s;
+            padding: 0.25rem 0.5rem;
+        }
+
+        .navbar a:hover {
+            color: var(--accent);
+        }
+
+        .navbar a.active {
+            color: #3b82f6;
+            border-bottom: 2px solid #3b82f6;
+        }
+
+        /* ==============================
+       4. HERO SECTION (SPLIT LAYOUT)
+       ============================== */
+        .hero-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: var(--max-width-content);
+            margin: 0 auto;
+            padding: 2rem 1rem 4rem 1rem;
+            gap: 4rem;
+            flex: 1;
+
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .hero-left {
+            flex: 1.2;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-left h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-left p.slogan {
+            font-size: 1.4rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .divider {
+            width: 250px;
+            height: 4px;
+            background: #1e3a8a;
+            border-radius: 2px;
+        }
+
+        .hero-right {
+            flex: 0.8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        /* ==================================
+       5. CARD & FORM INNER STYLES
+       ================================== */
+        .card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            color: #0F172A;
+        }
+
+        .title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 25px;
+            color: #0f172a;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #0052FF, #4D7CFF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #64748B;
+        }
+
+        .form-group input {
+            width: 100%;
+            height: 48px;
+            padding: 0 15px;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 15px;
+            background-color: transparent;
+            color: #0f172a;
+            outline: none;
+            transition: all 0.2s ease-out;
+        }
+
+        .form-group input:focus {
+            border-color: #0052FF;
+            box-shadow: 0 0 0 3px rgba(0, 82, 255, 0.15);
+        }
+
+        .btn-primary {
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(to right, #0052FF, #4D7CFF);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0, 82, 255, 0.25);
+            filter: brightness(110%);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .toggle-text {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+            color: #64748B;
+        }
+
+        .toggle-text a {
+            color: #0052FF;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .toggle-text a:hover {
+            text-decoration: underline;
+        }
+
+        .flash-messages {
+            list-style: none;
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 0;
+        }
+
+        .flash-message {
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .flash-message.error {
+            background-color: #FEE2E2;
+            color: #B91C1C;
+            border: 1px solid #FCA5A5;
+        }
+
+        .flash-message.success {
+            background-color: #D1FAE5;
+            color: #047857;
+            border: 1px solid #6EE7B7;
+        }
+
+        .form-section {
+            display: none;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==================================
+       6. RESPONSIVE DESIGN (MOBILE VIEW)
+       ================================== */
+        @media (max-width: 768px) {
+            .hero-grid {
+                flex-direction: column;
+                gap: 2rem;
+                padding-top: 1rem;
+            }
+
+            .hero-left {
+                text-align: center;
+                align-items: center;
+            }
+
+            .hero-left h1 {
+                font-size: 3rem;
+            }
+
+            .navbar ul {
+                gap: 1rem;
+            }
+
+            .navbar a {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <div class="container">
-        <!-- Main white card with soft shadows -->
-        <div class="card">
-            
-            <!-- Motivational Quote Header -->
-            <div class="quote-container">
-                <div class="quote-badge">
-                    <span class="quote-dot"></span>
-                    <span class="quote-text">With thoughtful mindset, create independent life</span>
+
+    <header>
+        <nav class="navbar">
+            <ul>
+                <li><a href="/dashboard">Home</a></li>
+                <li><a href="/" class="active">Login</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Help</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="hero-grid">
+        <div class="hero-left">
+            <h1>House Rental<br>& Bill Splitter</h1>
+            <p class="slogan">Cheap. Fast. Easy.</p>
+            <div class="divider"></div>
+        </div>
+
+        <div class="hero-right">
+            <div class="card">
+                <!-- Displays messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                    <ul class="flash-messages">
+                    {% for category, message in messages %}
+                      <li class="flash-message {{ category }}">{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endwith %}
+
+                <!-- Login form -->
+                <div id="login-section" class="form-section active">
+                    <h2 class="title">Welcome <span class="gradient-text">Back</span></h2>
+                    <form action="/login" method="POST">
+                        <div class="form-group">
+                            <label for="login-email">Email Address</label>
+                            <input type="email" id="login-email" name="email" placeholder="you@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" name="password" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Log In</button>
+                    </form>
+                    <div class="toggle-text">
+                        Don't have an account? <a href="#" id="show-signup">Sign up</a>
+                    </div>
                 </div>
 
-            </div>
-            <!-- Display Error/Success Messages sent from Flask -->
-            {% with messages = get_flashed_messages(with_categories=true) %}
-              {% if messages %}
-                <ul class="flash-messages">
-                {% for category, message in messages %}
-                  <li class="flash-message {{ category }}">{{ message }}</li>
-                {% endfor %}
-                </ul>
-              {% endif %}
-            {% endwith %}
-
-            <!-- ===================== LOGIN FORM ===================== -->
-            <!-- We add the 'active' class to this section so it shows up first by default -->
-            <div id="login-section" class="form-section active">
-                <h2 class="title">Welcome <span class="gradient-text">Back</span></h2>
-                
-                <!-- The form submits data to the /login route via POST method -->
-                <form action="/login" method="POST">
-                    <div class="form-group">
-                        <label for="login-email">Email Address</label>
-                        <input type="email" id="login-email" name="email" placeholder="you@example.com" required>
+                <!-- Signup form -->
+                <div id="signup-section" class="form-section">
+                    <h2 class="title">Create <span class="gradient-text">Account</span></h2>
+                    <form action="/signup" method="POST">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-email">Email Address</label>
+                            <input type="email" id="signup-email" name="email" placeholder="you@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <input type="password" id="signup-password" name="password" placeholder="Create a password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password</label>
+                            <input type="password" id="confirm-password" name="confirm_password" placeholder="Repeat password" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Sign Up</button>
+                    </form>
+                    <div class="toggle-text">
+                        Already have an account? <a href="#" id="show-login">Log in</a>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="login-password">Password</label>
-                        <input type="password" id="login-password" name="password" placeholder="••••••••" required>
-                    </div>
-                    
-                    <button type="submit" class="btn-primary">Log In</button>
-                </form>
-                
-                <div class="toggle-text">
-                    Don't have an account? <a href="#" id="show-signup">Sign up</a>
-                </div>
-            </div>
-
-            <!-- ===================== SIGNUP FORM ===================== -->
-            <!-- This section is hidden by default and shown when clicking 'Sign up' -->
-            <div id="signup-section" class="form-section">
-                <h2 class="title">Create <span class="gradient-text">Account</span></h2>
-                
-                <!-- The form submits data to the /signup route via POST method -->
-                <form action="/signup" method="POST">
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" placeholder="John Doe" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="signup-email">Email Address</label>
-                        <input type="email" id="signup-email" name="email" placeholder="you@example.com" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="signup-password">Password</label>
-                        <input type="password" id="signup-password" name="password" placeholder="Create a password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="confirm-password">Confirm Password</label>
-                        <input type="password" id="confirm-password" name="confirm_password" placeholder="Repeat password" required>
-                    </div>
-                    
-                    <button type="submit" class="btn-primary">Sign Up</button>
-                </form>
-                
-                <div class="toggle-text">
-                    Already have an account? <a href="#" id="show-login">Log in</a>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <!-- Link to our JavaScript file located in the static folder -->
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        const loginSection = document.getElementById('login-section');
+        const signupSection = document.getElementById('signup-section');
+        const showSignup = document.getElementById('show-signup');
+        const showLogin = document.getElementById('show-login');
+
+        if (showSignup && showLogin) {
+            showSignup.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginSection.classList.remove('active');
+                signupSection.classList.add('active');
+            });
+            showLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                signupSection.classList.remove('active');
+                loginSection.classList.add('active');
+            });
+        }
+    </script>
 </body>
 </html>
