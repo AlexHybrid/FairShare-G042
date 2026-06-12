@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- We reuse the same CSS file for a consistent look -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    
+    <div class="container">
+        <!-- Reusing the card style, but centering content -->
+        <div class="card dashboard-card">
+            
+            <h1 class="title dashboard-title">Hello, <span class="gradient-text">{{ name }}</span>!</h1>
+            <p class="dashboard-subtitle">Welcome to your secure dashboard.</p>
+            
+            <!-- Logout Button -->
+            <!-- We wrap the button in an anchor tag pointing to the /logout route -->
+            <a href="{{ url_for('logout') }}" style="text-decoration: none;">
+                <button class="btn-primary">Log Out</button>
+            </a>
+            
+        </div>
+    </div>
+</body>
+</html>
