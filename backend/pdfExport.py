@@ -5,16 +5,26 @@ import os
 
 export = Flask(__name__)
 
+from database import get_db_connection
+
 #---Dynamic Data Bridge---
 def get_user_data():
-    # Simulating 'live' data pulled from the FairShare database
-    live_data = [
-        ["Date", "Room", "Name", "Amount"],
-        ["15 May 2026", "Room A", "Housemate 1", "$150"],
-        ["15 May 2026", "Room A", "Housemate 2", "$50"],
-        ["16 May 2026", "Room C", "Housemate 3", "$100"]
-    ]
-    return live_data
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('SELECT date, room, type, amount, status FROM expenses')
+    rows = cursor.fetchall()
+    conn.close()
+    
+    data = [["Date", "Room", "Type", "Amount", "Status"]]
+    for row in rows:
+        data.append([
+            row['date'],
+            row['room'],
+            row['type'],
+            f"RM{row['amount']:.2f}",
+            row['status'] or 'Pending'
+        ])
+    return data
 
 @export.route('/export')
 def export_page():
