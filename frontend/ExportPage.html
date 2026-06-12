@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FairShare — Export Data</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Additional custom styling for Export Page */
+    .export-layout {
+      background-color: var(--panel-bg);
+      border-radius: 20px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .export-actions-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.03);
+      padding: 1.5rem 2rem;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    @media (max-width: 768px) {
+      .export-actions-row {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+    }
+
+    .export-card-text {
+      text-align: left;
+    }
+
+    .export-card-text h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .export-card-text p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .export-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-excel { 
+      background-color: #107c41; 
+      box-shadow: 0 4px 10px rgba(16, 124, 65, 0.3);
+    }
+    .btn-excel:hover { 
+      background-color: #0c5e31; 
+      transform: scale(1.03);
+    }
+    
+    .btn-pdf { 
+      background-color: #b30b00; 
+      box-shadow: 0 4px 10px rgba(179, 11, 0, 0.3);
+    }
+    .btn-pdf:hover { 
+      background-color: #8a0900; 
+      transform: scale(1.03);
+    }
+
+    /* Table modifications for reports */
+    .report-table-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .report-table-section h3 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      color: #333;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .data-table th {
+      background-color: var(--accent-blue);
+      color: white;
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    .data-table td {
+      padding: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 0.95rem;
+    }
+
+    .data-table tr:hover {
+      background-color: #f8fafc;
+    }
+
+    .data-table tr:last-child {
+      background-color: #e2e8f0;
+      font-weight: bold;
+    }
+    
+    .tag {
+      padding: 0.25rem 0.6rem;
+      border-radius: 15px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main-content">
+    <div class="title-banner">
+      House Rental & Bill splitter
+    </div>
+
+    <nav class="pill-nav">
+      <a href="Dashboard.html">Home</a>
+      <a href="#">settings</a>
+      <a href="#">Help</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <a href="#">FAQ?</a>
+    </nav>
+
+    <div class="export-layout">
+      
+      <div class="export-actions-row">
+        <div class="export-card-text">
+          <h2>Select the Export Format</h2>
+          <p>Download your FairShare bills in your preferred format.</p>
+        </div>
+        <div class="export-buttons">
+          <form action="http://localhost:5000/download_excel" method="GET" style="display: inline;">
+            <button type="submit" class="btn btn-excel">📊 Export to Excel</button>
+          </form>
+          <form action="http://localhost:5000/download_pdf" method="GET" style="display: inline;">
+            <button type="submit" class="btn btn-pdf">📄 Export to PDF</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="report-table-section">
+        <h3>Live Report Preview</h3>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Room</th>
+              <th>Type</th>
+              <th>Category</th>
+              <th>Payment Method</th>
+              <th>Status</th>
+              <th>Notes</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody id="report-table-body">
+            <tr><td colspan="8" style="text-align: center; color: #64748b;">Loading report preview...</td></tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="7" style="text-align: right; font-weight: bold;">TOTAL:</td>
+              <td id="report-total-amount">RM0.00</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="right-sidebar">
+    <h2>Dashboard</h2>
+    
+    <a href="Dashboard.html" class="sidebar-category">House Rental Management</a>
+    <a href="Dashboard.html" class="sidebar-item">Listing</a>
+    <a href="Dashboard.html" class="sidebar-item">Agreement</a>
+    <a href="Dashboard.html" class="sidebar-item">Payment</a>
+
+    <a href="Dashboard.html" class="sidebar-category">Bill Splitting</a>
+    <a href="Dashboard.html" class="sidebar-item">Split Bills</a>
+    <a href="Dashboard.html" class="sidebar-item">Add Expenses</a>
+
+    <a href="Dashboard.html" class="sidebar-category">Landlord Section</a>
+    <a href="ExportPage.html" class="sidebar-category">Export Data</a>
+  </div>
+
+  <script src="export.js"></script>
+</body>
+</html>
