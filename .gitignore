@@ -1,0 +1,13 @@
+# Python pycache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# SQLite Databases
+*.db
+*.sqlite3
+
+# Document exports
+*.xlsx
+*.pdf
