@@ -30,9 +30,13 @@ init_db()
 
 @app.route('/')
 def index():
+    return render_template('index.html')
+
+@app.route('/login', methods=['GET'])
+def login_page():
     if 'user_id' in session:
         return redirect(url_for('dashboard'))
-    return render_template('index.html')
+    return render_template('login.html')
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -43,7 +47,7 @@ def signup():
     
     if password != confirm_password:
         flash('Passwords do not match!', 'error')
-        return redirect(url_for('index'))
+        return redirect(url_for('login_page'))
     
     hashed_password = generate_password_hash(password)
     
@@ -58,7 +62,7 @@ def signup():
     finally:
         conn.close()
         
-    return redirect(url_for('index'))
+    return redirect(url_for('login_page'))
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -75,27 +79,27 @@ def login():
         return redirect(url_for('dashboard'))
     else:
         flash('Invalid email or password. Please try again.', 'error')
-        return redirect(url_for('index'))
+        return redirect(url_for('login_page'))
 
 @app.route('/dashboard')
 def dashboard():
     if 'user_id' not in session:
         flash('Please log in to access the dashboard.', 'error')
-        return redirect(url_for('index'))
+        return redirect(url_for('login_page'))
     return render_template('dashboard.html', name=session['user_name'])
 
 @app.route('/export')
 def export_page():
     if 'user_id' not in session:
         flash('Please log in to access the export page.', 'error')
-        return redirect(url_for('index'))
+        return redirect(url_for('login_page'))
     return render_template('ExportPage.html', name=session['user_name'])
 
 @app.route('/logout')
 def logout():
     session.clear()
     flash('You have been logged out.', 'success')
-    return redirect(url_for('index'))
+    return redirect(url_for('login_page'))
 
 # --- API ENDPOINTS FOR EXPENSES ---
 
