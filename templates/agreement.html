@@ -9,3 +9,24 @@
     
     <!-- Link to the main style.css for consistent general styling -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="agreement-container">
+        
+        <!-- Navigation bar -->
+        <div class="navigation-row">
+            <a href="/listing" class="btn-back">← Back to Listings</a>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #64748B;" id="roomIndicator"></span>
+        </div>
+
+        <!-- The Paper Document -->
+        <div class="paper-sheet">
+            
+            <!-- Success Overlay Screen -->
+            <div class="success-overlay" id="successOverlay">
+                <div class="success-icon">✓</div>
+                <h3 class="success-title">Agreement Signed</h3>
+                <p class="success-text">Thank you! Your signature has been saved and the document is officially recorded.</p>
+                <p style="font-size: 0.85rem; color: #94A3B8; font-family: 'JetBrains Mono', monospace;">Redirecting back to Directory...</p>
+            </div>
