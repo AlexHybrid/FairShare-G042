@@ -99,6 +99,12 @@ def logout():
     flash('You have been logged out.', 'success')
     return redirect(url_for('index'))
 
+    # Route for the Room Listings page
+@app.route('/listing')
+def listing():
+    # This renders the listing.html template containing the rooms and user profiles
+    return render_template('listing.html')
+
 # Start the application
 if __name__ == '__main__':
     # debug=True allows the server to auto-reload when you change the code
