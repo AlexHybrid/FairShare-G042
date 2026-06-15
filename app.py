@@ -99,11 +99,17 @@ def logout():
     flash('You have been logged out.', 'success')
     return redirect(url_for('index'))
 
-    # Route for the Room Listings page
+# Route for the Room Listings page
 @app.route('/listing')
 def listing():
     # This renders the listing.html template containing the rooms and user profiles
     return render_template('listing.html')
+
+# Route for the Agreement signing page
+@app.route('/agreement')
+def agreement():
+    # This renders the agreement.html template where users sign the agreement document
+    return render_template('agreement.html')
 
 # Start the application
 if __name__ == '__main__':
