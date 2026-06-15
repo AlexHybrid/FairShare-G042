@@ -67,3 +67,31 @@
                 </div>
                 <p>By signing below, I certify that I have read, understood, and agreed to be bound by the statements and codes outlined in this document.</p>
             </div>
+
+            <!-- Signature Area -->
+            <div class="signature-section">
+                <form id="agreementForm" onsubmit="handleSignatureSubmit(event)">
+                    
+                    <div class="form-group" style="margin-bottom: 25px;">
+                        <label for="typedSignature" class="signature-label">Type Full Name to Sign</label>
+                        <input type="text" id="typedSignature" placeholder="Enter your full name exactly" required>
+                    </div>
+
+                    <div class="signature-label">Draw Signature Below</div>
+                    
+                    <!-- Canvas pad for drawing signature -->
+                    <div class="canvas-container">
+                        <canvas id="signatureCanvas"></canvas>
+                        <div class="canvas-controls">
+                            <span class="signature-date" id="dateDisplay">Date: --/--/----</span>
+                            <button type="button" class="btn-clear" onclick="clearCanvas()">Clear Drawing</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="margin-top: 15px;">Agree & Submit Signature</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
