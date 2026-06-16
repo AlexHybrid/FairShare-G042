@@ -49,3 +49,18 @@
         </div>
 
     </div>
+
+    <!-- ================= ADD ROOM MODAL ================= -->
+    <div class="modal-overlay" id="roomModal">
+        <div class="modal-card">
+            <h3 class="modal-title">Create New Room</h3>
+            <div class="form-group">
+                <label for="newRoomName">Room Name / Label</label>
+                <input type="text" id="newRoomName" placeholder="e.g. Room G, Seminar Room" required>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeRoomModal()">Cancel</button>
+                <button class="btn-submit" onclick="submitNewRoom()">Add Room</button>
+            </div>
+        </div>
+    </div>
