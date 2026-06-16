@@ -123,3 +123,25 @@
         ctx.strokeStyle = "#0052FF"; // Blue color for natural pen ink look
         ctx.lineWidth = 2.5;
         ctx.lineCap = "round";
+
+        // Resize Canvas to fit its container dynamically
+        function resizeCanvas() {
+            // Store drawing state to avoid erasing on resize (if any)
+            const tempCanvas = document.createElement("canvas");
+            tempCanvas.width = canvas.width;
+            tempCanvas.height = canvas.height;
+            const tempCtx = tempCanvas.getContext("2d");
+            tempCtx.drawImage(canvas, 0, 0);
+
+            // Set actual internal dimensions of canvas to match physical display size
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = 150;
+
+            // Re-apply stroke styling as it resets on dimension changes
+            ctx.strokeStyle = "#0052FF";
+            ctx.lineWidth = 2.5;
+            ctx.lineCap = "round";
+
+            // Draw back original lines
+            ctx.drawImage(tempCanvas, 0, 0, tempCanvas.width, tempCanvas.height, 0, 0, canvas.width, canvas.height);
+        }
