@@ -181,3 +181,40 @@ function submitNewRoom() {
     closeRoomModal();
     selectRoom(roomName); // auto-select the newly created room
 }
+
+// Handle Add Profile Submission
+function submitNewMember() {
+    const name = document.getElementById("newMemberName").value.trim();
+    const email = document.getElementById("newMemberEmail").value.trim();
+    const role = document.getElementById("newMemberRole").value.trim() || "Student";
+    const status = document.getElementById("newMemberStatus").value;
+
+    if (!name || !email) {
+        alert("Name and Email are required fields.");
+        return;
+    }
+
+    // Simple validation check
+    if (!email.includes("@")) {
+        alert("Please enter a valid email address.");
+        return;
+    }
+
+    // Push to active room
+    if (!directoryData[activeRoom]) {
+        directoryData[activeRoom] = [];
+    }
+
+    directoryData[activeRoom].push({ name, email, role, status });
+    saveDataToStorage();
+
+    closeMemberModal();
+    renderProfiles();
+}
+
+// Run on load
+document.addEventListener('DOMContentLoaded', () => {
+    initializeData();
+    renderRoomTabs();
+    renderProfiles();
+});
