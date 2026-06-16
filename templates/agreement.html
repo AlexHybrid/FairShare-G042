@@ -95,3 +95,31 @@
         </div>
 
     </div>
+
+    <script>
+        // Extract parameters from URL query string
+        const urlParams = new URLSearchParams(window.location.search);
+        const userName = urlParams.get('name') || "Guest Student";
+        const roomName = urlParams.get('room') || "General Room";
+        const roomIndex = urlParams.get('index'); // profile index in that room array
+
+        // Populate elements with parameter data
+        document.getElementById("studentName").textContent = userName;
+        document.getElementById("roomNameText").textContent = roomName;
+        document.getElementById("roomIndicator").textContent = roomName.toUpperCase();
+        document.getElementById("typedSignature").placeholder = `Type: ${userName}`;
+
+        // Populate Date
+        const today = new Date();
+        const formattedDate = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        document.getElementById("dateDisplay").textContent = `Date: ${formattedDate}`;
+
+        // Canvas signature logic
+        const canvas = document.getElementById("signatureCanvas");
+        const ctx = canvas.getContext("2d");
+        let isDrawing = false;
+
+        // Set signature stroke color and thickness
+        ctx.strokeStyle = "#0052FF"; // Blue color for natural pen ink look
+        ctx.lineWidth = 2.5;
+        ctx.lineCap = "round";
