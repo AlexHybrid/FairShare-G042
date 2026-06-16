@@ -133,3 +133,28 @@ function renderProfiles() {
     `;
     grid.appendChild(addCard);
 }
+
+// Modals Management
+function openRoomModal() {
+    document.getElementById("roomModal").classList.add("active");
+    document.getElementById("newRoomName").focus();
+}
+
+function closeRoomModal() {
+    document.getElementById("roomModal").classList.remove("active");
+    document.getElementById("newRoomName").value = "";
+}
+
+function openMemberModal() {
+    document.getElementById("modalTargetRoom").textContent = activeRoom;
+    document.getElementById("memberModal").classList.add("active");
+    document.getElementById("newMemberName").focus();
+}
+
+function closeMemberModal() {
+    document.getElementById("memberModal").classList.remove("active");
+    document.getElementById("newMemberName").value = "";
+    document.getElementById("newMemberEmail").value = "";
+    document.getElementById("newMemberRole").value = "";
+    document.getElementById("newMemberStatus").value = "Pending";
+}
