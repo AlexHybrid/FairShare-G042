@@ -19,7 +19,7 @@ def index():
     # If the user is already logged in, send them straight to the dashboard
     if 'user_id' in session:
         return redirect(url_for('dashboard'))
-    return render_template('index.html')
+    return render_template('interface.html')
 
 # Route to handle the signup form submission
 @app.route('/signup', methods=['POST'])
