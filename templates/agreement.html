@@ -145,3 +145,20 @@
             // Draw back original lines
             ctx.drawImage(tempCanvas, 0, 0, tempCanvas.width, tempCanvas.height, 0, 0, canvas.width, canvas.height);
         }
+
+        // Run once on load and when window sizes change
+        window.addEventListener("resize", resizeCanvas);
+        // Delay slightly on page load to ensure client width is resolved
+        setTimeout(resizeCanvas, 100);
+
+        // Drawing Helper Functions
+        function getMousePos(e) {
+            const rect = canvas.getBoundingClientRect();
+            // Handle touch events or mouse events
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
