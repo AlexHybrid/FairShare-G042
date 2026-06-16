@@ -158,3 +158,26 @@ function closeMemberModal() {
     document.getElementById("newMemberRole").value = "";
     document.getElementById("newMemberStatus").value = "Pending";
 }
+
+// Handle Add Room Submission
+function submitNewRoom() {
+    const roomNameInput = document.getElementById("newRoomName");
+    const roomName = roomNameInput.value.trim();
+
+    if (!roomName) {
+        alert("Please enter a room name.");
+        return;
+    }
+
+    if (directoryData[roomName]) {
+        alert("This room already exists!");
+        return;
+    }
+
+    // Create new room key and initialize empty array
+    directoryData[roomName] = [];
+    saveDataToStorage();
+    
+    closeRoomModal();
+    selectRoom(roomName); // auto-select the newly created room
+}
