@@ -191,3 +191,50 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
 
+        // Attach Mouse events
+        canvas.addEventListener("mousedown", startDrawing);
+        canvas.addEventListener("mousemove", draw);
+        window.addEventListener("mouseup", stopDrawing);
+
+        // Attach Mobile Touch events
+        canvas.addEventListener("touchstart", startDrawing);
+        canvas.addEventListener("touchmove", draw);
+        window.addEventListener("touchend", stopDrawing);
+
+        // Form Submit Action
+        function handleSignatureSubmit(event) {
+            event.preventDefault();
+
+            const typedName = document.getElementById("typedSignature").value.trim();
+
+            // Validate that they typed their name to confirm agreement
+            if (!typedName) {
+                alert("Please type your name in the text input box to agree.");
+                return;
+            }
+
+            // Sync signature status to localStorage
+            const savedData = localStorage.getItem("roomDirectoryData");
+            if (savedData && roomName && roomIndex !== null) {
+                const directoryData = JSON.parse(savedData);
+                
+                // Ensure room array exists and user index is in range
+                if (directoryData[roomName] && directoryData[roomName][roomIndex]) {
+                    // Update user's status to Signed
+                    directoryData[roomName][roomIndex].status = "Signed";
+                    // Save back to localStorage
+                    localStorage.setItem("roomDirectoryData", JSON.stringify(directoryData));
+                }
+            }
+
+            // Trigger success overlay screen
+            const overlay = document.getElementById("successOverlay");
+            overlay.classList.add("active");
+
+            // Redirect back to listing.html after a small pause
+            setTimeout(() => {
+                window.location.href = "/listing";
+            }, 1800);
+        }
+    </script>
+</body>
