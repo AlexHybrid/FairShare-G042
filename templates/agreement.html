@@ -162,3 +162,32 @@
                 y: clientY - rect.top
             };
         }
+
+        // Start drawing
+        function startDrawing(e) {
+            isDrawing = true;
+            const pos = getMousePos(e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+            e.preventDefault(); // prevent touch screen scrolling while signing
+        }
+
+        // Draw line
+        function draw(e) {
+            if (!isDrawing) return;
+            const pos = getMousePos(e);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+            e.preventDefault();
+        }
+
+        // Stop drawing
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        // Clear signature drawing
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
