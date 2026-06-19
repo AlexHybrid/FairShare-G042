@@ -1,0 +1,55 @@
+/* Override body layout from login.css to allow standard page flow */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #080d20;
+    color: #ffffff;
+    min-height: 100vh;
+    display: block;
+    padding: 2rem 1rem;
+    margin: 0;
+}
+
+.listing-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 0.8rem 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 50px;
+}
+
+.back-dashboard {
+    color: #4f6bff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.back-dashboard:hover {
+    color: #818cf8;
+}
+
+.header-section {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.header-section .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: 'Calistoga', serif;
+}
+
+.subtitle {
+    color: #94a3b8;
+    font-size: 1.1rem;
+}
