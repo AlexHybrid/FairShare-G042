@@ -68,27 +68,18 @@
                 <p>By signing below, I certify that I have read, understood, and agreed to be bound by the statements and codes outlined in this document.</p>
             </div>
 
-            <!-- Signature Area -->
-            <div class="signature-section">
-                <form id="agreementForm" onsubmit="handleSignatureSubmit(event)">
+            <!-- Agreement Confirmation Area -->
+            <div class="agreement-confirmation">
+                <form id="agreementForm" onsubmit="handleAgreementSubmit(event)">
                     
-                    <div class="form-group" style="margin-bottom: 25px;">
-                        <label for="typedSignature" class="signature-label">Type Full Name to Sign</label>
-                        <input type="text" id="typedSignature" placeholder="Enter your full name exactly" required>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="agreeCheckbox" required>
+                        <label for="agreeCheckbox">I, <strong id="studentNameLabel">Guest Student</strong>, have read and agree to all the terms and conditions outlined above.</label>
                     </div>
 
-                    <div class="signature-label">Draw Signature Below</div>
-                    
-                    <!-- Canvas pad for drawing signature -->
-                    <div class="canvas-container">
-                        <canvas id="signatureCanvas"></canvas>
-                        <div class="canvas-controls">
-                            <span class="signature-date" id="dateDisplay">Date: --/--/----</span>
-                            <button type="button" class="btn-clear" onclick="clearCanvas()">Clear Drawing</button>
-                        </div>
-                    </div>
+                    <div class="date-display" id="dateDisplay">Date: --/--/----</div>
 
-                    <button type="submit" class="btn-primary" style="margin-top: 15px;">Agree & Submit Signature</button>
+                    <button type="submit" class="btn-primary">Agree & Submit Signature</button>
                 </form>
             </div>
 
@@ -96,145 +87,3 @@
 
     </div>
 
-    <script>
-        // Extract parameters from URL query string
-        const urlParams = new URLSearchParams(window.location.search);
-        const userName = urlParams.get('name') || "Guest Student";
-        const roomName = urlParams.get('room') || "General Room";
-        const roomIndex = urlParams.get('index'); // profile index in that room array
-
-        // Populate elements with parameter data
-        document.getElementById("studentName").textContent = userName;
-        document.getElementById("roomNameText").textContent = roomName;
-        document.getElementById("roomIndicator").textContent = roomName.toUpperCase();
-        document.getElementById("typedSignature").placeholder = `Type: ${userName}`;
-
-        // Populate Date
-        const today = new Date();
-        const formattedDate = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-        document.getElementById("dateDisplay").textContent = `Date: ${formattedDate}`;
-
-        // Canvas signature logic
-        const canvas = document.getElementById("signatureCanvas");
-        const ctx = canvas.getContext("2d");
-        let isDrawing = false;
-
-        // Set signature stroke color and thickness
-        ctx.strokeStyle = "#0052FF"; // Blue color for natural pen ink look
-        ctx.lineWidth = 2.5;
-        ctx.lineCap = "round";
-
-        // Resize Canvas to fit its container dynamically
-        function resizeCanvas() {
-            // Store drawing state to avoid erasing on resize (if any)
-            const tempCanvas = document.createElement("canvas");
-            tempCanvas.width = canvas.width;
-            tempCanvas.height = canvas.height;
-            const tempCtx = tempCanvas.getContext("2d");
-            tempCtx.drawImage(canvas, 0, 0);
-
-            // Set actual internal dimensions of canvas to match physical display size
-            canvas.width = canvas.parentElement.clientWidth;
-            canvas.height = 150;
-
-            // Re-apply stroke styling as it resets on dimension changes
-            ctx.strokeStyle = "#0052FF";
-            ctx.lineWidth = 2.5;
-            ctx.lineCap = "round";
-
-            // Draw back original lines
-            ctx.drawImage(tempCanvas, 0, 0, tempCanvas.width, tempCanvas.height, 0, 0, canvas.width, canvas.height);
-        }
-
-        // Run once on load and when window sizes change
-        window.addEventListener("resize", resizeCanvas);
-        // Delay slightly on page load to ensure client width is resolved
-        setTimeout(resizeCanvas, 100);
-
-        // Drawing Helper Functions
-        function getMousePos(e) {
-            const rect = canvas.getBoundingClientRect();
-            // Handle touch events or mouse events
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            return {
-                x: clientX - rect.left,
-                y: clientY - rect.top
-            };
-        }
-
-        // Start drawing
-        function startDrawing(e) {
-            isDrawing = true;
-            const pos = getMousePos(e);
-            ctx.beginPath();
-            ctx.moveTo(pos.x, pos.y);
-            e.preventDefault(); // prevent touch screen scrolling while signing
-        }
-
-        // Draw line
-        function draw(e) {
-            if (!isDrawing) return;
-            const pos = getMousePos(e);
-            ctx.lineTo(pos.x, pos.y);
-            ctx.stroke();
-            e.preventDefault();
-        }
-
-        // Stop drawing
-        function stopDrawing() {
-            isDrawing = false;
-        }
-
-        // Clear signature drawing
-        function clearCanvas() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-
-        // Attach Mouse events
-        canvas.addEventListener("mousedown", startDrawing);
-        canvas.addEventListener("mousemove", draw);
-        window.addEventListener("mouseup", stopDrawing);
-
-        // Attach Mobile Touch events
-        canvas.addEventListener("touchstart", startDrawing);
-        canvas.addEventListener("touchmove", draw);
-        window.addEventListener("touchend", stopDrawing);
-
-        // Form Submit Action
-        function handleSignatureSubmit(event) {
-            event.preventDefault();
-
-            const typedName = document.getElementById("typedSignature").value.trim();
-
-            // Validate that they typed their name to confirm agreement
-            if (!typedName) {
-                alert("Please type your name in the text input box to agree.");
-                return;
-            }
-
-            // Sync signature status to localStorage
-            const savedData = localStorage.getItem("roomDirectoryData");
-            if (savedData && roomName && roomIndex !== null) {
-                const directoryData = JSON.parse(savedData);
-                
-                // Ensure room array exists and user index is in range
-                if (directoryData[roomName] && directoryData[roomName][roomIndex]) {
-                    // Update user's status to Signed
-                    directoryData[roomName][roomIndex].status = "Signed";
-                    // Save back to localStorage
-                    localStorage.setItem("roomDirectoryData", JSON.stringify(directoryData));
-                }
-            }
-
-            // Trigger success overlay screen
-            const overlay = document.getElementById("successOverlay");
-            overlay.classList.add("active");
-
-            // Redirect back to listing.html after a small pause
-            setTimeout(() => {
-                window.location.href = "/listing";
-            }, 1800);
-        }
-    </script>
-</body>
