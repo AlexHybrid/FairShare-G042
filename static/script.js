@@ -25,4 +25,33 @@ document.addEventListener('DOMContentLoaded', () => {
             loginSection.classList.add('active');
         });
     }
+
+    // Navbar Login button action: Switch to login form, scroll, and apply glow
+    const navLoginBtn = document.getElementById('nav-login-btn');
+    if (navLoginBtn) {
+        navLoginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Switch view to login form if it is hidden
+            if (signupSection && loginSection) {
+                signupSection.classList.remove('active');
+                loginSection.classList.add('active');
+            }
+
+            // Scroll to the auth container
+            const authContainer = document.getElementById('auth-container');
+            if (authContainer) {
+                authContainer.scrollIntoView({ behavior: 'smooth' });
+                
+                // Add glow animation to the card
+                const card = authContainer.querySelector('.card');
+                if (card) {
+                    card.classList.add('glow');
+                    setTimeout(() => {
+                        card.classList.remove('glow');
+                    }, 2000);
+                }
+            }
+        });
+    }
 });
