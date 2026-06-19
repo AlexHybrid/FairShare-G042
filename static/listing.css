@@ -53,3 +53,80 @@ body {
     color: #94a3b8;
     font-size: 1.1rem;
 }
+
+/* Room Navigation Tabs */
+.room-tabs {
+    display: flex;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+}
+
+.tab-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: #94a3b8;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    font-family: inherit;
+}
+
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.tab-btn.active {
+    background: #4f6bff;
+    color: #fff;
+    border-color: #4f6bff;
+    box-shadow: 0 4px 15px rgba(79, 107, 255, 0.4);
+}
+
+/* Active Room Content Area */
+.room-content {
+    background: #111833;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.room-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 1.5rem;
+}
+
+.room-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-family: 'Calistoga', serif;
+}
+
+.add-room-btn {
+    background: transparent;
+    color: #4f6bff;
+    border: 2px solid #4f6bff;
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.add-room-btn:hover {
+    background: #4f6bff;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(79, 107, 255, 0.3);
+}
