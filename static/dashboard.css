@@ -1,0 +1,87 @@
+/* ==================================
+1. GLOBAL VARIABLES & THEME SETTINGS
+   ================================== */
+:root {
+  --bg-dark: #080d20;
+  --panel-bg: #111833;
+  --accent-blue: #4f6bff;
+  --text-main: #ffffff;
+  --text-muted: #94a3b8;
+  
+  --chart-blue: #4f6bff;
+  --chart-yellow: #fca5a5;
+  --chart-purple: #c084fc;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+/* ===============
+   2. MAIN LAYOUT
+   =============== */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  overflow-y: auto;
+}
+
+.right-sidebar {
+  width: 280px;
+  background-color: var(--accent-blue);
+  padding: 2rem;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  box-shadow: -5px 0 25px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+/* =======================
+   3. HEADER & NAVIGATION
+   ======================= */
+.title-banner {
+  background-color: var(--accent-blue);
+  padding: 1.2rem;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.pill-nav {
+  background-color: white;
+  border-radius: 50px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem 2rem;
+  color: #333;
+  font-weight: 500;
+  align-items: center;
+}
+
+.pill-nav a {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s;
+}
+.pill-nav a:hover, .pill-nav a.active { color: var(--accent-blue); }
+
+.logout-btn {
+  color: #991b1b !important;
+  font-weight: bold;
+}
+.logout-btn:hover {
+  color: #dc2626 !important;
+  text-decoration: underline;
+}
