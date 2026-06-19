@@ -22,3 +22,31 @@
       </ul>
     </nav>
   </header>
+
+  <main class="container main-layout">
+    <div class="hero-section">
+      <h1>House Rental<br>& Bill Splitter</h1>
+      <p class="slogan">Cheap. Fast. Easy.</p>
+      <div class="divider"></div>
+    </div>
+
+    <div class="login-section-container" id="auth-container">
+      <div class="card">
+        <!-- Motivational Quote Header -->
+        <div class="quote-container">
+            <div class="quote-badge">
+                <span class="quote-dot"></span>
+                <span class="quote-text">With thoughtful mindset, create independent life</span>
+            </div>
+        </div>
+
+        <!-- Display Error/Success Messages sent from Flask -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flash-messages">
+            {% for category, message in messages %}
+              <li class="flash-message {{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
