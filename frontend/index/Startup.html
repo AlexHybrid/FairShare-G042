@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FairShare — House Rental & Bill Splitter (Perfect UI)</title>
   <style>
-
     /* =================================
        GLOBAL VARIABLES & THEME SETTINGS
        ================================= */
-        :root {
+    :root {
       --accent: #3b82f6;
       --bg-gradient: linear-gradient(135deg, #000428 0%, #004e92 100%);
       --navbar-bg: rgba(255, 255, 255, 0.95);
@@ -18,10 +18,10 @@
       --max-width-content: 1000px;
     }
 
-    * { 
-      box-sizing: border-box; 
-      margin: 0; 
-      padding: 0; 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     /* =====================
@@ -54,7 +54,7 @@
 
     .navbar {
       background: var(--navbar-bg);
-      width: 90%; 
+      width: 90%;
       max-width: 1400px;
       margin: 0 auto;
       padding: 0.75rem 1rem;
@@ -62,7 +62,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
     .navbar ul {
@@ -73,7 +73,7 @@
       justify-content: center;
     }
 
-     .navbar a {
+    .navbar a {
       text-decoration: none;
       color: var(--text-nav);
       font-weight: 500;
@@ -82,8 +82,8 @@
       padding: 0.25rem 0.5rem;
     }
 
-    .navbar a:hover { 
-      color: var(--accent); 
+    .navbar a:hover {
+      color: var(--accent);
     }
 
     .navbar a.active {
@@ -103,8 +103,8 @@
       text-align: center;
       padding-bottom: 3rem;
       position: relative;
-      
-      background-image: 
+
+      background-image:
         linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
       background-size: 40px 40px;
@@ -117,7 +117,7 @@
       line-height: 1.1;
       letter-spacing: -2px;
       margin-bottom: 1.5rem;
-      text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     }
 
     .hero p.slogan {
@@ -139,12 +139,21 @@
        5. RESPONSIVE DESIGN (MOBILE VIEW)
        ================================== */
     @media (max-width: 768px) {
-      .hero h1 { font-size: 3rem; }
-      .navbar ul { gap: 1rem; }
-      .navbar a { font-size: 0.85rem; }
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .navbar ul {
+        gap: 1rem;
+      }
+
+      .navbar a {
+        font-size: 0.85rem;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <header>
@@ -154,7 +163,7 @@
         <li><a href="index.html">Login</a></li>
         <li><a href="#">Settings</a></li>
         <li><a href="#">Help</a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="../AboutPage.html">About</a></li>
         <li><a href="#">Contact</a></li>
         <li><a href="#">FAQ</a></li>
       </ul>
@@ -168,4 +177,5 @@
   </main>
 
 </body>
+
 </html>

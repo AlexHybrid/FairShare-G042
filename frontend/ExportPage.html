@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +17,7 @@
       flex-direction: column;
       gap: 2rem;
     }
-    
+
     .export-actions-row {
       display: flex;
       justify-content: space-between;
@@ -70,21 +71,23 @@
       cursor: pointer;
     }
 
-    .btn-excel { 
-      background-color: #107c41; 
+    .btn-excel {
+      background-color: #107c41;
       box-shadow: 0 4px 10px rgba(16, 124, 65, 0.3);
     }
-    .btn-excel:hover { 
-      background-color: #0c5e31; 
+
+    .btn-excel:hover {
+      background-color: #0c5e31;
       transform: scale(1.03);
     }
-    
-    .btn-pdf { 
-      background-color: #b30b00; 
+
+    .btn-pdf {
+      background-color: #b30b00;
       box-shadow: 0 4px 10px rgba(179, 11, 0, 0.3);
     }
-    .btn-pdf:hover { 
-      background-color: #8a0900; 
+
+    .btn-pdf:hover {
+      background-color: #8a0900;
       transform: scale(1.03);
     }
 
@@ -133,7 +136,7 @@
       background-color: #e2e8f0;
       font-weight: bold;
     }
-    
+
     .tag {
       padding: 0.25rem 0.6rem;
       border-radius: 15px;
@@ -143,6 +146,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="main-content">
@@ -155,13 +159,13 @@
       <a href="index.html">Login</a>
       <a href="#">settings</a>
       <a href="#">Help</a>
-      <a href="#">About</a>
+      <a href="AboutPage.html">About</a>
       <a href="#">Contact</a>
       <a href="#">FAQ?</a>
     </nav>
 
     <div class="export-layout">
-      
+
       <div class="export-actions-row">
         <div class="export-card-text">
           <h2>Select the Export Format</h2>
@@ -193,7 +197,9 @@
             </tr>
           </thead>
           <tbody id="report-table-body">
-            <tr><td colspan="8" style="text-align: center; color: #64748b;">Loading report preview...</td></tr>
+            <tr>
+              <td colspan="8" style="text-align: center; color: #64748b;">Loading report preview...</td>
+            </tr>
           </tbody>
           <tfoot>
             <tr>
@@ -209,7 +215,7 @@
 
   <div class="right-sidebar">
     <h2>Dashboard</h2>
-    
+
     <a href="Dashboard.html" class="sidebar-category">House Rental Management</a>
     <a href="Dashboard.html" class="sidebar-item">Listing</a>
     <a href="Dashboard.html" class="sidebar-item">Agreement</a>
@@ -225,4 +231,5 @@
 
   <script src="export.js"></script>
 </body>
+
 </html>

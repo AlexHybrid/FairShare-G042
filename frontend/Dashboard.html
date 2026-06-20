@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
   <!-- Chart.js for data visualization -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
   <div class="main-content">
@@ -20,13 +22,13 @@
       <a href="Dashboard.html" class="active">Dashboard</a>
       <a href="#">settings</a>
       <a href="#">Help</a>
-      <a href="#">About</a>
+      <a href="AboutPage.html">About</a>
       <a href="#">Contact</a>
       <a href="#">FAQ?</a>
     </nav>
 
     <div class="dashboard-container">
-      
+
       <div class="chart-section">
         <!-- Dynamic Chart.js container replacing static donut-chart -->
         <div class="donut-chart-container" style="width: 320px; height: 320px; margin: 1.5rem 0; position: relative;">
@@ -34,7 +36,9 @@
         </div>
         <div style="display: flex; gap: 1rem; margin-top: 1rem; width: 100%; justify-content: center;">
           <button class="valid-split-btn" style="margin-top: 0;">Valid Split</button>
-          <button id="add-btn-dashboard" class="primary-btn" style="border-radius: 30px; padding: 0.8rem 2rem; font-size: 1.2rem; font-weight: bold; margin-top: 0;">Add Expense</button>
+          <button id="add-btn-dashboard" class="primary-btn"
+            style="border-radius: 30px; padding: 0.8rem 2rem; font-size: 1.2rem; font-weight: bold; margin-top: 0;">Add
+            Expense</button>
         </div>
       </div>
 
@@ -49,7 +53,9 @@
         </thead>
         <tbody id="dues-table-body">
           <!-- Dynamically populated via app.js -->
-          <tr><td colspan="4" style="text-align: center;">Loading...</td></tr>
+          <tr>
+            <td colspan="4" style="text-align: center;">Loading...</td>
+          </tr>
         </tbody>
         <tfoot>
           <tr>
@@ -63,7 +69,7 @@
 
   <div class="right-sidebar">
     <h2>MENU</h2>
-    
+
     <a href="#" class="sidebar-category">House Rental Management</a>
     <a href="#" class="sidebar-item">Listing</a>
     <a href="#" class="sidebar-item">Agreement</a>
@@ -181,4 +187,5 @@
 
   <script src="app.js"></script>
 </body>
+
 </html>
