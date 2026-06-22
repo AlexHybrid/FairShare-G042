@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FairShare — Help Center</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Custom styling for Help Page Tutorial */
+    .help-wrapper {
+      background-color: var(--panel-bg);
+      border-radius: 20px;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .help-header {
+      text-align: left;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 1rem;
+    }
+
+    .help-header h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--accent-blue);
+      margin-bottom: 0.5rem;
+    }
+
+    .help-header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .tutorial-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .step-card {
+      display: flex;
+      gap: 1.5rem;
+      background-color: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .step-card:hover {
+      background-color: rgba(255, 255, 255, 0.04);
+      border-color: rgba(79, 107, 255, 0.3);
+      transform: translateX(5px);
+    }
+
+    .step-number {
+      flex-shrink: 0;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: rgba(79, 107, 255, 0.1);
+      color: var(--accent-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      border: 2px solid var(--accent-blue);
+    }
+
+    .step-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .step-content h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin: 0;
+    }
+
+    .step-content p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .step-highlight {
+      color: var(--accent-blue);
+      font-weight: 500;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="main-content">
+    <div class="title-banner">
+      House Rental & Bill splitter
+    </div>
+
+    <nav class="pill-nav">
+      <a href="Dashboard.html">Dashboard</a>
+      <a href="#">settings</a>
+      <a href="HelpPage.html" class="active">Help</a>
+      <a href="AboutPage.html">About</a>
+      <a href="ContactPage.html">Contact</a>
+      <a href="FAQPage.html">FAQ?</a>
+    </nav>
+
+    <div class="help-wrapper">
+      <div class="help-header">
+        <h2>How to start using FairShare</h2>
+        <p>Follow these simple steps to manage your house rental and split bills effortlessly.</p>
+      </div>
+
+      <div class="tutorial-steps">
+        <!-- Step 1 -->
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Add Your First Expense</h3>
+            <p>Navigate to the <span class="step-highlight">Dashboard</span> and click the <strong>Add Expense</strong> button. Fill in the details of the bill such as the date, amount, category (e.g. Utilities, Rent), and which room or housemate it belongs to. You can even upload a receipt for proof!</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Track Split Bills Automatically</h3>
+            <p>Once you add expenses, FairShare does the math for you. The donut chart on the Dashboard will update to show you the visual breakdown, and the dues table will list exactly who owes what, keeping everything transparent.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Settle Up & Update Status</h3>
+            <p>When a housemate pays their share, you can mark the expense status as <strong>Paid</strong> in the system. Keeping track of pending and paid statuses helps avoid any confusion at the end of the month.</p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Export Monthly Reports</h3>
+            <p>At the end of the month, go to the <span class="step-highlight">Export Data</span> section from the side menu. You can easily download a comprehensive summary in PDF or Excel format to share with your landlord or keep for your personal records.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-sidebar">
+    <h2>MENU</h2>
+
+    <a href="#" class="sidebar-category">House Rental Management</a>
+    <a href="#" class="sidebar-item">Listing</a>
+    <a href="#" class="sidebar-item">Agreement</a>
+    <a href="#" class="sidebar-item">Payment</a>
+
+    <a href="#" class="sidebar-category">Bill Splitting</a>
+    <a href="Dashboard.html" class="sidebar-item">Split Bills</a>
+    <a href="#" class="sidebar-item">Add Expenses</a>
+
+    <a href="#" class="sidebar-category">Landlord Section</a>
+    <a href="ExportPage.html" class="sidebar-category">Export Data</a>
+  </div>
+
+</body>
+
+</html>

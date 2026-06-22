@@ -124,7 +124,8 @@
       <div class="faq-section">
         <h2>Frequently Asked Questions</h2>
         <p class="faq-text">
-          Got questions? We have compiled answers to the most common queries about FairShare. Click on any question to view the answer.
+          Got questions? We have compiled answers to the most common queries about FairShare. Click on any question to
+          view the answer.
         </p>
 
         <div class="accordion-container">
@@ -136,7 +137,9 @@
             </div>
             <div class="faq-answer">
               <div class="faq-answer-inner">
-                FairShare is a smart, easy-to-use house rental management and bill splitting application. It helps roommates log shared house expenses, split them automatically, visualize the split via charts, and export data.
+                FairShare is a smart, easy-to-use house rental management and bill splitting application. It helps
+                roommates log shared house expenses, split them automatically, visualize the split via charts, and
+                export data.
               </div>
             </div>
           </div>
@@ -149,7 +152,8 @@
             </div>
             <div class="faq-answer">
               <div class="faq-answer-inner">
-                The system aggregates all added expenses and groups them by room or housemate. The total expense is visualized in the dashboard donut chart. Roommates can track exactly who owes what in the dues table.
+                The system aggregates all added expenses and groups them by room or housemate. The total expense is
+                visualized in the dashboard donut chart. Roommates can track exactly who owes what in the dues table.
               </div>
             </div>
           </div>
@@ -162,7 +166,9 @@
             </div>
             <div class="faq-answer">
               <div class="faq-answer-inner">
-                You can add an expense by clicking the "Add Expense" button on the dashboard or "Add Expenses" in the sidebar. This opens a form where you enter the date, select the room/housemate, enter the expense type, amount, category, status, and upload a receipt.
+                You can add an expense by clicking the "Add Expense" button on the dashboard or "Add Expenses" in the
+                sidebar. This opens a form where you enter the date, select the room/housemate, enter the expense type,
+                amount, category, status, and upload a receipt.
               </div>
             </div>
           </div>
@@ -175,7 +181,8 @@
             </div>
             <div class="faq-answer">
               <div class="faq-answer-inner">
-                Yes, when adding or saving an expense, there is an optional "Receipt Upload" field where you can upload receipt images or PDFs (e.g. JPG, PNG, PDF) to keep a clear record of payment.
+                Yes, when adding or saving an expense, there is an optional "Receipt Upload" field where you can upload
+                receipt images or PDFs (e.g. JPG, PNG, PDF) to keep a clear record of payment.
               </div>
             </div>
           </div>
@@ -188,7 +195,8 @@
             </div>
             <div class="faq-answer">
               <div class="faq-answer-inner">
-                Go to the "Export Data" section from the sidebar or click "Export Data" under the Landlord section. You can choose to download the live report as either an Excel file (.xlsx) or a PDF report (.pdf).
+                Go to the "Export Data" section from the sidebar or click "Export Data" under the Landlord section. You
+                can choose to download the live report as either an Excel file (.xlsx) or a PDF report (.pdf).
               </div>
             </div>
           </div>
@@ -201,7 +209,8 @@
             </div>
             <div class="faq-answer">
               <div class="faq-answer-inner">
-                You can visit our Contact page, fill out the message form with your inquiry, or directly email us at syuaib0724@gmail.com.
+                You can visit our Contact page, fill out the message form with your inquiry, or directly email us at
+                syuaib0724@gmail.com.
               </div>
             </div>
           </div>
@@ -231,7 +240,7 @@
       header.addEventListener('click', () => {
         const item = header.parentElement;
         const answer = item.querySelector('.faq-answer');
-        
+
         if (item.classList.contains('active')) {
           item.classList.remove('active');
           answer.style.maxHeight = '0';
@@ -243,7 +252,7 @@
               otherItem.querySelector('.faq-answer').style.maxHeight = '0';
             }
           });
-          
+
           item.classList.add('active');
           answer.style.maxHeight = answer.scrollHeight + 'px';
         }
