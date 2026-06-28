@@ -41,7 +41,7 @@ def login_page():
 @app.route('/signup', methods=['POST'])
 def signup():
     name = request.form['name']
-    email = request.form['email']
+    email = request.form['email'].strip().lower()
     password = request.form['password']
     confirm_password = request.form['confirm_password']
     
@@ -66,7 +66,7 @@ def signup():
 
 @app.route('/login', methods=['POST'])
 def login():
-    email = request.form['email']
+    email = request.form['email'].strip().lower()
     password = request.form['password']
     
     conn = get_db_connection()
