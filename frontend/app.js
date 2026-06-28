@@ -54,24 +54,35 @@ function renderTable(expenses) {
   let total = 0;
 
   if (expenses.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: #94a3b8;">No expenses found.</td></tr>`;
-    totalAmountEl.textContent = 'TOTAL: RM0.00';
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #94a3b8;">No expenses found.</td></tr>`;
+    totalAmountEl.textContent = 'PENDING TOTAL: RM0.00';
     return;
   }
 
   expenses.forEach(exp => {
-    total += exp.amount;
+    if (exp.status !== 'Paid') {
+      total += exp.amount;
+    }
     const tr = document.createElement('tr');
+    
+    let statusHTML = '';
+    if (exp.status === 'Paid') {
+      statusHTML = `<span class="tag tag-green">Paid</span>`;
+    } else {
+      statusHTML = `<span class="tag tag-yellow">Pending</span>`;
+    }
+    
     tr.innerHTML = `
       <td>${exp.date}</td>
       <td>${getRoomTagHTML(exp.room)}</td>
       <td>${exp.type}</td>
       <td>RM${exp.amount.toFixed(2)}</td>
+      <td>${statusHTML}</td>
     `;
     tbody.appendChild(tr);
   });
 
-  totalAmountEl.textContent = `TOTAL: RM${total.toFixed(2)}`;
+  totalAmountEl.textContent = `PENDING TOTAL: RM${total.toFixed(2)}`;
 }
 
 // Render Chart using Chart.js
@@ -176,11 +187,13 @@ if (validSplitBtn) {
     };
     
     allExpensesData.forEach(exp => {
-      total += exp.amount;
-      if (roomTotals[exp.room] !== undefined) {
-        roomTotals[exp.room] += exp.amount;
-      } else {
-        roomTotals[exp.room] = exp.amount;
+      if (exp.status !== 'Paid') {
+        total += exp.amount;
+        if (roomTotals[exp.room] !== undefined) {
+          roomTotals[exp.room] += exp.amount;
+        } else {
+          roomTotals[exp.room] = exp.amount;
+        }
       }
     });
     

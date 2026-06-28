@@ -84,6 +84,32 @@ def add_expense():
 
     return jsonify({'status': 'success'}), 201
 
+@app.route('/api/expenses/<int:id>/status', methods=['PUT'])
+def update_expense_status(id):
+    data = request.json
+    status = data.get('status')
+    payment_method = data.get('payment_method')
+    
+    if not status:
+        return jsonify({'error': 'Missing status field'}), 400
+        
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    if payment_method:
+        cursor.execute('UPDATE expenses SET status = ?, payment_method = ? WHERE id = ?', (status, payment_method, id))
+    else:
+        cursor.execute('UPDATE expenses SET status = ? WHERE id = ?', (status, id))
+        
+    conn.commit()
+    
+    if cursor.rowcount == 0:
+        conn.close()
+        return jsonify({'error': 'Expense not found'}), 404
+        
+    conn.close()
+    return jsonify({'status': 'success'}), 200
+
 @app.route('/api/expenses/upload', methods=['POST'])
 def upload_receipt():
     if 'receipt' not in request.files:
