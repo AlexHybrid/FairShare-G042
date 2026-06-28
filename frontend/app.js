@@ -31,12 +31,15 @@ document.addEventListener('DOMContentLoaded', () => {
   fetchExpenses();
 });
 
+let allExpensesData = [];
+
 // Fetch data from Python backend
 async function fetchExpenses() {
   try {
     const res = await fetch(`${API_BASE}/expenses`);
     if (!res.ok) throw new Error('Failed to fetch data');
     const data = await res.json();
+    allExpensesData = data;
     renderTable(data);
     renderChart(data);
   } catch (err) {
@@ -153,9 +156,84 @@ if (closeBtn) {
   };
 }
 
+// Split Modal Logic
+const validSplitBtn = document.querySelector('.valid-split-btn');
+const splitModal = document.getElementById('split-modal');
+const closeSplitModal = document.getElementById('close-split-modal');
+const confirmSplitBtn = document.getElementById('confirm-split-btn');
+const splitResultsContainer = document.getElementById('split-results-container');
+
+if (validSplitBtn) {
+  validSplitBtn.onclick = () => {
+    if (allExpensesData.length === 0) {
+      alert("No expenses available to split!");
+      return;
+    }
+    
+    let total = 0;
+    const roomTotals = {
+      'Room A': 0, 'Room B': 0, 'Room C': 0, 'Room D': 0, 'Room E': 0
+    };
+    
+    allExpensesData.forEach(exp => {
+      total += exp.amount;
+      if (roomTotals[exp.room] !== undefined) {
+        roomTotals[exp.room] += exp.amount;
+      } else {
+        roomTotals[exp.room] = exp.amount;
+      }
+    });
+    
+    const numRooms = Object.keys(roomTotals).length;
+    const perRoomShare = total / numRooms;
+    
+    let html = `<div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; text-align: center; border: 1px solid rgba(255,255,255,0.1);">
+      <h3 style="margin: 0; color: #fff; font-size: 1.8rem; font-weight: 700;">Total: RM${total.toFixed(2)}</h3>
+      <p style="margin: 0.5rem 0 0 0; color: #60a5fa; font-weight: 500; font-size: 1.1rem;">Equal Share: RM${perRoomShare.toFixed(2)} per room</p>
+    </div>`;
+    
+    Object.keys(roomTotals).forEach(room => {
+      const paid = roomTotals[room];
+      const balance = perRoomShare - paid;
+      
+      let balanceHtml = '';
+      if (balance > 0.01) {
+        balanceHtml = `<span style="color: #fca5a5; font-weight: 600; font-size: 1rem;">Owes RM${balance.toFixed(2)}</span>`;
+      } else if (balance < -0.01) {
+        balanceHtml = `<span style="color: #4ade80; font-weight: 600; font-size: 1rem;">Receives RM${Math.abs(balance).toFixed(2)}</span>`;
+      } else {
+        balanceHtml = `<span style="color: #94a3b8; font-weight: 600; font-size: 1rem;">Settled</span>`;
+      }
+      
+      html += `
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 1rem 0;">
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            ${getRoomTagHTML(room)}
+            <span style="color: #94a3b8; font-size: 0.9rem;">(Paid: RM${paid.toFixed(2)})</span>
+          </div>
+          <div>${balanceHtml}</div>
+        </div>
+      `;
+    });
+    
+    splitResultsContainer.innerHTML = html;
+    splitModal.style.display = 'flex';
+  };
+}
+
+if (closeSplitModal) {
+  closeSplitModal.onclick = () => splitModal.style.display = 'none';
+}
+if (confirmSplitBtn) {
+  confirmSplitBtn.onclick = () => splitModal.style.display = 'none';
+}
+
 window.onclick = (event) => {
   if (event.target === modal) {
     modal.style.display = 'none';
+  }
+  if (event.target === splitModal) {
+    splitModal.style.display = 'none';
   }
 };
 
