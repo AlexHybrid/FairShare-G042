@@ -203,17 +203,28 @@
 
             // Sync/update signature status in local storage database
             const savedData = localStorage.getItem("roomDirectoryData");
-            if (savedData && roomName && roomIndex !== null) {
-                const directoryData = JSON.parse(savedData);
-                
-                // Make sure room array and user index are valid
-                if (directoryData[roomName] && directoryData[roomName][roomIndex]) {
-                    // Update user's status to Signed
-                    directoryData[roomName][roomIndex].status = "Signed";
-                    // Store the signature image
-                    directoryData[roomName][roomIndex].signature = signatureData;
-                    // Save database back to localStorage
-                    localStorage.setItem("roomDirectoryData", JSON.stringify(directoryData));
+            if (!savedData) {
+                alert("Warning: Could not save because no directory data was found in localStorage. If you are opening this file directly via file://, your browser might not share data between files.");
+            } else if (!roomName || roomIndex === null) {
+                alert("Warning: Missing room or user index in the URL.");
+            } else {
+                try {
+                    const directoryData = JSON.parse(savedData);
+                    const rIndex = parseInt(roomIndex, 10); // Ensure it's an integer
+                    
+                    // Make sure room array and user index are valid
+                    if (directoryData[roomName] && directoryData[roomName][rIndex]) {
+                        // Update user's status to Signed
+                        directoryData[roomName][rIndex].status = "Signed";
+                        // Store the signature image
+                        directoryData[roomName][rIndex].signature = signatureData;
+                        // Save database back to localStorage
+                        localStorage.setItem("roomDirectoryData", JSON.stringify(directoryData));
+                    } else {
+                        alert("Warning: Could not find this user in the database.");
+                    }
+                } catch (e) {
+                    alert("Error saving to database: " + e.message);
                 }
             }
 
