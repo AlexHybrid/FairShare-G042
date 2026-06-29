@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Agreement Form</title>
+    <!-- Use Google Fonts (matching the design) -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Calistoga&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap">
+    
+    <!-- Link to external stylesheet containing all styles for this agreement signing page -->
+    <link rel="stylesheet" href="agreement.css">
+</head>
+<body>
+
+    <div class="agreement-container">
+        
+        <!-- Navigation bar -->
+        <div class="navigation-row">
+            <a href="listing.html" class="btn-back">← Back to Listings</a>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #64748B;" id="roomIndicator"></span>
+        </div>
+
+        <!-- The Paper Document -->
+        <div class="paper-sheet">
+            
+            <!-- Success Overlay Screen -->
+            <div class="success-overlay" id="successOverlay">
+                <div class="success-icon">✓</div>
+                <h3 class="success-title">Agreement Signed</h3>
+                <p class="success-text">Thank you! Your signature has been saved and the document is officially recorded.</p>
+                <p style="font-size: 0.85rem; color: #94A3B8; font-family: 'JetBrains Mono', monospace;">Redirecting back to Directory...</p>
+            </div>
+
+                        <!-- Contract Header -->
+            <div class="doc-header">
+                <h1 class="doc-title">Statement of Agreement</h1>
+                <span class="doc-subtitle">Foundation Academy Code of Conduct</span>
+            </div>
+
+            <!-- Contract Statement Content -->
+            <div class="doc-body">
+                <p>This document constitutes a binding statement of intent, academic responsibility, and code of conduct within the academic program.</p>
+                
+                <div class="highlight-box">
+                    This Agreement is entered into by: <strong id="studentName">Guest Student</strong>
+                    <br>
+                    Location: <strong id="roomNameText">General Room</strong>
+                </div>
+
+                <div class="clause-title">
+                    <span class="clause-num">01.</span> Academic Integrity Statement
+                </div>
+                <p>I commit to doing my own work in all learning objectives. I will not engage in plagiarism, cheating, or any form of academic dishonesty. Any research or assistance from AI modules or secondary sources must be correctly cited and attributed.</p>
+
+                <div class="clause-title">
+                    <span class="clause-num">02.</span> Classroom & Room Policy
+                </div>
+                <p>I agree to abide by the physical and virtual space guidelines established for my designated area. I will maintain a productive workspace environment, clean up my workstation, and respect the computer hardware and software systems provided.</p>
+
+                <div class="clause-title">
+                    <span class="clause-num">03.</span> Communication Guidelines
+                </div>
+                <p>I will communicate respectfully with peers, instructors, and academy staff. I will cultivate a friendly, inclusive, and professional learning space, fostering cooperation and community collaboration.</p>
+
+                <div class="clause-title">
+                    <span class="clause-num">04.</span> Acknowledgment of Terms
+                </div>
+                <p>By signing below, I certify that I have read, understood, and agreed to be bound by the statements and codes outlined in this document.</p>
+            </div>
+
+            <!-- Agreement Confirmation Area -->
+            <div class="agreement-confirmation">
+                <form id="agreementForm" onsubmit="handleAgreementSubmit(event)">
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="agreeCheckbox" required>
+                        <label for="agreeCheckbox">I, <strong id="studentNameLabel">Guest Student</strong>, have read and agree to all the terms and conditions outlined above.</label>
+                    </div>
+
+                    <div class="date-display" id="dateDisplay">Date: --/--/----</div>
+
+                    <button type="submit" class="btn-primary">Agree & Submit Signature</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // === STUDENT CODE START ===
+
+        // 1. Get room and student info from the URL (Web API)
+        const urlParams = new URLSearchParams(window.location.search);
+        const userName = urlParams.get('name') || "Guest Student";
+        const roomName = urlParams.get('room') || "General Room";
+        const roomIndex = urlParams.get('index'); // Profile number in the room
+
+        // 2. Put the student and room details into the page elements
+        document.getElementById("studentName").textContent = userName;
+        document.getElementById("studentNameLabel").textContent = userName;
+        document.getElementById("roomNameText").textContent = roomName;
+        document.getElementById("roomIndicator").textContent = roomName.toUpperCase();
+
+        // 3. Set the current date
+        const today = new Date();
+        const formattedDate = today.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+        document.getElementById("dateDisplay").textContent = `Date: ${formattedDate}`;
+
+        // 4. Handle the form submit action when they agree
+        function handleAgreementSubmit(event) {
+            // Prevent page reload
+            event.preventDefault();
+
+            // Get the checkbox element
+            const agreeCheckbox = document.getElementById("agreeCheckbox");
+
+            // Make sure the checkbox is ticked
+            if (!agreeCheckbox.checked) {
+                alert("Please check the box to agree to the terms.");
+                return;
+            }
+
+            // Sync/update signature status in local storage database
+            const savedData = localStorage.getItem("roomDirectoryData");
+            if (savedData && roomName && roomIndex !== null) {
+                const directoryData = JSON.parse(savedData);
+                
+                // Make sure room array and user index are valid
+                if (directoryData[roomName] && directoryData[roomName][roomIndex]) {
+                    // Update user's status to Signed
+                    directoryData[roomName][roomIndex].status = "Signed";
+                    // Save database back to localStorage
+                    localStorage.setItem("roomDirectoryData", JSON.stringify(directoryData));
+                }
+            }
+
+            // Show success overlay screen
+            const overlay = document.getElementById("successOverlay");
+            overlay.classList.add("active");
+
+            // Redirect back to listings page after 1.5 seconds
+            setTimeout(function() {
+                window.location.href = "listing.html";
+            }, 1500);
+        }
+
+        // === STUDENT CODE END ===
+    </script>
+</body>
+
