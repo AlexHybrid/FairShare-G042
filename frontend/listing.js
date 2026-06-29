@@ -71,6 +71,13 @@ function renderRoomTabs() {
         btn.onclick = () => selectRoom(roomName);
         tabsContainer.appendChild(btn);
     });
+
+    // Add the "+ Add Room" tab button at the end
+    const addRoomBtn = document.createElement("button");
+    addRoomBtn.className = "tab-btn add-room-tab";
+    addRoomBtn.innerHTML = "+ Add Room";
+    addRoomBtn.onclick = () => openRoomModal();
+    tabsContainer.appendChild(addRoomBtn);
 }
 
 // Switch active room

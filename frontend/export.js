@@ -48,7 +48,9 @@ function renderReportTable(expenses) {
   }
 
   expenses.forEach(exp => {
-    total += exp.amount;
+    if (exp.status.toLowerCase() !== 'paid') {
+        total += exp.amount;
+    }
     const tr = document.createElement('tr');
     
     // Status tag styling

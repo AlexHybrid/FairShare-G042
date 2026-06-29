@@ -89,6 +89,18 @@ body {
     box-shadow: 0 4px 15px rgba(79, 107, 255, 0.4);
 }
 
+.tab-btn.add-room-tab {
+    background: transparent;
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+    color: #94a3b8;
+}
+
+.tab-btn.add-room-tab:hover {
+    border-color: #4f6bff;
+    color: #4f6bff;
+    background: rgba(79, 107, 255, 0.05);
+}
+
 /* Active Room Content Area */
 .room-content {
     background: #111833;
