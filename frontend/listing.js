@@ -189,6 +189,23 @@ function submitNewRoom() {
     selectRoom(roomName); // auto-select the newly created room
 }
 
+// Handle Delete Room
+function deleteActiveRoom() {
+    if (Object.keys(directoryData).length <= 1) {
+        alert("You cannot delete the last remaining room.");
+        return;
+    }
+    
+    if (confirm(`Are you sure you want to delete ${activeRoom} and all its profiles?`)) {
+        delete directoryData[activeRoom];
+        saveDataToStorage();
+        
+        // Auto-select the first available room
+        const remainingRooms = Object.keys(directoryData);
+        selectRoom(remainingRooms[0]);
+    }
+}
+
 // Handle Add Profile Submission
 function submitNewMember() {
     const name = document.getElementById("newMemberName").value.trim();

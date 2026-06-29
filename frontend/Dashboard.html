@@ -99,13 +99,15 @@
           </div>
           <div class="form-group">
             <label for="room">Room / Housemate</label>
-            <select id="room" required>
-              <option value="Room A">Room A</option>
-              <option value="Room B">Room B</option>
-              <option value="Room C">Room C</option>
-              <option value="Room D">Room D</option>
-              <option value="Room E">Room E</option>
-            </select>
+            <input type="text" id="room" list="room-options" placeholder="e.g. Room A" required>
+            <datalist id="room-options">
+              <option value="Room A"></option>
+              <option value="Room B"></option>
+              <option value="Room C"></option>
+              <option value="Room D"></option>
+              <option value="Room E"></option>
+              <option value="Utilities"></option>
+            </datalist>
           </div>
         </div>
 
