@@ -98,18 +98,20 @@ function renderTable(expenses) {
 
   if (expenses.length === 0) {
     tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #94a3b8;">No expenses found.</td></tr>`;
-    totalAmountEl.textContent = 'PENDING TOTAL: RM0.00';
+    if (totalAmountEl) {
+      totalAmountEl.textContent = 'PENDING TOTAL: RM0.00';
+    }
     return;
   }
 
   expenses.forEach(exp => {
-    if (exp.status !== 'Paid') {
+    if (exp.status.toLowerCase() !== 'paid') {
       total += exp.amount;
     }
     const tr = document.createElement('tr');
     
     let statusHTML = '';
-    if (exp.status === 'Paid') {
+    if (exp.status.toLowerCase() === 'paid') {
       statusHTML = `<span class="tag tag-green">Paid</span>`;
     } else {
       statusHTML = `<span class="tag tag-yellow">Pending</span>`;
@@ -125,7 +127,9 @@ function renderTable(expenses) {
     tbody.appendChild(tr);
   });
 
-  totalAmountEl.textContent = `PENDING TOTAL: RM${total.toFixed(2)}`;
+  if (totalAmountEl) {
+    totalAmountEl.textContent = `PENDING TOTAL: RM${total.toFixed(2)}`;
+  }
 }
 
 // Render Chart using Chart.js
@@ -135,10 +139,11 @@ function renderChart(expenses) {
   
   const ctx = canvasEl.getContext('2d');
   
-  // Aggregate amounts by room
   const roomTotals = {};
   expenses.forEach(exp => {
-    roomTotals[exp.room] = (roomTotals[exp.room] || 0) + exp.amount;
+    if (exp.status.toLowerCase() !== 'paid') {
+      roomTotals[exp.room] = (roomTotals[exp.room] || 0) + exp.amount;
+    }
   });
 
   const labels = Object.keys(roomTotals);
@@ -230,7 +235,7 @@ if (validSplitBtn) {
     };
     
     allExpensesData.forEach(exp => {
-      if (exp.status !== 'Paid') {
+      if (exp.status.toLowerCase() !== 'paid') {
         total += exp.amount;
         if (roomTotals[exp.room] !== undefined) {
           roomTotals[exp.room] += exp.amount;
@@ -245,7 +250,7 @@ if (validSplitBtn) {
     
     let html = `<div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; text-align: center; border: 1px solid rgba(255,255,255,0.1);">
       <h3 style="margin: 0; color: #fff; font-size: 1.8rem; font-weight: 700;">Total: RM${total.toFixed(2)}</h3>
-      <p style="margin: 0.5rem 0 0 0; color: #60a5fa; font-weight: 500; font-size: 1.1rem;">Equal Share: RM${perRoomShare.toFixed(2)} per room</p>
+      <p style="margin: 0.5rem 0 0 0; color: #60a5fa; font-weight: 500; font-size: 1.1rem;">Divided among ${numRooms} rooms (RM${perRoomShare.toFixed(2)} per room)</p>
     </div>`;
     
     Object.keys(roomTotals).forEach(room => {
