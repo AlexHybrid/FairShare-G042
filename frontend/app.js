@@ -29,9 +29,52 @@ function getRoomTagHTML(room) {
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   fetchExpenses();
+  renderTenantAnnouncements();
 });
 
 let allExpensesData = [];
+
+// Render Tenant Announcements
+function renderTenantAnnouncements() {
+  const container = document.getElementById("tenantAnnouncements");
+  if (!container) return; // Only run on dashboard
+  
+  const announcements = JSON.parse(localStorage.getItem('globalAnnouncements')) || [];
+  const dismissed = JSON.parse(localStorage.getItem('dismissedAnnouncements')) || [];
+  
+  // Filter out dismissed announcements
+  const activeAnnouncements = announcements.filter(a => !dismissed.includes(a.id));
+  
+  if (activeAnnouncements.length === 0) {
+    container.innerHTML = "";
+    return;
+  }
+  
+  container.innerHTML = activeAnnouncements.map(a => {
+    let bgColor, borderColor;
+    if (a.level === 'info') { bgColor = 'rgba(59, 130, 246, 0.1)'; borderColor = '#3b82f6'; }
+    else if (a.level === 'warning') { bgColor = 'rgba(245, 158, 11, 0.1)'; borderColor = '#f59e0b'; }
+    else { bgColor = 'rgba(239, 68, 68, 0.1)'; borderColor = '#ef4444'; }
+    
+    return `
+      <div class="tenant-announcement" style="background: ${bgColor}; border-left: 4px solid ${borderColor}; padding: 1rem 1.5rem; margin-bottom: 1.5rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: flex-start; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div>
+          <h4 style="margin: 0 0 0.25rem 0; color: #fff; font-size: 1.05rem; font-family: 'Poppins', sans-serif;">📢 ${a.title}</h4>
+          <p style="margin: 0; color: #e2e8f0; font-size: 0.95rem;">${a.message}</p>
+        </div>
+        <button onclick="dismissAnnouncement('${a.id}')" style="background: transparent; border: none; color: #94a3b8; font-size: 1.5rem; cursor: pointer; padding: 0 0.5rem; line-height: 1;">&times;</button>
+      </div>
+    `;
+  }).join('');
+}
+
+// Dismiss an announcement
+window.dismissAnnouncement = function(id) {
+  const dismissed = JSON.parse(localStorage.getItem('dismissedAnnouncements')) || [];
+  dismissed.push(id);
+  localStorage.setItem('dismissedAnnouncements', JSON.stringify(dismissed));
+  renderTenantAnnouncements();
+};
 
 // Fetch data from Python backend
 async function fetchExpenses() {

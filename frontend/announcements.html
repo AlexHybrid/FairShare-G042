@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FairShare — Announcements</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .announcements-layout {
+      background-color: var(--panel-bg);
+      border-radius: 20px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .announce-form {
+      background-color: rgba(255, 255, 255, 0.03);
+      padding: 1.5rem 2rem;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .announce-form h3 {
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 0.8rem;
+      color: white;
+      font-family: inherit;
+      margin-bottom: 1rem;
+    }
+
+    .form-group select option {
+      background: var(--bg-color);
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-submit:hover {
+      box-shadow: 0 4px 15px rgba(110, 102, 255, 0.4);
+    }
+
+    .active-announcements {
+      margin-top: 1rem;
+    }
+
+    .announcement-card {
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-left: 5px solid var(--primary-color);
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .announcement-card.level-info { border-left-color: #3b82f6; }
+    .announcement-card.level-warning { border-left-color: #f59e0b; }
+    .announcement-card.level-critical { border-left-color: #ef4444; }
+
+    .announcement-content h4 {
+      margin-bottom: 0.25rem;
+      color: #fff;
+    }
+
+    .announcement-content p {
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+
+    .btn-delete {
+      background: transparent;
+      border: 1px solid #ef4444;
+      color: #ef4444;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .btn-delete:hover {
+      background: rgba(239, 68, 68, 0.1);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="main-content">
+    <div class="title-banner">
+      House Rental & Bill splitter
+    </div>
+
+    <nav class="pill-nav">
+      <a href="Dashboard.html">Dashboard</a>
+      <a href="SettingsPage.html">settings</a>
+      <a href="HelpPage.html">Help</a>
+      <a href="AboutPage.html">About</a>
+      <a href="ContactPage.html">Contact</a>
+      <a href="FAQPage.html">FAQ?</a>
+    </nav>
+
+    <div class="announcements-layout">
+      <h2>Global Announcements Board</h2>
+      
+      <div class="announce-form">
+        <h3>Broadcast New Message</h3>
+        <div class="form-group">
+          <label>Announcement Title</label>
+          <input type="text" id="announceTitle" placeholder="e.g. Water Maintenance Notice" required>
+        </div>
+        <div class="form-group">
+          <label>Message Content</label>
+          <textarea id="announceMessage" rows="3" placeholder="Type your full message to all tenants here..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Urgency Level</label>
+          <select id="announceLevel">
+            <option value="info">Info (Blue)</option>
+            <option value="warning">Warning (Yellow)</option>
+            <option value="critical">Critical (Red)</option>
+          </select>
+        </div>
+        <button class="btn-submit" onclick="submitAnnouncement()">Broadcast to Tenants</button>
+      </div>
+
+      <div class="active-announcements">
+        <h3>Active Announcements</h3>
+        <div id="announcementsList">
+          <!-- Active announcements injected here via JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-sidebar">
+    <h2>Dashboard</h2>
+    <a href="Dashboard.html" class="sidebar-category">House Rental Management</a>
+    <a href="listing.html" class="sidebar-item">Listing</a>
+    <a href="agreement.html" class="sidebar-item">Agreement</a>
+    <a href="PaymentPage.html" class="sidebar-item">Payment</a>
+
+    <a href="Dashboard.html" class="sidebar-category">Bill Splitting</a>
+    <a href="Dashboard.html" class="sidebar-item">Split Bills</a>
+    <a href="Dashboard.html?action=addExpense" class="sidebar-item" id="add-btn">Add Expenses</a>
+
+    <a href="Dashboard.html" class="sidebar-category">Landlord Section</a>
+    <a href="ExportPage.html" class="sidebar-item">Export Data</a>
+    <a href="announcements.html" class="sidebar-item">Announcements</a>
+  </div>
+
+  <script src="announcements.js"></script>
+</body>
+</html>
