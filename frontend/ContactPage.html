@@ -202,7 +202,7 @@
               <div class="info-icon">✉️</div>
               <div class="info-content">
                 <h4>Email Us</h4>
-                <p>syuaib0724@gmail.com</p>
+                <p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=syuaib0724@gmail.com" target="_blank" style="color: inherit; text-decoration: none;">syuaib0724@gmail.com</a></p>
               </div>
             </div>
 
@@ -287,6 +287,16 @@
   <script>
     document.getElementById('contact-form').addEventListener('submit', function (e) {
       e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      
+      const emailBody = `From: ${name}\n\n${message}`;
+      
+      // Open Gmail compose window
+      const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=syuaib0724@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+      window.open(gmailLink, '_blank');
 
       // Show success toast
       const toast = document.getElementById('toast-notification');
