@@ -302,6 +302,7 @@
       <a href="AboutPage.html">About</a>
       <a href="ContactPage.html">Contact</a>
       <a href="FAQPage.html">FAQ?</a>
+      <a href="index.html" onclick="localStorage.removeItem('currentUserEmail')" style="color: #ef4444;">Logout</a>
     </nav>
 
     <div class="settings-wrapper">
@@ -450,11 +451,61 @@
   <script src="auth.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Handle Profile Picture Update
+      // Keys and State
+      const currentUserEmail = localStorage.getItem('currentUserEmail') || 'guest@example.com';
+      const STORAGE_KEY = 'fairShareProfile_' + currentUserEmail;
+      
+      let profileData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
+        name: 'New User',
+        email: currentUserEmail,
+        phone: '+60 12-345 6789',
+        password: '••••••••',
+        avatarUrl: ''
+      };
+
       const editAvatarBtn = document.querySelector('.edit-avatar-btn');
       const avatarContainer = document.querySelector('.avatar');
+      const profileNameHeader = document.querySelector('.profile-info h3');
       
-      // Create a hidden file input for the avatar
+      const rowItems = document.querySelectorAll('.account-row-item');
+      
+      // Function to initialize UI with data
+      const initUI = () => {
+        if (profileNameHeader) profileNameHeader.textContent = profileData.name;
+        
+        if (profileData.avatarUrl) {
+            avatarContainer.style.backgroundImage = `url(${profileData.avatarUrl})`;
+            avatarContainer.style.backgroundSize = 'cover';
+            avatarContainer.style.backgroundPosition = 'center';
+            avatarContainer.textContent = '';
+        } else {
+            avatarContainer.textContent = profileData.name.charAt(0).toUpperCase();
+            avatarContainer.style.backgroundImage = '';
+        }
+
+        rowItems.forEach(row => {
+            const labelSpan = row.querySelector('.account-row-label');
+            if (!labelSpan) return;
+            
+            const label = labelSpan.textContent.toLowerCase();
+            const valueSpan = row.querySelector('.account-row-value');
+            
+            if (label.includes('name')) valueSpan.textContent = profileData.name;
+            else if (label.includes('email')) valueSpan.textContent = profileData.email;
+            else if (label.includes('phone')) valueSpan.textContent = profileData.phone;
+            else if (label.includes('password')) valueSpan.textContent = profileData.password;
+        });
+      };
+      
+      // Function to save current state to localStorage
+      const saveToStorage = () => {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(profileData));
+      };
+
+      // Initialize on load
+      initUI();
+
+      // Handle Profile Picture Update
       const fileInput = document.createElement('input');
       fileInput.type = 'file';
       fileInput.accept = 'image/*';
@@ -470,10 +521,9 @@
         if (file) {
           const reader = new FileReader();
           reader.onload = (event) => {
-            avatarContainer.style.backgroundImage = `url(${event.target.result})`;
-            avatarContainer.style.backgroundSize = 'cover';
-            avatarContainer.style.backgroundPosition = 'center';
-            avatarContainer.textContent = ''; // clear initial text
+            profileData.avatarUrl = event.target.result;
+            saveToStorage();
+            initUI(); // Re-render UI
           };
           reader.readAsDataURL(file);
         }
@@ -487,27 +537,25 @@
           const rowItem = this.closest('.account-row-item');
           const valueSpan = rowItem.querySelector('.account-row-value');
           const labelSpan = rowItem.querySelector('.account-row-label');
+          const labelLower = labelSpan.textContent.toLowerCase();
           
           if (this.textContent === 'Edit' || this.textContent === 'Update') {
             // Switch to edit mode
             let currentValue = valueSpan.textContent.trim();
-            const isPassword = labelSpan.textContent.toLowerCase().includes('password');
+            const isPassword = labelLower.includes('password');
             
-            const inputType = isPassword ? 'password' : (labelSpan.textContent.toLowerCase().includes('email') ? 'email' : 'text');
+            const inputType = isPassword ? 'password' : (labelLower.includes('email') ? 'email' : 'text');
             
-            // Avoid showing dots as actual password value
-            if (isPassword) currentValue = '';
+            if (isPassword) currentValue = ''; // Don't show masked dots in input
             
-            valueSpan.innerHTML = `<input type="${inputType}" class="edit-input" value="${currentValue}" placeholder="Enter new ${labelSpan.textContent.toLowerCase()}" style="padding: 0.5rem 0.8rem; border-radius: 8px; border: 1px solid var(--accent-blue); background: rgba(0,0,0,0.3); color: white; width: 100%; font-family: 'Poppins', sans-serif; outline: none; transition: border-color 0.3s ease;">`;
+            valueSpan.innerHTML = `<input type="${inputType}" class="edit-input" value="${currentValue}" placeholder="Enter new ${labelLower}" style="padding: 0.5rem 0.8rem; border-radius: 8px; border: 1px solid var(--accent-blue); background: rgba(0,0,0,0.3); color: white; width: 100%; font-family: 'Poppins', sans-serif; outline: none; transition: border-color 0.3s ease;">`;
             
-            // Add slight margin to value span to make input fit nicely
             valueSpan.style.marginTop = '0.5rem';
             
             this.textContent = 'Save';
             this.style.backgroundColor = 'var(--accent-blue)';
             this.style.color = 'white';
             
-            // Focus on the input field
             const inputElement = valueSpan.querySelector('input');
             if (inputElement) inputElement.focus();
             
@@ -517,41 +565,32 @@
             if (!inputField) return;
             
             let newValue = inputField.value;
+            const isPassword = labelLower.includes('password');
             
-            // Basic validation for non-password fields
-            if (!newValue.trim() && !labelSpan.textContent.toLowerCase().includes('password')) {
+            if (!newValue.trim() && !isPassword) {
               alert('Value cannot be empty!');
               inputField.focus();
               return;
             }
             
-            const isPassword = labelSpan.textContent.toLowerCase().includes('password');
-            
-            // Remove the margin added during edit mode
             valueSpan.style.marginTop = '0';
             
             if (isPassword) {
-                // If they typed something, mock save it as dots. If empty, keep old dots.
-                newValue = newValue.trim() ? '••••••••' : valueSpan.getAttribute('data-original-value') || '••••••••';
+                newValue = newValue.trim() ? '••••••••' : profileData.password;
             }
             
-            valueSpan.textContent = newValue;
-            valueSpan.setAttribute('data-original-value', newValue); // store for password masking
+            // Update profile data object
+            if (labelLower.includes('name')) profileData.name = newValue;
+            else if (labelLower.includes('email')) profileData.email = newValue;
+            else if (labelLower.includes('phone')) profileData.phone = newValue;
+            else if (labelLower.includes('password')) profileData.password = newValue;
+            
+            saveToStorage();
+            initUI(); // Re-render everything from state
             
             this.textContent = isPassword ? 'Update' : 'Edit';
             this.style.backgroundColor = 'transparent';
             this.style.color = 'var(--text-main)';
-            
-            // Update UI elements dependent on Name
-            if (labelSpan.textContent.toLowerCase().includes('name')) {
-                const profileName = document.querySelector('.profile-info h3');
-                if (profileName) profileName.textContent = newValue;
-                
-                // Only update avatar initial if there is no custom image
-                if (!avatarContainer.style.backgroundImage) {
-                    avatarContainer.textContent = newValue.charAt(0).toUpperCase();
-                }
-            }
           }
         });
       });

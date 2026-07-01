@@ -282,7 +282,7 @@
             <label>Password</label>
             <input type="password" placeholder="••••••" required>
           </div>
-          <button type="button" class="btn-primary" onclick="window.location.href='Dashboard.html'">Log In</button>
+          <button type="button" class="btn-primary" onclick="handleLogin()">Log In</button>
         </form>
         <p class="toggle-text">Don't have an account? <a onclick="toggleAuth('signup')">Sign up</a></p>
       </div>
@@ -307,7 +307,7 @@
             <label>Confirm Password</label>
             <input type="password" placeholder="Repeat password" required>
           </div>
-          <button type="button" class="btn-primary" onclick="window.location.href='Dashboard.html'">Sign Up</button>
+          <button type="button" class="btn-primary" onclick="handleSignup()">Sign Up</button>
         </form>
         <p class="toggle-text">Already have an account? <a onclick="toggleAuth('login')">Log in</a></p>
       </div>
@@ -326,6 +326,37 @@
         signupCard.classList.remove('active');
         loginCard.classList.add('active');
       }
+    }
+
+    function handleLogin() {
+      const email = document.querySelector('#login-form input[type="email"]').value;
+      if (email) {
+        localStorage.setItem('currentUserEmail', email);
+      } else {
+        localStorage.setItem('currentUserEmail', 'guest@example.com');
+      }
+      window.location.href = 'Dashboard.html';
+    }
+
+    function handleSignup() {
+      const email = document.querySelector('#signup-form input[type="email"]').value;
+      const name = document.querySelector('#signup-form input[type="text"]').value;
+      if (email) {
+        localStorage.setItem('currentUserEmail', email);
+        
+        // Setup initial profile for new user
+        const initialProfile = {
+            name: name || 'New User',
+            email: email,
+            phone: '+60 12-345 6789',
+            password: '••••••••',
+            avatarUrl: ''
+        };
+        localStorage.setItem('fairShareProfile_' + email, JSON.stringify(initialProfile));
+      } else {
+        localStorage.setItem('currentUserEmail', 'guest@example.com');
+      }
+      window.location.href = 'Dashboard.html';
     }
   </script>
 </body>
