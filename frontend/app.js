@@ -306,6 +306,16 @@ const beginnerModal = document.getElementById('beginner-modal');
 const closeBeginnerModalBtn = document.getElementById('close-beginner-modal');
 const okBeginnerModalBtn = document.getElementById('ok-beginner-modal');
 
+if (beginnerModal) {
+  const navEntries = performance.getEntriesByType("navigation");
+  const isReload = navEntries.length > 0 && navEntries[0].type === "reload";
+  const isOldReload = performance.navigation && performance.navigation.type === 1;
+  
+  if (isReload || isOldReload) {
+    beginnerModal.style.display = 'flex';
+  }
+}
+
 if (closeBeginnerModalBtn) {
   closeBeginnerModalBtn.onclick = () => { if(beginnerModal) beginnerModal.style.display = 'none'; };
 }
