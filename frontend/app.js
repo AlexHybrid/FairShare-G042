@@ -306,6 +306,14 @@ const beginnerModal = document.getElementById('beginner-modal');
 const closeBeginnerModalBtn = document.getElementById('close-beginner-modal');
 const okBeginnerModalBtn = document.getElementById('ok-beginner-modal');
 
+if (beginnerModal) {
+  const hasSeenBeginnerPopup = localStorage.getItem('hasSeenBeginnerPopup');
+  if (!hasSeenBeginnerPopup) {
+    beginnerModal.style.display = 'flex';
+    localStorage.setItem('hasSeenBeginnerPopup', 'true');
+  }
+}
+
 if (closeBeginnerModalBtn) {
   closeBeginnerModalBtn.onclick = () => { if(beginnerModal) beginnerModal.style.display = 'none'; };
 }
