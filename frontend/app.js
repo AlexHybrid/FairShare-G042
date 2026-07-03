@@ -296,7 +296,22 @@ window.onclick = (event) => {
   if (event.target === splitModal) {
     splitModal.style.display = 'none';
   }
+  if (typeof beginnerModal !== 'undefined' && event.target === beginnerModal) {
+    beginnerModal.style.display = 'none';
+  }
 };
+
+// Beginner Modal Logic
+const beginnerModal = document.getElementById('beginner-modal');
+const closeBeginnerModalBtn = document.getElementById('close-beginner-modal');
+const okBeginnerModalBtn = document.getElementById('ok-beginner-modal');
+
+if (closeBeginnerModalBtn) {
+  closeBeginnerModalBtn.onclick = () => { if(beginnerModal) beginnerModal.style.display = 'none'; };
+}
+if (okBeginnerModalBtn) {
+  okBeginnerModalBtn.onclick = () => { if(beginnerModal) beginnerModal.style.display = 'none'; };
+}
 
 // File input: show selected filename
 const receiptInput = document.getElementById('receipt');
