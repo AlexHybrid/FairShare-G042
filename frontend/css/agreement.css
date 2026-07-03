@@ -1,0 +1,271 @@
+/* Override body layout from login.css to allow standard page flow */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #080d20;
+    color: #ffffff;
+    min-height: 100vh;
+    display: block;
+    padding: 2rem 1rem;
+    margin: 0;
+}
+
+.agreement-container {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.navigation-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 0.8rem 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 50px;
+}
+
+.btn-back {
+    color: #4f6bff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.btn-back:hover {
+    color: #818cf8;
+}
+
+/* The Paper Sheet */
+.paper-sheet {
+    background: #ffffff;
+    color: #1e293b;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.doc-header {
+    text-align: center;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.doc-title {
+    font-family: 'Calistoga', serif;
+    font-size: 2.2rem;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+}
+
+.doc-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.doc-body {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #334155;
+    margin-bottom: 2.5rem;
+}
+
+.doc-body p {
+    margin-bottom: 1.5rem;
+}
+
+.highlight-box {
+    background: #f1f5f9;
+    border-left: 4px solid #0052ff;
+    padding: 1.25rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    color: #1e293b;
+}
+
+.highlight-box strong {
+    color: #0f172a;
+}
+
+.clause-title {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: #0f172a;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.clause-num {
+    color: #0052ff;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Agreement Confirmation Area */
+.agreement-confirmation {
+    border-top: 2px dashed #e2e8f0;
+    padding-top: 2rem;
+    margin-top: 2.5rem;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+.checkbox-group label {
+    font-size: 1rem;
+    color: #334155;
+    cursor: pointer;
+    line-height: 1.4;
+}
+
+.date-display {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 1.5rem;
+}
+
+.btn-primary {
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to right, #0052ff, #4d7cff);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 82, 255, 0.2);
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+/* Success Overlay */
+.success-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.98);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    padding: 2rem;
+    text-align: center;
+}
+
+.success-overlay.active {
+    display: flex;
+    animation: fadeInOverlay 0.3s ease;
+}
+
+@keyframes fadeInOverlay {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.success-icon {
+    width: 80px;
+    height: 80px;
+    background: #d1fae5;
+    color: #059669;
+    font-size: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 10px rgba(5, 150, 105, 0.15);
+}
+
+.success-title {
+    font-family: 'Calistoga', serif;
+    font-size: 2rem;
+    color: #0f172a;
+    margin-bottom: 0.75rem;
+}
+
+.success-text {
+    color: #475569;
+    font-size: 1.1rem;
+    max-width: 400px;
+    margin-bottom: 1.5rem;
+}
+
+/* Signature Pad Styles */
+.signature-section {
+    margin: 1.5rem 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #f8fafc;
+    padding: 1rem;
+}
+
+.signature-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.signature-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+.btn-clear {
+    background: transparent;
+    border: none;
+    color: #ef4444;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+}
+
+.btn-clear:hover {
+    text-decoration: underline;
+}
+
+.signature-pad {
+    width: 100%;
+    height: 150px;
+    background: #ffffff;
+    border: 1px dashed #cbd5e1;
+    border-radius: 6px;
+    cursor: crosshair;
+    touch-action: none; /* Prevent scrolling when drawing */
+}

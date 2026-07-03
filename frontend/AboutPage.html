@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FairShare — About Us</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Additional custom styling for About Page */
+    .about-wrapper {
+      background-color: var(--panel-bg);
+      border-radius: 20px;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .about-section h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--accent-blue);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 0.5rem;
+    }
+
+    .about-text {
+      line-height: 1.7;
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .feature-card {
+      background-color: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      background-color: rgba(255, 255, 255, 0.05);
+      border-color: var(--accent-blue);
+      box-shadow: 0 8px 25px rgba(79, 107, 255, 0.2);
+    }
+
+    .feature-card h3 {
+      font-size: 1.2rem;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .feature-icon {
+      font-size: 1.3rem;
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* Team Grid */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .team-card {
+      background-color: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .team-card:hover {
+      transform: translateY(-8px);
+      background-color: rgba(255, 255, 255, 0.05);
+      border-color: var(--accent-blue);
+      box-shadow: 0 12px 30px rgba(79, 107, 255, 0.25);
+    }
+
+    .team-avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      margin: 0 auto 1.2rem auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: white;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .avatar-alex {
+      background: linear-gradient(135deg, #4f6bff 0%, #3b82f6 100%);
+    }
+
+    .avatar-sarah {
+      background: linear-gradient(135deg, #c084fc 0%, #a855f7 100%);
+    }
+
+    .avatar-marcus {
+      background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+    }
+
+    .team-name {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--text-main);
+    }
+
+    .team-role {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+    }
+
+    .role-dev {
+      background-color: #dbeafe;
+      color: #1e40af;
+    }
+
+    .role-design {
+      background-color: #f3e8ff;
+      color: #6b21a8;
+    }
+
+    .role-pm {
+      background-color: #dcfce7;
+      color: #166534;
+    }
+
+    .team-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="main-content">
+    <div class="title-banner">
+      House Rental & Bill splitter
+    </div>
+
+    <nav class="pill-nav">
+      <a href="Dashboard.html">Dashboard</a>
+      <a href="SettingsPage.html">settings</a>
+      <a href="HelpPage.html">Help</a>
+      <a href="AboutPage.html" class="active">About</a>
+      <a href="ContactPage.html">Contact</a>
+      <a href="FAQPage.html">FAQ?</a>
+    </nav>
+
+    <div class="about-wrapper">
+
+      <!-- About the website section -->
+      <div class="about-section">
+        <h2>About FairShare</h2>
+        <p class="about-text">
+          FairShare is a modern, premium house rental and bill splitting solution designed to bring transparency and
+          harmony to shared living spaces. Whether you're managing room agreements, tracking rental payments, or
+          splitting monthly utilities, FairShare makes roommate collaboration effortless, clean, and fast.
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <h3><span class="feature-icon">🏠</span> Rent Tracker</h3>
+            <p>Easily manage room listings, track monthly rental agreements, and check payment status in real-time.</p>
+          </div>
+          <div class="feature-card">
+            <h3><span class="feature-icon">💸</span> Smart Splitting</h3>
+            <p>Split utilities, electricity, water, internet, and food expenses dynamically with automatic dues
+              calculations.</p>
+          </div>
+          <div class="feature-card">
+            <h3><span class="feature-icon">📈</span> Visual Analytics</h3>
+            <p>Understand your household expenses immediately through our clean, interactive visual charts and details.
+            </p>
+          </div>
+          <div class="feature-card">
+            <h3><span class="feature-icon">📄</span> Export Reports</h3>
+            <p>Generate and export comprehensive Excel spreadsheets or PDF summaries for landlords or personal records.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Meet our team section -->
+      <div class="about-section">
+        <h2>Meet Our Team</h2>
+        <p class="about-text">
+          Our team is composed of passionate developers and designers focused on building simple, yet powerful, tools
+          for shared household living.
+        </p>
+
+        <div class="team-grid">
+          <!-- Member 1 -->
+          <div class="team-card">
+            <div class="team-avatar avatar-alex">AR</div>
+            <div class="team-name">Ayman Rafid</div>
+            <span class="team-role role-dev">Leader</span>
+            <p class="team-desc">
+              Ayman monitor all the teammates works and make sure the project is going well and create the login page.
+            </p>
+          </div>
+
+          <!-- Member 2 -->
+          <div class="team-card">
+            <div class="team-avatar avatar-sarah">SS</div>
+            <div class="team-name">Syed Syuaib</div>
+            <span class="team-role role-design">Backend Architect</span>
+            <p class="team-desc">
+              Syed is the backend developer specializing in bill calculation and splitting systems,
+              with strong skills in Python and web development.
+            </p>
+          </div>
+
+          <!-- Member 3 -->
+          <div class="team-card">
+            <div class="team-avatar avatar-marcus">MA</div>
+            <div class="team-name">Muhammad Alif</div>
+            <span class="team-role role-pm">Frontend Architect</span>
+            <p class="team-desc">
+              Muhammad Alif is the frontend architect, who designed the frontend interface, UI Main interface,dashboard
+              html and css and created the export file using the reportlab and openpyxl.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="right-sidebar">
+    <h2>MENU</h2>
+
+    <a href="#" class="sidebar-category">House Rental Management</a>
+    <a href="listing.html" class="sidebar-item">Listing</a>
+    <a href="agreement.html" class="sidebar-item">Agreement</a>
+    <a href="PaymentPage.html" class="sidebar-item">Payment</a>
+
+    <a href="#" class="sidebar-category">Bill Splitting</a>
+    <a href="Dashboard.html" class="sidebar-item">Split Bills</a>
+    <a href="Dashboard.html?action=addExpense" class="sidebar-item" id="add-btn">Add Expenses</a>
+
+    <a href="#" class="sidebar-category">Landlord Section</a>
+    <a href="ExportPage.html" class="sidebar-item">Export Data</a>
+    <a href="announcements.html" class="sidebar-item">Announcements</a>
+  </div>
+
+  <script src="js/auth.js"></script>
+</body>
+
+</html>

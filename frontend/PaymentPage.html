@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FairShare — Payment Management</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="main-content">
+    <div class="title-banner">
+      House Rental & Bill splitter
+    </div>
+
+    <nav class="pill-nav">
+      <a href="Dashboard.html">Dashboard</a>
+      <a href="SettingsPage.html">settings</a>
+      <a href="HelpPage.html">Help</a>
+      <a href="AboutPage.html">About</a>
+      <a href="ContactPage.html">Contact</a>
+      <a href="FAQPage.html">FAQ?</a>
+    </nav>
+
+    <div class="dashboard-container">
+      <div style="margin-bottom: 2rem;">
+        <h2 style="color: #fff; font-size: 1.8rem; font-weight: 600;">Payment Management</h2>
+        <p style="color: #94a3b8;">Manage and track all due payments across rooms.</p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Room</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="payment-table-body">
+          <tr>
+            <td colspan="6" style="text-align: center;">Loading...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="right-sidebar">
+    <h2>MENU</h2>
+
+    <a href="#" class="sidebar-category">House Rental Management</a>
+    <a href="listing.html" class="sidebar-item">Listing</a>
+    <a href="agreement.html" class="sidebar-item">Agreement</a>
+    <a href="PaymentPage.html" class="sidebar-item" style="color: #60a5fa; font-weight: 600;">Payment</a>
+
+    <a href="#" class="sidebar-category">Bill Splitting</a>
+    <a href="Dashboard.html" class="sidebar-item">Split Bills</a>
+    <a href="Dashboard.html?action=addExpense" class="sidebar-item" id="add-btn">Add Expenses</a>
+
+    <a href="#" class="sidebar-category">Landlord Section</a>
+    <a href="ExportPage.html" class="sidebar-item">Export Data</a>
+    <a href="announcements.html" class="sidebar-item">Announcements</a>
+  </div>
+
+  <!-- Payment Modal -->
+  <div id="payment-modal" class="modal" style="display: none;">
+    <div class="modal-content" style="max-width: 400px; text-align: center;">
+      <span class="close-btn" id="close-payment-modal">&times;</span>
+      <h2>Make Payment</h2>
+      <p style="color: #94a3b8; margin-bottom: 1.5rem;">Amount Due: <strong id="modal-amount" style="color: #fff; font-size: 1.2rem;">RM0.00</strong></p>
+      
+      <div class="form-group" style="text-align: left; margin-bottom: 1.5rem;">
+        <label for="modal-payment-method">Payment Method</label>
+        <select id="modal-payment-method" style="width: 100%; padding: 0.8rem; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff;">
+          <option value="Bank Transfer">Bank Transfer</option>
+          <option value="eWallet">eWallet / DuitNow</option>
+          <option value="Card">Credit/Debit Card</option>
+          <option value="Cash">Cash</option>
+        </select>
+      </div>
+
+      <div id="dummy-ui-container" style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; min-height: 120px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+        <div id="dummy-bank-transfer">
+          <p style="color: #60a5fa; font-size: 0.9rem; margin: 0;">Transfer to: <br><strong style="font-size: 1.1rem;">1234-5678-9012</strong> (Maybank)</p>
+        </div>
+        <div id="dummy-ewallet" style="display: none;">
+          <div style="width: 100px; height: 100px; background: #fff; padding: 5px; border-radius: 8px; margin: 0 auto;">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=fairshare" alt="QR Code" style="width: 100%; height: 100%;">
+          </div>
+          <p style="color: #94a3b8; font-size: 0.8rem; margin-top: 0.8rem;">Scan to pay via DuitNow</p>
+        </div>
+        <div id="dummy-card" style="display: none; width: 100%; text-align: left;">
+          <input type="text" placeholder="Card Number (0000 0000 0000 0000)" style="width: 100%; padding: 0.8rem; margin-bottom: 0.5rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 6px;">
+          <div style="display: flex; gap: 0.5rem;">
+            <input type="text" placeholder="MM/YY" style="width: 50%; padding: 0.8rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 6px;">
+            <input type="text" placeholder="CVC" style="width: 50%; padding: 0.8rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 6px;">
+          </div>
+        </div>
+        <div id="dummy-cash" style="display: none;">
+          <p style="color: #4ade80; font-size: 0.9rem; margin: 0;">Please hand the cash directly to the landlord or house representative.</p>
+        </div>
+      </div>
+
+      <button id="confirm-payment-btn" class="primary-btn" style="width: 100%; border-radius: 30px; font-weight: bold; font-size: 1.1rem; padding: 0.8rem;">Confirm Payment</button>
+    </div>
+  </div>
+
+  <script src="js/payment.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+
+</html>
