@@ -77,6 +77,8 @@ window.dismissAnnouncement = function(id) {
 };
 
 // Fetch data from Python backend
+// This function talks to the backend (get_expenses) to retrieve the latest expense list
+// and then automatically triggers rendering the table and donut chart with the fetched data.
 async function fetchExpenses() {
   try {
     const res = await fetch(`${API_BASE}/expenses`);
@@ -92,6 +94,8 @@ async function fetchExpenses() {
 }
 
 // Render Table
+// This function takes the expense data array and dynamically creates HTML <tr> rows for the Dues Table.
+// It also calculates the total pending amount and updates the footer.
 function renderTable(expenses) {
   tbody.innerHTML = '';
   let total = 0;
@@ -133,6 +137,7 @@ function renderTable(expenses) {
 }
 
 // Render Chart using Chart.js
+// This function groups the expense amounts by room/housemate and draws the donut chart visually.
 function renderChart(expenses) {
   const canvasEl = document.getElementById('splitChart');
   if (!canvasEl) return;
@@ -337,6 +342,8 @@ if (receiptInput && fileNameDisplay) {
 }
 
 // Form Submission
+// This intercepts the "Save Expense" button. It uploads the receipt (if present),
+// sends the form data to the backend (add_expense route), and re-fetches data to update the UI.
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
