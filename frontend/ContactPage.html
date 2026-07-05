@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FairShare — Contact Us</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Additional custom styling for Contact Page */
+    .contact-wrapper {
+      background-color: var(--panel-bg);
+      border-radius: 20px;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 992px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .contact-section h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--accent-blue);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 0.5rem;
+    }
+
+    .contact-text {
+      line-height: 1.6;
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Info Cards */
+    .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      background-color: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 1.2rem;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .info-item:hover {
+      transform: translateX(5px);
+      background-color: rgba(255, 255, 255, 0.05);
+      border-color: var(--accent-blue);
+      box-shadow: 0 6px 15px rgba(79, 107, 255, 0.1);
+    }
+
+    .info-icon {
+      font-size: 1.6rem;
+      color: var(--accent-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background-color: rgba(79, 107, 255, 0.1);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .info-content h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 0.2rem;
+    }
+
+    .info-content p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Contact Form Styling */
+    .contact-form-card {
+      background-color: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 15px;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.95rem;
+      box-sizing: border-box;
+      transition: all 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+      background-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 0 3px rgba(79, 107, 255, 0.25);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Success Toast */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background-color: #22c55e;
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      transform: translateY(150%);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="main-content">
+    <div class="title-banner">
+      House Rental & Bill splitter
+    </div>
+
+    <nav class="pill-nav">
+      <a href="Dashboard.html">Dashboard</a>
+      <a href="SettingsPage.html">settings</a>
+      <a href="HelpPage.html">Help</a>
+      <a href="AboutPage.html">About</a>
+      <a href="ContactPage.html" class="active">Contact</a>
+      <a href="FAQPage.html">FAQ?</a>
+    </nav>
+
+    <div class="contact-wrapper">
+      <div class="contact-section">
+        <h2>Contact Us</h2>
+        <p class="contact-text">
+          Have questions about splitting bills, setting up rental agreements, or managing listings? Reach out to the
+          FairShare team and we will respond as quickly as possible.
+        </p>
+
+        <div class="contact-grid">
+          <!-- Info Column -->
+          <div class="info-list">
+            <div class="info-item">
+              <div class="info-icon">✉️</div>
+              <div class="info-content">
+                <h4>Email Us</h4>
+                <p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=syuaib0724@gmail.com" target="_blank" style="color: inherit; text-decoration: none;">syuaib0724@gmail.com</a></p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon">📞</div>
+              <div class="info-content">
+                <h4>Call Us</h4>
+                <p>+60 10560 0923</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon">📍</div>
+              <div class="info-content">
+                <h4>Our Location</h4>
+                <p>Cyberjaya, Selangor, Malaysia</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon">🕒</div>
+              <div class="info-content">
+                <h4>Support Hours</h4>
+                <p>Mon - Fri: 9:00 AM - 6:00 PM</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Column -->
+          <div class="contact-form-card">
+            <form id="contact-form">
+              <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" placeholder="Enter your name" required>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+              </div>
+
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" placeholder="What is this regarding?" required>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" placeholder="Type your message here..." rows="4" required></textarea>
+              </div>
+
+              <button type="submit" class="primary-btn full-width" style="margin-top: 1rem;">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-sidebar">
+    <h2>MENU</h2>
+
+    <a href="#" class="sidebar-category">House Rental Management</a>
+    <a href="listing.html" class="sidebar-item">Listing</a>
+    <a href="agreement.html" class="sidebar-item">Agreement</a>
+    <a href="PaymentPage.html" class="sidebar-item">Payment</a>
+
+    <a href="#" class="sidebar-category">Bill Splitting</a>
+    <a href="Dashboard.html" class="sidebar-item">Split Bills</a>
+    <a href="Dashboard.html?action=addExpense" class="sidebar-item" id="add-btn">Add Expenses</a>
+
+    <a href="#" class="sidebar-category">Landlord Section</a>
+    <a href="ExportPage.html" class="sidebar-item">Export Data</a>
+    <a href="announcements.html" class="sidebar-item">Announcements</a>
+  </div>
+
+  <!-- Success Toast Notification -->
+  <div id="toast-notification" class="toast">
+    <span>✓</span> Message sent successfully!
+  </div>
+
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      
+      const emailBody = `From: ${name}\n\n${message}`;
+      
+      // Open Gmail compose window
+      const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=syuaib0724@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+      window.open(gmailLink, '_blank');
+
+      // Show success toast
+      const toast = document.getElementById('toast-notification');
+      toast.classList.add('show');
+
+      // Clear inputs
+      this.reset();
+
+      // Hide toast after 3 seconds
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    });
+  </script>
+  <script src="js/auth.js"></script>
+</body>
+
+</html>

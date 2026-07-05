@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FairShare — Settings</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Custom styling for Settings Page */
+    .settings-wrapper {
+      background-color: var(--panel-bg);
+      border-radius: 20px;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .settings-header {
+      margin-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 1rem;
+    }
+
+    .settings-header h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--accent-blue);
+      margin-bottom: 0.5rem;
+    }
+
+    .settings-header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .settings-section {
+      background-color: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .settings-section:hover {
+      background-color: rgba(255, 255, 255, 0.04);
+      border-color: rgba(79, 107, 255, 0.3);
+    }
+
+    .settings-section h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .form-group-settings {
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group-settings label {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .form-group-settings input,
+    .form-group-settings select {
+      padding: 0.8rem 1.2rem;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background-color: rgba(0, 0, 0, 0.2);
+      color: var(--text-main);
+      font-family: 'Poppins', sans-serif;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .form-group-settings input:focus,
+    .form-group-settings select:focus {
+      border-color: var(--accent-blue);
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 26px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.3);
+      transition: .4s;
+      border-radius: 34px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 4px;
+      bottom: 3px;
+      background-color: var(--text-muted);
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked+.slider {
+      background-color: var(--accent-blue);
+    }
+
+    input:checked+.slider:before {
+      transform: translateX(24px);
+      background-color: white;
+    }
+
+    .setting-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .setting-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .setting-info h4 {
+      margin: 0 0 0.3rem 0;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .setting-info p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .save-btn-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1rem;
+    }
+
+    /* Modern Account Section Styles */
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .avatar-container {
+      position: relative;
+    }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: var(--accent-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: white;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .edit-avatar-btn {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background-color: var(--panel-bg);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .edit-avatar-btn:hover {
+      background-color: var(--accent-blue);
+      border-color: var(--accent-blue);
+    }
+
+    .profile-info h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin: 0 0 0.3rem 0;
+    }
+
+    .profile-info p {
+      color: var(--text-muted);
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .account-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .account-row-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .account-row-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .account-row-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .account-row-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .account-row-value {
+      font-size: 1.05rem;
+      color: var(--text-main);
+    }
+
+    .edit-btn {
+      background-color: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text-main);
+      padding: 0.5rem 1.2rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .edit-btn:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-color: var(--accent-blue);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="main-content">
+    <div class="title-banner">
+      House Rental & Bill splitter
+    </div>
+
+    <nav class="pill-nav">
+      <a href="Dashboard.html">Dashboard</a>
+      <a href="SettingsPage.html" class="active">settings</a>
+      <a href="HelpPage.html">Help</a>
+      <a href="AboutPage.html">About</a>
+      <a href="ContactPage.html">Contact</a>
+      <a href="FAQPage.html">FAQ?</a>
+      <a href="index.html" onclick="localStorage.removeItem('currentUserEmail')" style="color: #ef4444;">Logout</a>
+    </nav>
+
+    <div class="settings-wrapper">
+      <div class="settings-header">
+        <h2>Settings</h2>
+        <p>Manage your account preferences, privacy, and application settings.</p>
+      </div>
+
+      <!-- Account Section (Modern App Style) -->
+      <div class="settings-section">
+        <h3 style="margin-bottom: 1rem;">👤 Account Settings</h3>
+
+        <div class="profile-header">
+          <div class="avatar-container">
+            <div class="avatar">N</div>
+            <button class="edit-avatar-btn">📷</button>
+          </div>
+          <div class="profile-info">
+            <h3>Name</h3>
+            <p>Tenant / Housemate</p>
+          </div>
+        </div>
+
+        <div class="account-list">
+          <div class="account-row-item">
+            <div class="account-row-content">
+              <span class="account-row-label">Name</span>
+              <span class="account-row-value">name</span>
+            </div>
+            <button class="edit-btn">Edit</button>
+          </div>
+
+          <div class="account-row-item">
+            <div class="account-row-content">
+              <span class="account-row-label">Email Address</span>
+              <span class="account-row-value">gmail.com</span>
+            </div>
+            <button class="edit-btn">Edit</button>
+          </div>
+
+          <div class="account-row-item">
+            <div class="account-row-content">
+              <span class="account-row-label">Phone Number</span>
+              <span class="account-row-value">+60 12-345 6789</span>
+            </div>
+            <button class="edit-btn">Edit</button>
+          </div>
+
+          <div class="account-row-item">
+            <div class="account-row-content">
+              <span class="account-row-label">Password</span>
+              <span class="account-row-value">••••••••</span>
+            </div>
+            <button class="edit-btn">Update</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Currency & Region Section -->
+      <div class="settings-section">
+        <h3>💱 Currency & Regional</h3>
+        <div class="setting-row">
+          <div class="setting-info">
+            <h4>Default Currency</h4>
+            <p>The currency used for displaying expenses and calculating dues.</p>
+          </div>
+          <div class="form-group-settings" style="margin-bottom: 0; min-width: 150px;">
+            <select>
+              <option value="MYR" selected>MYR (RM)</option>
+              <option value="USD">USD ($)</option>
+              <option value="EUR">EUR (€)</option>
+              <option value="SGD">SGD (S$)</option>
+            </select>
+          </div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-info">
+            <h4>Date Format</h4>
+            <p>Preferred format for displaying dates across the app.</p>
+          </div>
+          <div class="form-group-settings" style="margin-bottom: 0; min-width: 150px;">
+            <select>
+              <option value="DD/MM/YYYY" selected>DD/MM/YYYY</option>
+              <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+              <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Privacy & Security Section -->
+      <div class="settings-section">
+        <h3>🔒 Privacy & Security</h3>
+        <div class="setting-row">
+          <div class="setting-info">
+            <h4>Public Profile</h4>
+            <p>Allow other housemates to see your email and phone number.</p>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="setting-row">
+          <div class="setting-info">
+            <h4>Expense Notifications</h4>
+            <p>Receive email alerts when a new expense is added or split.</p>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="setting-row">
+          <div class="setting-info">
+            <h4>Two-Factor Authentication (2FA)</h4>
+            <p>Add an extra layer of security to your account during login.</p>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="right-sidebar">
+    <h2>MENU</h2>
+
+    <a href="#" class="sidebar-category">House Rental Management</a>
+    <a href="listing.html" class="sidebar-item">Listing</a>
+    <a href="agreement.html" class="sidebar-item">Agreement</a>
+    <a href="PaymentPage.html" class="sidebar-item">Payment</a>
+
+    <a href="#" class="sidebar-category">Bill Splitting</a>
+    <a href="Dashboard.html" class="sidebar-item">Split Bills</a>
+    <a href="Dashboard.html?action=addExpense" class="sidebar-item" id="add-btn">Add Expenses</a>
+
+    <a href="#" class="sidebar-category">Landlord Section</a>
+    <a href="ExportPage.html" class="sidebar-item">Export Data</a>
+    <a href="announcements.html" class="sidebar-item">Announcements</a>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Keys and State
+      const currentUserEmail = localStorage.getItem('currentUserEmail') || 'guest@example.com';
+      const STORAGE_KEY = 'fairShareProfile_' + currentUserEmail;
+      
+      let profileData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
+        name: 'New User',
+        email: currentUserEmail,
+        phone: '+60 12-345 6789',
+        password: '••••••••',
+        avatarUrl: ''
+      };
+
+      const editAvatarBtn = document.querySelector('.edit-avatar-btn');
+      const avatarContainer = document.querySelector('.avatar');
+      const profileNameHeader = document.querySelector('.profile-info h3');
+      
+      const rowItems = document.querySelectorAll('.account-row-item');
+      
+      // Function to initialize UI with data
+      const initUI = () => {
+        if (profileNameHeader) profileNameHeader.textContent = profileData.name;
+        
+        if (profileData.avatarUrl) {
+            avatarContainer.style.backgroundImage = `url(${profileData.avatarUrl})`;
+            avatarContainer.style.backgroundSize = 'cover';
+            avatarContainer.style.backgroundPosition = 'center';
+            avatarContainer.textContent = '';
+        } else {
+            avatarContainer.textContent = profileData.name.charAt(0).toUpperCase();
+            avatarContainer.style.backgroundImage = '';
+        }
+
+        rowItems.forEach(row => {
+            const labelSpan = row.querySelector('.account-row-label');
+            if (!labelSpan) return;
+            
+            const label = labelSpan.textContent.toLowerCase();
+            const valueSpan = row.querySelector('.account-row-value');
+            
+            if (label.includes('name')) valueSpan.textContent = profileData.name;
+            else if (label.includes('email')) valueSpan.textContent = profileData.email;
+            else if (label.includes('phone')) valueSpan.textContent = profileData.phone;
+            else if (label.includes('password')) valueSpan.textContent = profileData.password;
+        });
+      };
+      
+      // Function to save current state to localStorage
+      const saveToStorage = () => {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(profileData));
+      };
+
+      // Initialize on load
+      initUI();
+
+      // Handle Profile Picture Update
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = 'image/*';
+      fileInput.style.display = 'none';
+      document.body.appendChild(fileInput);
+
+      editAvatarBtn.addEventListener('click', () => {
+        fileInput.click();
+      });
+
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            profileData.avatarUrl = event.target.result;
+            saveToStorage();
+            initUI(); // Re-render UI
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // Handle Edit and Update Buttons
+      const editBtns = document.querySelectorAll('.edit-btn');
+      
+      editBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const rowItem = this.closest('.account-row-item');
+          const valueSpan = rowItem.querySelector('.account-row-value');
+          const labelSpan = rowItem.querySelector('.account-row-label');
+          const labelLower = labelSpan.textContent.toLowerCase();
+          
+          if (this.textContent === 'Edit' || this.textContent === 'Update') {
+            // Switch to edit mode
+            let currentValue = valueSpan.textContent.trim();
+            const isPassword = labelLower.includes('password');
+            
+            const inputType = isPassword ? 'password' : (labelLower.includes('email') ? 'email' : 'text');
+            
+            if (isPassword) currentValue = ''; // Don't show masked dots in input
+            
+            valueSpan.innerHTML = `<input type="${inputType}" class="edit-input" value="${currentValue}" placeholder="Enter new ${labelLower}" style="padding: 0.5rem 0.8rem; border-radius: 8px; border: 1px solid var(--accent-blue); background: rgba(0,0,0,0.3); color: white; width: 100%; font-family: 'Poppins', sans-serif; outline: none; transition: border-color 0.3s ease;">`;
+            
+            valueSpan.style.marginTop = '0.5rem';
+            
+            this.textContent = 'Save';
+            this.style.backgroundColor = 'var(--accent-blue)';
+            this.style.color = 'white';
+            
+            const inputElement = valueSpan.querySelector('input');
+            if (inputElement) inputElement.focus();
+            
+          } else if (this.textContent === 'Save') {
+            // Switch to display mode
+            const inputField = valueSpan.querySelector('input');
+            if (!inputField) return;
+            
+            let newValue = inputField.value;
+            const isPassword = labelLower.includes('password');
+            
+            if (!newValue.trim() && !isPassword) {
+              alert('Value cannot be empty!');
+              inputField.focus();
+              return;
+            }
+            
+            valueSpan.style.marginTop = '0';
+            
+            if (isPassword) {
+                newValue = newValue.trim() ? '••••••••' : profileData.password;
+            }
+            
+            // Update profile data object
+            if (labelLower.includes('name')) profileData.name = newValue;
+            else if (labelLower.includes('email')) profileData.email = newValue;
+            else if (labelLower.includes('phone')) profileData.phone = newValue;
+            else if (labelLower.includes('password')) profileData.password = newValue;
+            
+            saveToStorage();
+            initUI(); // Re-render everything from state
+            
+            this.textContent = isPassword ? 'Update' : 'Edit';
+            this.style.backgroundColor = 'transparent';
+            this.style.color = 'var(--text-main)';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
