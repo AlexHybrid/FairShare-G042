@@ -1,6 +1,9 @@
 # 🔧 Setup & Configuration
-from flask import Flask, request, jsonify, send_from_directory, send_file
+import sys
 import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+from flask import Flask, request, jsonify, send_from_directory, send_file
 from flask_cors import CORS
 from database import init_db, get_db_connection
 from werkzeug.utils import secure_filename
