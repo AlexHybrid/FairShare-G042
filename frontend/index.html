@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FairShare — Login / Sign Up</title>
+  <style>
+    :root {
+      --accent: #4a8bf5;
+      --bg-gradient: linear-gradient(135deg, #000a30 0%, #00458a 100%);
+      --navbar-bg: rgba(255, 255, 255, 0.95);
+      --text-main: #ffffff;
+      --text-nav: #333333;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        var(--bg-gradient);
+      background-size: 40px 40px, 40px 40px, 100% 100%;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      width: 100%;
+    }
+
+    /* NAVIGATION BAR */
+    header {
+      padding: 2rem 0;
+      width: 100%;
+    }
+
+    .navbar {
+      background: var(--navbar-bg);
+      width: 90%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0.75rem 1rem;
+      border-radius: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: var(--text-nav);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: 0.3s;
+      padding: 0.25rem 0.5rem;
+    }
+
+    .navbar a:hover {
+      color: var(--accent);
+    }
+
+    .navbar a.active {
+      color: #3b82f6;
+      border-bottom: 2px solid #3b82f6;
+    }
+
+    /* SPLIT LAYOUT */
+    .hero-split {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 3rem;
+    }
+
+    .hero-text {
+      max-width: 50%;
+    }
+
+    .hero-text h1 {
+      font-size: 4rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-text p.slogan {
+      font-size: 1.1rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+
+    .divider {
+      width: 250px;
+      height: 3px;
+      background: #1e3a8a;
+      border-radius: 2px;
+    }
+
+    /* AUTH CARD */
+    .auth-container {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .auth-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      color: #333;
+      display: none;
+    }
+
+    .auth-card.active {
+      display: block;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .auth-card h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #111;
+    }
+
+    .auth-card h2 span {
+      color: var(--accent);
+    }
+
+    .input-group {
+      margin-bottom: 1.2rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-group label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 0.4rem;
+    }
+
+    .input-group input {
+      background: #f0f4f8;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      padding: 0.8rem 1rem;
+      font-size: 0.95rem;
+      color: #333;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .input-group input:focus {
+      border-color: var(--accent);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(74, 139, 245, 0.2);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.85rem;
+      font-size: 1rem;
+      font-weight: 600;
+      width: 100%;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 1rem;
+    }
+
+    .btn-primary:hover {
+      background: #3b74d6;
+    }
+
+    .toggle-text {
+      text-align: center;
+      font-size: 0.85rem;
+      margin-top: 1.5rem;
+      color: #666;
+    }
+
+    .toggle-text a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .toggle-text a:hover {
+      text-decoration: underline;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero-split {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        gap: 3rem;
+      }
+      .hero-text {
+        max-width: 100%;
+      }
+      .hero-text h1 {
+        font-size: 3rem;
+      }
+      .divider {
+        margin: 0 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index/Startup.html">Home</a></li>
+        <li><a href="index.html" class="active">Login</a></li>
+        <li><a href="#" onclick="alert('Please log in or sign up first!'); return false;">Settings</a></li>
+        <li><a href="#" onclick="alert('Please log in or sign up first!'); return false;">Help</a></li>
+        <li><a href="#" onclick="alert('Please log in or sign up first!'); return false;">About</a></li>
+        <li><a href="#" onclick="alert('Please log in or sign up first!'); return false;">Contact</a></li>
+        <li><a href="#" onclick="alert('Please log in or sign up first!'); return false;">FAQ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container hero-split">
+    <div class="hero-text">
+      <h1>House Rental<br>& Bill Splitter</h1>
+      <p class="slogan">Cheap. Fast. Easy.</p>
+      <div class="divider"></div>
+    </div>
+
+    <div class="auth-container">
+      <!-- Login Card -->
+      <div class="auth-card active" id="login-card">
+        <h2>Welcome <span>Back</span></h2>
+        <form id="login-form">
+          <div class="input-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="you@example.com" required>
+          </div>
+          <div class="input-group">
+            <label>Password</label>
+            <input type="password" placeholder="••••••" required>
+          </div>
+          <button type="button" class="btn-primary" onclick="handleLogin()">Log In</button>
+        </form>
+        <p class="toggle-text">Don't have an account? <a onclick="toggleAuth('signup')">Sign up</a></p>
+      </div>
+
+      <!-- Sign Up Card -->
+      <div class="auth-card" id="signup-card">
+        <h2>Create <span>Account</span></h2>
+        <form id="signup-form">
+          <div class="input-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="John Doe" required>
+          </div>
+          <div class="input-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="you@example.com" required>
+          </div>
+          <div class="input-group">
+            <label>Password</label>
+            <input type="password" placeholder="Create a password" required>
+          </div>
+          <div class="input-group">
+            <label>Confirm Password</label>
+            <input type="password" placeholder="Repeat password" required>
+          </div>
+          <button type="button" class="btn-primary" onclick="handleSignup()">Sign Up</button>
+        </form>
+        <p class="toggle-text">Already have an account? <a onclick="toggleAuth('login')">Log in</a></p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function toggleAuth(type) {
+      const loginCard = document.getElementById('login-card');
+      const signupCard = document.getElementById('signup-card');
+      
+      if (type === 'signup') {
+        loginCard.classList.remove('active');
+        signupCard.classList.add('active');
+      } else {
+        signupCard.classList.remove('active');
+        loginCard.classList.add('active');
+      }
+    }
+
+    function handleLogin() {
+      const email = document.querySelector('#login-form input[type="email"]').value;
+      if (email) {
+        localStorage.setItem('currentUserEmail', email);
+      } else {
+        localStorage.setItem('currentUserEmail', 'guest@example.com');
+      }
+      window.location.href = 'Dashboard.html';
+    }
+
+    function handleSignup() {
+      const email = document.querySelector('#signup-form input[type="email"]').value;
+      const name = document.querySelector('#signup-form input[type="text"]').value;
+      if (email) {
+        localStorage.setItem('currentUserEmail', email);
+        
+        // Setup initial profile for new user
+        const initialProfile = {
+            name: name || 'New User',
+            email: email,
+            phone: '+60 12-345 6789',
+            password: '••••••••',
+            avatarUrl: ''
+        };
+        localStorage.setItem('fairShareProfile_' + email, JSON.stringify(initialProfile));
+      } else {
+        localStorage.setItem('currentUserEmail', 'guest@example.com');
+      }
+      window.location.href = 'Dashboard.html';
+    }
+  </script>
+</body>
+</html>
