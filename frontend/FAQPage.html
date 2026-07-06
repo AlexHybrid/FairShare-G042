@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FairShare — FAQ</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Additional custom styling for FAQ Page */
+    .faq-wrapper {
+      background-color: var(--panel-bg);
+      border-radius: 20px;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .faq-section h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--accent-blue);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 0.5rem;
+    }
+
+    .faq-text {
+      line-height: 1.6;
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Accordion Styles */
+    .accordion-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .faq-item {
+      background-color: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      background-color: rgba(255, 255, 255, 0.04);
+      border-color: rgba(79, 107, 255, 0.3);
+    }
+
+    .faq-item.active {
+      border-color: var(--accent-blue);
+      box-shadow: 0 4px 15px rgba(79, 107, 255, 0.1);
+    }
+
+    .faq-header {
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      font-weight: 500;
+      color: var(--text-main);
+      font-size: 1.05rem;
+      transition: background-color 0.2s ease;
+    }
+
+    .faq-header:hover {
+      background-color: rgba(255, 255, 255, 0.01);
+    }
+
+    .faq-icon {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+      color: var(--accent-blue);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .faq-answer-inner {
+      padding: 1.2rem 1.5rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="main-content">
+    <div class="title-banner">
+      House Rental & Bill splitter
+    </div>
+
+    <nav class="pill-nav">
+      <a href="Dashboard.html">Dashboard</a>
+      <a href="SettingsPage.html">settings</a>
+      <a href="HelpPage.html">Help</a>
+      <a href="AboutPage.html">About</a>
+      <a href="ContactPage.html">Contact</a>
+      <a href="FAQPage.html" class="active">FAQ?</a>
+    </nav>
+
+    <div class="faq-wrapper">
+      <div class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        <p class="faq-text">
+          Got questions? We have compiled answers to the most common queries about FairShare. Click on any question to
+          view the answer.
+        </p>
+
+        <div class="accordion-container">
+          <!-- Item 1 -->
+          <div class="faq-item">
+            <div class="faq-header">
+              <span>What is FairShare?</span>
+              <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                FairShare is a smart, easy-to-use house rental management and bill splitting application. It helps
+                roommates log shared house expenses, split them automatically, visualize the split via charts, and
+                export data.
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="faq-item">
+            <div class="faq-header">
+              <span>How does the bill splitting calculation work?</span>
+              <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                The system aggregates all added expenses and groups them by room or housemate. The total expense is
+                visualized in the dashboard donut chart. Roommates can track exactly who owes what in the dues table.
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="faq-item">
+            <div class="faq-header">
+              <span>How do I add a new expense?</span>
+              <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                You can add an expense by clicking the "Add Expense" button on the dashboard or "Add Expenses" in the
+                sidebar. This opens a form where you enter the date, select the room/housemate, enter the expense type,
+                amount, category, status, and upload a receipt.
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="faq-item">
+            <div class="faq-header">
+              <span>Can I upload receipts for bill payments?</span>
+              <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Yes, when adding or saving an expense, there is an optional "Receipt Upload" field where you can upload
+                receipt images or PDFs (e.g. JPG, PNG, PDF) to keep a clear record of payment.
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="faq-item">
+            <div class="faq-header">
+              <span>How do I export bill reports?</span>
+              <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Go to the "Export Data" section from the sidebar or click "Export Data" under the Landlord section. You
+                can choose to download the live report as either an Excel file (.xlsx) or a PDF report (.pdf).
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 6 -->
+          <div class="faq-item">
+            <div class="faq-header">
+              <span>How do I contact support or request features?</span>
+              <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                You can visit our Contact page, fill out the message form with your inquiry, or directly email us at
+                syuaib0724@gmail.com.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-sidebar">
+    <h2>MENU</h2>
+
+    <a href="#" class="sidebar-category">House Rental Management</a>
+    <a href="listing.html" class="sidebar-item">Listing</a>
+    <a href="agreement.html" class="sidebar-item">Agreement</a>
+    <a href="PaymentPage.html" class="sidebar-item">Payment</a>
+
+    <a href="#" class="sidebar-category">Bill Splitting</a>
+    <a href="Dashboard.html" class="sidebar-item">Split Bills</a>
+    <a href="Dashboard.html?action=addExpense" class="sidebar-item" id="add-btn">Add Expenses</a>
+
+    <a href="#" class="sidebar-category">Landlord Section</a>
+    <a href="ExportPage.html" class="sidebar-item">Export Data</a>
+    <a href="announcements.html" class="sidebar-item">Announcements</a>
+  </div>
+
+  <script>
+    document.querySelectorAll('.faq-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const item = header.parentElement;
+        const answer = item.querySelector('.faq-answer');
+
+        if (item.classList.contains('active')) {
+          item.classList.remove('active');
+          answer.style.maxHeight = '0';
+        } else {
+          // Close other open panels optionally
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item && otherItem.classList.contains('active')) {
+              otherItem.classList.remove('active');
+              otherItem.querySelector('.faq-answer').style.maxHeight = '0';
+            }
+          });
+
+          item.classList.add('active');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+  </script>
+  <script src="js/auth.js"></script>
+</body>
+
+</html>

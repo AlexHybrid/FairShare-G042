@@ -1,13 +1,22 @@
-# Python pycache
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Python Cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# SQLite Databases
+# Databases
 *.db
-*.sqlite3
+*.sqlite
 
-# Document exports
-*.xlsx
-*.pdf
+# Application Uploads
+backup_backendddd/uploads/*
+!backup_backendddd/uploads/.gitkeep
+
+# OS specific files
+.DS_Store
+Thumbs.db
