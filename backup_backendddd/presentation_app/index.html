@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FairShare System Presentation</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Presentation Window -->
+        <main class="presentation-viewport">
+            <div class="slides-container" id="slidesContainer">
+                
+                <!-- SLIDE 1: Title Slide -->
+                <section class="slide active-slide" id="slide-1">
+                    <div class="slide-background-gradient"></div>
+                    <div class="slide-content title-slide-layout">
+                        <div class="badge">Property Management & Expense System</div>
+                        <h1 class="main-title">FairShare / Rental Blossoms</h1>
+                        <p class="subtitle">An Automated Platform for Shared-Housing Expenses & Digital Lease Agreements</p>
+                        <div class="divider"></div>
+                        <div class="author-info">
+                            <span class="role"><i class="fa-solid fa-code"></i> Technical Architecture & Full-Stack Implementation</span>
+                        </div>
+                        <div class="start-hint">Press <kbd>→</kbd> or Space to begin</div>
+                    </div>
+                </section>
+
+                <!-- SLIDE 2: System Architecture -->
+                <section class="slide" id="slide-2">
+                    <div class="slide-content">
+                        <div class="slide-header">
+                            <span class="slide-number">02</span>
+                            <h2>System Architecture & Microservices</h2>
+                        </div>
+                        <div class="architecture-layout">
+                            <div class="architecture-diagram">
+                                <div class="arch-card client-node">
+                                    <i class="fa-solid fa-desktop icon"></i>
+                                    <h3>Frontend Client</h3>
+                                    <p>HTML5 / Vanilla CSS / ES6 JS</p>
+                                </div>
+                                <div class="flow-lines">
+                                    <div class="line to-core"><span class="flow-label">Port 5000</span></div>
+                                    <div class="line to-excel"><span class="flow-label">Port 5001</span></div>
+                                    <div class="line to-pdf"><span class="flow-label">Port 5002</span></div>
+                                </div>
+                                <div class="arch-services">
+                                    <div class="arch-card service-node core-service" onclick="highlightArchDetail('core')">
+                                        <div class="port-badge">Port 5000</div>
+                                        <i class="fa-solid fa-server icon"></i>
+                                        <h3>Core API Server (app.py)</h3>
+                                        <p>Flask / CORS / DB CRUD / Uploads</p>
+                                    </div>
+                                    <div class="arch-card service-node excel-service" onclick="highlightArchDetail('excel')">
+                                        <div class="port-badge">Port 5001</div>
+                                        <i class="fa-regular fa-file-excel icon"></i>
+                                        <h3>Excel Service (ExcelExport.py)</h3>
+                                        <p>openpyxl / Standalone Export</p>
+                                    </div>
+                                    <div class="arch-card service-node pdf-service" onclick="highlightArchDetail('pdf')">
+                                        <div class="port-badge">Port 5002</div>
+                                        <i class="fa-regular fa-file-pdf icon"></i>
+                                        <h3>PDF Service (pdfExport.py)</h3>
+                                        <p>ReportLab / Styled Vector Table</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="architecture-details-panel" id="archDetailsPanel">
+                                <h3><i class="fa-solid fa-circle-info"></i> Architectural Overview</h3>
+                                <p id="archDetailsText">Click or hover over any backend service to inspect its role and configuration in the microservices design.</p>
+                                <div class="highlight-info-box" id="archHighlightBox" style="display:none;">
+                                    <strong>Port Conflict Isolation:</strong> Two web services cannot run on the same port. Isolating reports prevents heavy layout operations from slowing down database writes.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SLIDE 3: Database & Auto-Migration -->
+                <section class="slide" id="slide-3">
+                    <div class="slide-content">
+                        <div class="slide-header">
+                            <span class="slide-number">03</span>
+                            <h2>SQLite Database & Dynamic Migrations</h2>
+                        </div>
+                        <div class="db-layout">
+                            <div class="db-details">
+                                <div class="feature-card">
+                                    <div class="feature-icon"><i class="fa-solid fa-database"></i></div>
+                                    <div class="feature-text">
+                                        <h3>Serverless SQLite Engine</h3>
+                                        <p>Stores records locally in <code>rental_blossoms.db</code>. No complex server configuration required, rendering the project fully portable.</p>
+                                    </div>
+                                </div>
+                                <div class="feature-card">
+                                    <div class="feature-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                                    <div class="feature-text">
+                                        <h3>Zero-Crash Schema Migrations</h3>
+                                        <p>Uses PRAGMA checks to inspect existing columns. Safely runs <code>ALTER TABLE ADD COLUMN</code> in-place if schemas change, protecting user data from deletion.</p>
+                                    </div>
+                                </div>
+                                <div class="feature-card">
+                                    <div class="feature-icon"><i class="fa-solid fa-seedling"></i></div>
+                                    <div class="feature-text">
+                                        <h3>Smart Seeding Logic</h3>
+                                        <p>Populates initial utility bills for Room A-E if launch detection finds the database empty, preventing blank-screen confusion.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="code-viewer-panel">
+                                <div class="code-header">
+                                    <span>database.py</span>
+                                    <span class="lang-tag">python</span>
+                                </div>
+                                <pre><code><span class="comment"># Schema Check & Migration in database.py</span>
+columns = [row[<span class="number">1</span>] <span class="keyword">for</span> row <span class="keyword">in</span> cursor.execute(<span class="string">'PRAGMA table_info(expenses)'</span>).fetchall()]
+
+<span class="keyword">if</span> <span class="string">'payment_method'</span> <span class="keyword">not in</span> columns:
+    cursor.execute(<span class="string">'ALTER TABLE expenses ADD COLUMN payment_method TEXT'</span>)
+    
+<span class="keyword">if</span> <span class="string">'receipt_path'</span> <span class="keyword">not in</span> columns:
+    cursor.execute(<span class="string">'ALTER TABLE expenses ADD COLUMN receipt_path TEXT'</span>)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SLIDE 4: Tenant Dashboard & Bill Splitter -->
+                <section class="slide" id="slide-4">
+                    <div class="slide-content">
+                        <div class="slide-header">
+                            <span class="slide-number">04</span>
+                            <h2>Tenant Dashboard & Interactive Calculator</h2>
+                        </div>
+                        <div class="splitter-demo-layout">
+                            <div class="dashboard-details">
+                                <h3>The tenant experience (<code>app.js</code>)</h3>
+                                <p>A cohesive dashboard featuring live budget totals, receipt upload utilities, and utility tables.</p>
+                                <div class="highlight-pill"><i class="fa-solid fa-calculator"></i> Try the live calculator on the right:</div>
+                                <p class="description">This interactive widget simulates the client-side calculator code running in <code>app.js</code>. It calculates room splits with zero backend delay.</p>
+                            </div>
+                            
+                            <!-- Interactive Widget: Bill Splitter -->
+                            <div class="interactive-card calculator-widget">
+                                <div class="widget-header">
+                                    <h3><i class="fa-solid fa-wallet"></i> Splitter Simulator</h3>
+                                    <span class="widget-badge">Interactive</span>
+                                </div>
+                                <div class="widget-body">
+                                    <div class="input-group">
+                                        <label for="calcAmount">Total Bill Amount (RM)</label>
+                                        <input type="number" id="calcAmount" value="120" placeholder="e.g. 120" oninput="runSplitter()">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="calcRoommates">Number of Roommates</label>
+                                        <input type="number" id="calcRoommates" value="4" min="1" placeholder="e.g. 4" oninput="runSplitter()">
+                                    </div>
+                                    <div class="calc-divider"></div>
+                                    <div class="result-box">
+                                        <span class="result-label">Each Person Owes:</span>
+                                        <span class="result-value" id="calcResult">RM 30.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SLIDE 5: Payments & Digital Agreement -->
+                <section class="slide" id="slide-5">
+                    <div class="slide-content">
+                        <div class="slide-header">
+                            <span class="slide-number">05</span>
+                            <h2>Mock Payments & Signatures</h2>
+                        </div>
+                        <div class="signature-demo-layout">
+                            <div class="signature-details">
+                                <h3>Interactive Payments & Verification</h3>
+                                <ul>
+                                    <li><strong>Mock Checkout Terminal (<code>payment.js</code>):</strong> Allows tenants to clear pending dues using simulated e-Wallet, Card, or Transfers.</li>
+                                    <li><strong>Signature Pad:</strong> Let's roommates sign their contracts directly using HTML5 Canvas touch/mouse inputs.</li>
+                                    <li><strong>Database Sync:</strong> Serializes coordinates, compiling signatures into images that save to the server directory.</li>
+                                </ul>
+                                <button class="btn-clear" onclick="clearSignatureCanvas()">Clear Signature Canvas</button>
+                            </div>
+                            
+                            <!-- Interactive Widget: Signature Pad -->
+                            <div class="interactive-card signature-widget">
+                                <div class="widget-header">
+                                    <h3><i class="fa-solid fa-signature"></i> Digital Signature Pad</h3>
+                                    <span class="widget-badge">Draw with Mouse</span>
+                                </div>
+                                <div class="canvas-container">
+                                    <canvas id="signatureCanvas" width="380" height="180"></canvas>
+                                </div>
+                                <div class="canvas-footer">
+                                    <span>Sign above to simulate agreement execution</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SLIDE 6: Landlord Portal & PIN Verification -->
+                <section class="slide" id="slide-6">
+                    <div class="slide-content">
+                        <div class="slide-header">
+                            <span class="slide-number">06</span>
+                            <h2>Landlord Portal & Security Checks</h2>
+                        </div>
+                        <div class="landlord-demo-layout">
+                            <div class="landlord-details">
+                                <h3>Administrative Protection (<code>auth.js</code>)</h3>
+                                <p>To prevent tenants from modifying records, changing announcements, or accessing financial ledgers, administrative sections are locked.</p>
+                                <div class="alert-box">
+                                    <i class="fa-solid fa-lock"></i>
+                                    <span>Enter the landlord security PIN to unlock the announcement dashboard.</span>
+                                </div>
+                                <p class="pin-hint">Hint: The default PIN is <strong>admin123</strong></p>
+                            </div>
+                            
+                            <!-- Interactive Widget: Auth & Announcement Creator -->
+                            <div class="interactive-card landlord-widget" id="landlordAuthCard">
+                                <div class="widget-header">
+                                    <h3><i class="fa-solid fa-shield-halved"></i> Security Verification</h3>
+                                    <span class="widget-badge lock-status"><i class="fa-solid fa-lock"></i> Locked</span>
+                                </div>
+                                <div class="widget-body" id="pinEntryBody">
+                                    <div class="input-group">
+                                        <label for="landlordPin">Enter Landlord PIN</label>
+                                        <input type="password" id="landlordPin" placeholder="Enter PIN...">
+                                    </div>
+                                    <button class="btn-primary" onclick="verifyPin()">Verify & Unlock</button>
+                                    <div class="error-msg" id="pinError" style="display:none;">Invalid PIN. Please try again.</div>
+                                </div>
+                                <div class="widget-body" id="announcementBody" style="display:none;">
+                                    <div class="success-alert"><i class="fa-solid fa-unlock"></i> Access Granted!</div>
+                                    <div class="input-group">
+                                        <label for="announceText">Post Announcement to Tenants</label>
+                                        <textarea id="announceText" placeholder="Write notice here..."></textarea>
+                                    </div>
+                                    <button class="btn-primary" onclick="postAnnouncement()">Broadcast Bulletin</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SLIDE 7: Developer Utilities -->
+                <section class="slide" id="slide-7">
+                    <div class="slide-content">
+                        <div class="slide-header">
+                            <span class="slide-number">07</span>
+                            <h2>Auditing & JSON Export Utilities</h2>
+                        </div>
+                        <div class="util-layout">
+                            <div class="util-details">
+                                <h3>Data Serialization (<code>dump_data.py</code>)</h3>
+                                <p>A developer utility that exports the database into a formatted JSON text file (<code>Readable_Database.json</code>).</p>
+                                <div class="bullet-list">
+                                    <div class="bullet-item">
+                                        <i class="fa-solid fa-check"></i>
+                                        <span><strong>Serialization:</strong> Converts SQLite <code>Row</code> objects into readable JSON format.</span>
+                                    </div>
+                                    <div class="bullet-item">
+                                        <i class="fa-solid fa-check"></i>
+                                        <span><strong>Formatting:</strong> Pretty-prints with 4-space indentation for easy auditing.</span>
+                                    </div>
+                                    <div class="bullet-item">
+                                        <i class="fa-solid fa-check"></i>
+                                        <span><strong>Safety:</strong> Executes within <code>try-finally</code> wrapper to guarantee database shutdown.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="interactive-card json-widget">
+                                <div class="widget-header">
+                                    <h3><i class="fa-solid fa-file-code"></i> Readable_Database.json</h3>
+                                    <span class="widget-badge">Pretty Print</span>
+                                </div>
+                                <div class="json-code-container">
+<pre><code>[
+    {
+        <span class="json-key">"id"</span>: <span class="json-val">1</span>,
+        <span class="json-key">"date"</span>: <span class="json-str">"01/06/26"</span>,
+        <span class="json-key">"room"</span>: <span class="json-str">"Room A"</span>,
+        <span class="json-key">"type"</span>: <span class="json-str">"Electricity Bill"</span>,
+        <span class="json-key">"amount"</span>: <span class="json-val">1200.0</span>,
+        <span class="json-key">"status"</span>: <span class="json-str">"Paid"</span>
+    },
+    {
+        <span class="json-key">"id"</span>: <span class="json-val">2</span>,
+        <span class="json-key">"date"</span>: <span class="json-str">"01/06/26"</span>,
+        <span class="json-key">"room"</span>: <span class="json-str">"Room B"</span>,
+        <span class="json-key">"type"</span>: <span class="json-str">"Water Bill"</span>,
+        <span class="json-key">"amount"</span>: <span class="json-val">150.0</span>,
+        <span class="json-key">"status"</span>: <span class="json-str">"Pending"</span>
+    }
+]</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SLIDE 8: Summary & Q&A -->
+                <section class="slide" id="slide-8">
+                    <div class="slide-background-gradient"></div>
+                    <div class="slide-content summary-slide-layout">
+                        <div class="badge">Conclusion</div>
+                        <h2 class="summary-heading">FairShare Systems</h2>
+                        <p class="summary-sub">Modular reporting microservices, clean database fail-safes, and responsive, interactive tenant dashboards.</p>
+                        
+                        <div class="features-summary-grid">
+                            <div class="summary-pill"><i class="fa-solid fa-shield-halved"></i> Role Authentication</div>
+                            <div class="summary-pill"><i class="fa-solid fa-file-invoice-dollar"></i> Bill Calculator</div>
+                            <div class="summary-pill"><i class="fa-solid fa-file-export"></i> isolated Export Services</div>
+                            <div class="summary-pill"><i class="fa-solid fa-signature"></i> Canvas Signing</div>
+                        </div>
+                        
+                        <div class="qa-section">
+                            <h3>Thank You</h3>
+                            <p>Open for Questions & Discussion</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+
+        <!-- Sidebar: Presenter Notes -->
+        <aside class="presenter-notes-panel" id="notesPanel">
+            <div class="notes-header">
+                <h3><i class="fa-regular fa-comments"></i> Speaker Script Notes</h3>
+                <button class="btn-toggle-notes" onclick="toggleNotesPanel()" title="Hide Notes Panel">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="notes-content" id="notesContent">
+                <!-- Spoken content dynamically injected here by JS -->
+            </div>
+            <div class="notes-footer">
+                <span>Presenter Mode active</span>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Persistent Bottom Bar Controls -->
+    <footer class="presentation-controls">
+        <div class="controls-left">
+            <button class="btn-control" onclick="toggleNotesPanel()" id="btnToggleNotes" title="Toggle Speaker Notes (N)">
+                <i class="fa-solid fa-file-lines"></i> <span class="btn-text">Speaker Notes</span>
+            </button>
+        </div>
+        <div class="controls-center">
+            <button class="btn-nav" onclick="prevSlide()" title="Previous Slide (Left Arrow)"><i class="fa-solid fa-chevron-left"></i></button>
+            <div class="slide-indicator" id="slideIndicator">1 / 8</div>
+            <button class="btn-nav" onclick="nextSlide()" title="Next Slide (Right Arrow/Space)"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+        <div class="controls-right">
+            <button class="btn-control" onclick="toggleFullScreen()" title="Fullscreen mode (F)">
+                <i class="fa-solid fa-expand"></i>
+            </button>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

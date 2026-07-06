@@ -39,7 +39,7 @@ def static_files(path):
     return send_from_directory(FRONTEND_DIR, path)
 
 
-# 💰 Expense Management API
+# 💰 Expense Management APIsss
 @app.route('/api/expenses', methods=['GET'])
 def get_expenses():
     """Fetch all expenses from DB and return JSON"""
@@ -122,22 +122,6 @@ def update_expense_status(id):
         
     conn.close()
     return jsonify({'status': 'success'}), 200
-
-@app.route('/api/expenses/<int:id>', methods=['DELETE'])
-def delete_expense(id):
-    """Delete an expense record"""
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute('DELETE FROM expenses WHERE id = ?', (id,))
-    conn.commit()
-    
-    if cursor.rowcount == 0:
-        conn.close()
-        return jsonify({'error': 'Expense not found'}), 404
-        
-    conn.close()
-    return jsonify({'status': 'success'}), 200
-
 
 # 📂 File Uploads
 @app.route('/api/expenses/upload', methods=['POST'])
